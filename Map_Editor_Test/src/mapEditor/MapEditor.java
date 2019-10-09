@@ -1,5 +1,5 @@
 package mapEditor;
-// Nathan is testing stuff to see how this git buisness works
+// Nathan is testing stiff to see how this git buisness works
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
