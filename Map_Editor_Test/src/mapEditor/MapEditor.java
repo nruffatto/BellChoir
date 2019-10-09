@@ -1,7 +1,5 @@
-//nathan was here
-//nathan was here again
 package mapEditor;
-
+// Nathan is testing stuff to see how this git buisness works
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
