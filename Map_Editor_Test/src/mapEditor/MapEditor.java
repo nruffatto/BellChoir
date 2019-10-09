@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-
 //nathan was here
-=======
->>>>>>> newBranch
 package mapEditor;
 
 import java.awt.BorderLayout;
