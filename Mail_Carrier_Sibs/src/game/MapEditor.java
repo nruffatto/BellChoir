@@ -119,7 +119,11 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	}
 	
 	private void zoom(int zoomAmount) {
-		screen.setBlockSize(screen.getBlockSize() + ZOOM_STEP * zoomAmount);
+		double newBlockSize = screen.getBlockSize() + ZOOM_STEP * zoomAmount;
+		double scale = newBlockSize / screen.getBlockSize();
+		screen.pos.x =(int) (- ((mouseX - screen.pos.x) * scale - mouseX));
+		screen.pos.y =(int) (- ((mouseY - screen.pos.y) * scale - mouseY));
+		screen.setBlockSize((int)newBlockSize);
 	}
 
 	@Override
@@ -177,6 +181,8 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		mouseX = e.getX() - 7;
+		mouseY = e.getY() - 30;
 	}
 
 	@Override

@@ -28,6 +28,7 @@ public class Screen extends JPanel{
 	
 	public Point pos;
 	private int len; //block size
+	private int pastLen;
 	private Map map;
 	private Movable[] movables;
 	
@@ -35,6 +36,7 @@ public class Screen extends JPanel{
 		super();
 		pos = new Point();
 		len = 64;
+		pastLen = len;
 		map = m;
 	}
 	
@@ -72,11 +74,15 @@ public class Screen extends JPanel{
 	
 	public void setBlockSize(int s) {
 		if(s > MIN_BLOCK_SIZE && s < MAX_BLOCK_SIZE) {
+			pastLen = len;
 			len = s;
 		}
 	}
 	
 	public int getBlockSize() {
 		return len;
+	}
+	public int getPastBlockSize() {
+		return pastLen;
 	}
 }
