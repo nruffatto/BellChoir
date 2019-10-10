@@ -23,12 +23,24 @@ public class Block {
 		imageName = imageFileName;
 	}
 	
+	public Block(String imageFileName) {
+		this(imageFileName, new boolean[NUMBER_OF_PROPERTIES]);
+	}
+	
 	public Block() {
 		this("blockUno.png", new boolean[NUMBER_OF_PROPERTIES]);
 	}
 
 	public String getImageFileName() {
 		return imageName;
+	}
+	
+	public boolean[] getProperties() {
+		boolean[] newProperties = new boolean[NUMBER_OF_PROPERTIES];
+		for(int i = 0; i < NUMBER_OF_PROPERTIES; i ++) {
+			newProperties[i] = properties[i];
+		}
+		return newProperties;
 	}
 	
 	
@@ -38,6 +50,10 @@ public class Block {
 	 */
 	public boolean is(int attribute) {
 		return properties[attribute];
+	}
+	
+	public void set(int attribute, boolean value) {
+		properties[attribute] = value;
 	}
 	
 	/*

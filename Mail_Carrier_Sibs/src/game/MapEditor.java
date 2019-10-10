@@ -17,6 +17,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -53,6 +59,8 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	private boolean leftClickPressed = false;
 	
 	private boolean canInsertBlocks = true;
+	
+	String currentFileName;
 	
 	public MapEditor() {
 		editorFrame = new JFrame("Map Editor");
@@ -92,6 +100,85 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 //		screen.repaint();
 //		editorPanel.repaint();
 	}
+	
+	private void openFile(String fileName) {
+		System.out.println("opening...");
+		File f1 = new File(fileName);
+		Scanner s1;
+		int width;
+		int height;
+		int xCoord;
+		int yCoord;
+		String imageFileName;
+		int numBlockPropertiesOfFile;
+		boolean[] blockProperties = new boolean[Block.NUMBER_OF_PROPERTIES];
+		try {
+			s1 = new Scanner(f1);
+			width = s1.nextInt();
+			height = s1.nextInt();
+			numBlockPropertiesOfFile = s1.nextInt();
+			map.resize(width, height);
+			while(s1.hasNextLine()) {
+				xCoord = s1.nextInt();
+				yCoord = s1.nextInt();
+				imageFileName = s1.next();
+				for(int i = 0; i < numBlockPropertiesOfFile; i ++) {
+					blockProperties[i] = s1.nextBoolean();
+				}
+				map.insertBlock(xCoord, yCoord, new Block(imageFileName, blockProperties));
+			}
+			System.out.println("done!");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void save(String fileName) {
+		System.out.println("saving...");
+		int width = map.getWidth();
+		int height = map.getHeight();
+		int xCoord;
+		int yCoord;
+		String imageFileName;
+		boolean[] blockProperties = new boolean[Block.NUMBER_OF_PROPERTIES];
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+			writer.write(width + " " + height + " " + Block.NUMBER_OF_PROPERTIES);
+			writer.newLine();
+			for(int i = 0; i < width; i ++) {
+				for(int j = 0; j < height; j ++) {
+					if(map.getBlock(i, j) != null) {
+						writer.write(i + " " + j + " " + map.getBlock(i, j).getImageFileName() + " ");
+					}
+					for(int k = 0; k < Block.NUMBER_OF_PROPERTIES; k ++) {
+						if(map.getBlock(i, j).is(k)){
+							writer.write("true ");
+						}else {
+							writer.write("false ");
+						}
+					}
+					writer.newLine();
+				}
+			}
+//			Block[] blocks = get2DMap();
+//			for(int i = 0; i < blocks.length; i ++) {
+//				if(blocks[i] != null) {
+//					if(i != 0) {
+//						writer.newLine();
+//					}
+//					writer.write(blocks[i].xIndex + " " + blocks[i].yIndex + " " + blocks[i].imageName);
+//				}
+//			}
+			writer.flush();
+			writer.close();
+			System.out.println("done!");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
 	
 	private void insertBlock(int x, int y) {
 		x -= screen.pos.x;
