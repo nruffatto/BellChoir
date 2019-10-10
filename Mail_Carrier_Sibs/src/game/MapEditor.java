@@ -26,8 +26,11 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class MapEditor extends TimerTask implements MouseListener, KeyListener, ActionListener, MouseWheelListener, MouseMotionListener {
 
@@ -44,6 +47,14 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	private JFrame editorFrame;
 	private Container contentPane;
 	private JPanel editorPanel;
+	private JTextField fileField;
+	private JButton openButton;
+	private JButton saveButton;
+	private JTextField mapWidthField;
+	private JTextField mapHeightField;
+	private JButton resizeButton;
+//	private JLabel mapWidthLabel;
+//	private JLabel mapHeightLabel;
 	private Timer timer = new Timer();
 	
 	private int editorPanelWidth = 200;
@@ -80,11 +91,41 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		
 		screen.setLayout(null);
 		screen.setBackground(Color.BLACK);
-		contentPane.add(screen);
+		contentPane.add(screen, BorderLayout.CENTER);
+
 		
-//		editorPanel = new JPanel();
-//		editorPanel.setBackground(Color.GRAY);
-//		contentPane.add(editorPanel, BorderLayout.EAST);
+		// Start of editorPanel stuff. As of now, we have to resize the jframe using the mouse for it to appear
+		editorPanel = new JPanel();
+		editorPanel.setBackground(Color.GRAY);
+		
+		openButton = new JButton("Open File");
+		openButton.addActionListener(this);
+		saveButton = new JButton("Save File");
+		saveButton.addActionListener(this);
+		
+		fileField = new JTextField("file_name.txt");
+		fileField.addActionListener(this);
+		fileField.setBounds(0, 0, 100, 20);
+		
+		editorPanel.add(fileField, BorderLayout.AFTER_LAST_LINE);
+		editorPanel.add(openButton, BorderLayout.AFTER_LAST_LINE);
+		editorPanel.add(saveButton, BorderLayout.AFTER_LAST_LINE);
+		
+		mapWidthField = new JTextField(map.getWidth() + "");
+		mapWidthField.setBounds(0, 0, 100, 20);
+//		mapWidthField.add(new JLabel("Map Width:"));
+		contentPane.add(editorPanel, BorderLayout.SOUTH);
+		
+		mapHeightField = new JTextField(map.getHeight() + "");
+		mapHeightField.setBounds(0, 0, 100, 20);
+//		mapHeightField.add(new JLabel("Map Height:"));
+		resizeButton = new JButton("Resize Map");
+		resizeButton.addActionListener(this);
+		
+		editorPanel.add(mapWidthField, BorderLayout.AFTER_LAST_LINE);
+		editorPanel.add(mapHeightField, BorderLayout.AFTER_LAST_LINE);
+		editorPanel.add(resizeButton, BorderLayout.AFTER_LAST_LINE);
+		// End of editorPanel Stuff
 
 		editorFrame.addMouseListener(this);
 		editorFrame.addMouseMotionListener(this);
@@ -96,12 +137,22 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 
 	@Override
 	public void run() {
+		screen.setMousePos(mouseX, mouseY);
 		editorFrame.repaint();
 //		screen.repaint();
 //		editorPanel.repaint();
 	}
 	
+	public void clearMap() {
+		for(int i = 0; i < map.getWidth(); i ++) {
+			for(int j = 0; j < map.getHeight(); j ++) {
+				map.eraseBlock(i, j);
+			}
+		}
+	}
+	
 	private void openFile(String fileName) {
+		clearMap();
 		System.out.println("opening...");
 		File f1 = new File(fileName);
 		Scanner s1;
@@ -118,7 +169,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 			height = s1.nextInt();
 			numBlockPropertiesOfFile = s1.nextInt();
 			map.resize(width, height);
-			while(s1.hasNextLine()) {
+			while(s1.hasNextLine() && s1.hasNext()) {
 				xCoord = s1.nextInt();
 				yCoord = s1.nextInt();
 				imageFileName = s1.next();
@@ -133,7 +184,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		}
 	}
 	
-	public void save(String fileName) {
+	public void saveFile(String fileName) {
 		System.out.println("saving...");
 		int width = map.getWidth();
 		int height = map.getHeight();
@@ -149,26 +200,19 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 				for(int j = 0; j < height; j ++) {
 					if(map.getBlock(i, j) != null) {
 						writer.write(i + " " + j + " " + map.getBlock(i, j).getImageFileName() + " ");
-					}
-					for(int k = 0; k < Block.NUMBER_OF_PROPERTIES; k ++) {
-						if(map.getBlock(i, j).is(k)){
-							writer.write("true ");
-						}else {
-							writer.write("false ");
+						for(int k = 0; k < Block.NUMBER_OF_PROPERTIES; k ++) {
+							if(map.getBlock(i, j).is(k)){
+								writer.write("true ");
+							}else {
+								writer.write("false ");
+							}
+						}
+						if(i < width - 1 && j < height - 1) {
+							writer.newLine();
 						}
 					}
-					writer.newLine();
 				}
 			}
-//			Block[] blocks = get2DMap();
-//			for(int i = 0; i < blocks.length; i ++) {
-//				if(blocks[i] != null) {
-//					if(i != 0) {
-//						writer.newLine();
-//					}
-//					writer.write(blocks[i].xIndex + " " + blocks[i].yIndex + " " + blocks[i].imageName);
-//				}
-//			}
 			writer.flush();
 			writer.close();
 			System.out.println("done!");
@@ -215,13 +259,33 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+		if(e.getSource().equals(openButton)) {
+			openFile(fileField.getText());
+		}else if(e.getSource().equals(saveButton)) {
+			saveFile(fileField.getText());
+		}else if(e.getSource().equals(resizeButton)) {
+			int width = 0, height = 0;
+			try {
+				width = Integer.parseInt(mapWidthField.getText());
+			} catch(NumberFormatException exception) {
+				mapWidthField.setText("int please!");
+			}
+			try {
+				height = Integer.parseInt(mapHeightField.getText());
+			} catch(NumberFormatException exception) {
+				mapHeightField.setText("int please!");
+			}
+			if(width > 0 && height > 0) {
+				map.resize(width, height);
+			}
+		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == 17) {
 			ctrlPressed = true;
+//			System.out.println("Ctrl Key Pressed!");
 		}
 		else if (e.getKeyCode() == 18) {
 			altPressed = true;

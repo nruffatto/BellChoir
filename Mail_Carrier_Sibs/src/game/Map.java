@@ -35,6 +35,10 @@ public class Map {
 //		System.out.println("Map has new block at " + x + " " + y);
 	}
 	
+	public void eraseBlock(int x, int y) {
+		map[y][x] = null;
+	}
+	
 	public int getWidth() {
 		return wid;
 	}

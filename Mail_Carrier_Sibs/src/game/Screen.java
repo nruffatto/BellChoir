@@ -32,6 +32,9 @@ public class Screen extends JPanel{
 	private Map map;
 	private Movable[] movables;
 	
+	private int mouseX = 0;
+	private int mouseY = 0;
+	
 	public Screen(Map m) {
 		super();
 		pos = new Point();
@@ -45,6 +48,7 @@ public class Screen extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g) {
+		g.setColor(Color.RED);
 		for(int i = 0; i < map.getWidth(); i ++) {
 			for(int j = map.getHeight()-1; j >= 0 ; j --) {
 				if(map.getBlock(i, j) != null) {
@@ -54,6 +58,7 @@ public class Screen extends JPanel{
 			}
 		}
 		drawBounds(g);
+//		g.drawRect((mouseX / len) * len, (mouseY / len) * len, len, len); // mouse area
 	}
 	
 	private void drawBlock(Graphics g, Block block, int x, int y) {
@@ -84,5 +89,10 @@ public class Screen extends JPanel{
 	}
 	public int getPastBlockSize() {
 		return pastLen;
+	}
+	
+	public void setMousePos(int x, int y) {
+		mouseX = x;
+		mouseY = y;
 	}
 }
