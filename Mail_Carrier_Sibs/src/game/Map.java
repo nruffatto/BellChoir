@@ -26,6 +26,17 @@ public class Map {
 		hei = height;
 	}
 	
+	public Map getCopy() {
+		Map copy = new Map(wid, hei);
+
+		for(int i = 0; i < wid; i ++) {
+			for(int j = 0; j < hei; j ++) {
+				copy.insertBlock(i, j, this.getBlock(i, j));
+			}
+		}
+		return copy;
+	}
+	
 	public Block getBlock(int x, int y) {
 		return map[y][x];
 	}
@@ -45,5 +56,28 @@ public class Map {
 	
 	public int getHeight() {
 		return hei;
+	}
+	
+	public boolean equals(Map comp) {
+//		System.out.println("comparing maps!");
+		boolean equal = true;
+		if(wid != comp.getWidth() || hei != comp.getHeight()) {
+			return false;
+		}
+		for(int i = 0; i < wid; i ++) {
+			for(int j = 0; j < hei; j ++) {
+				if(!(this.getBlock(i, j) == null && comp.getBlock(i, j) == null)) {
+					if((this.getBlock(i, j) != null && comp.getBlock(i, j) == null) ||  
+							(this.getBlock(i, j) == null && comp.getBlock(i, j) != null)) {
+						System.out.println("X");
+//						insertBlock(i, j, new Block("cobble.png"));
+						return false;
+					}else if(!this.getBlock(i, j).equals(comp.getBlock(i, j))) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
 	}
 }

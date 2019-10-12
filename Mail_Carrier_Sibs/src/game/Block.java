@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Arrays;
+
 public class Block {
 	
 /*
@@ -54,6 +56,15 @@ public class Block {
 	
 	public void set(int attribute, boolean value) {
 		properties[attribute] = value;
+	}
+	
+	public boolean equals(Block comp) {
+		System.out.println("comparing blocks!");
+		if(imageName.equals(comp.getImageFileName()) && Arrays.equals(properties, comp.getProperties())){
+			return false;
+		}else {
+			return true;
+		}
 	}
 	
 	/*

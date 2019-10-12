@@ -29,7 +29,7 @@ public class Screen extends JPanel{
 	public Point pos;
 	private int len; //block size
 	private int pastLen;
-	private Map map;
+	public Map map;
 	private Movable[] movables;
 	
 	private int mouseX = 0;
@@ -58,7 +58,7 @@ public class Screen extends JPanel{
 			}
 		}
 		drawBounds(g);
-//		g.drawRect((mouseX / len) * len, (mouseY / len) * len, len, len); // mouse area
+		g.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len); // mouse area
 	}
 	
 	private void drawBlock(Graphics g, Block block, int x, int y) {

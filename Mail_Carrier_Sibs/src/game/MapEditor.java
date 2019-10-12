@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.Stack;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,6 +44,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	public static final int ZOOM_STEP = 5;
 	
 	private Map map = new Map(12, 12);
+	private Stack<Map> mapStack = new Stack<>();
 	private Screen screen = new Screen(map);
 	private JFrame editorFrame;
 	private Container contentPane;
@@ -66,6 +68,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	
 	private boolean ctrlPressed = false; // keyCode is 17
 	private boolean altPressed = false;	// keyCode is 18
+	private boolean zPressed = false; // keyCode is 90
 	private boolean rightClickPressed = false;
 	private boolean leftClickPressed = false;
 	
@@ -134,6 +137,25 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		
 		timer.schedule(this, 0, TIME_STEP);
 	}
+	
+	private void storeMapInstance() {
+		if(!mapStack.isEmpty()) {
+			System.out.println(mapStack.peek().equals(map));
+		}
+		if(mapStack.isEmpty() || (!mapStack.isEmpty() && !mapStack.peek().equals(map))) {
+			System.out.println("storeMapInstance");
+			mapStack.push(map.getCopy());
+		}
+	}
+	
+	private void undo() {
+		System.out.println("undo");
+		if(!mapStack.isEmpty()) {
+			System.out.println("pop!");
+			map = mapStack.pop().getCopy();
+			screen.map = map;
+		}
+	}
 
 	@Override
 	public void run() {
@@ -144,6 +166,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	}
 	
 	public void clearMap() {
+		storeMapInstance();
 		for(int i = 0; i < map.getWidth(); i ++) {
 			for(int j = 0; j < map.getHeight(); j ++) {
 				map.eraseBlock(i, j);
@@ -225,6 +248,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 
 	
 	private void insertBlock(int x, int y) {
+		storeMapInstance();
 		x -= screen.pos.x;
 		y -= screen.pos.y;
 //		System.out.println(x + " " + y);
@@ -243,6 +267,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		y -= screen.pos.y;
 		if(x < map.getWidth() * screen.getBlockSize() && x > 0 &&
 				y < map.getHeight() * screen.getBlockSize() && y > 0) {
+			storeMapInstance();
 			map.insertBlock(x / screen.getBlockSize(), 
 					y / screen.getBlockSize(), 
 					null);
@@ -286,9 +311,11 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		if(e.getKeyCode() == 17) {
 			ctrlPressed = true;
 //			System.out.println("Ctrl Key Pressed!");
-		}
-		else if (e.getKeyCode() == 18) {
+		}else if (e.getKeyCode() == 18) {
 			altPressed = true;
+		}else if(ctrlPressed && e.getKeyCode() == 90) {
+//			System.out.println("Ctrl + z");
+			undo();
 		}
 	}
 
