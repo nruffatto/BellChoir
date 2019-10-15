@@ -43,7 +43,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	public static final int TIME_STEP = 50;
 	public static final int ZOOM_STEP = 5;
 	
-	private Map map = new Map(12, 12);
+	private Map map = new Map(64, 64);
 	private Stack<Map> mapStack = new Stack<>();
 	private Screen screen = new Screen(map);
 	private JFrame editorFrame;
@@ -136,14 +136,17 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		editorFrame.addKeyListener(this);
 		
 		timer.schedule(this, 0, TIME_STEP);
+		storeMapInstance();
 	}
 	
 	private void storeMapInstance() {
+//		System.out.println(map);
 		if(!mapStack.isEmpty()) {
-			System.out.println(mapStack.peek().equals(map));
+//			System.out.println(mapStack.peek().equals(map));
 		}
 		if(mapStack.isEmpty() || (!mapStack.isEmpty() && !mapStack.peek().equals(map))) {
-			System.out.println("storeMapInstance");
+			System.out.println("storeMapInstance: ");
+			System.out.println(map.getCopy());
 			mapStack.push(map.getCopy());
 		}
 	}
@@ -166,16 +169,23 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	}
 	
 	public void clearMap() {
-		storeMapInstance();
 		for(int i = 0; i < map.getWidth(); i ++) {
 			for(int j = 0; j < map.getHeight(); j ++) {
 				map.eraseBlock(i, j);
 			}
 		}
+		storeMapInstance();
+	}
+	
+	public void clearMapStack() {
+		while(!mapStack.isEmpty()) {
+			mapStack.pop();
+		}
 	}
 	
 	private void openFile(String fileName) {
 		clearMap();
+		clearMapStack();
 		System.out.println("opening...");
 		File f1 = new File(fileName);
 		Scanner s1;
@@ -205,6 +215,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		storeMapInstance();
 	}
 	
 	public void saveFile(String fileName) {
@@ -230,9 +241,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 								writer.write("false ");
 							}
 						}
-						if(i < width - 1 && j < height - 1) {
-							writer.newLine();
-						}
+						writer.newLine();
 					}
 				}
 			}
@@ -248,7 +257,6 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 
 	
 	private void insertBlock(int x, int y) {
-		storeMapInstance();
 		x -= screen.pos.x;
 		y -= screen.pos.y;
 //		System.out.println(x + " " + y);
@@ -260,6 +268,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 					new Block());
 //			System.out.println("Block Insertion!");
 		}
+		storeMapInstance();
 	}
 	
 	private void eraseBlock(int x, int y) {
@@ -267,11 +276,11 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		y -= screen.pos.y;
 		if(x < map.getWidth() * screen.getBlockSize() && x > 0 &&
 				y < map.getHeight() * screen.getBlockSize() && y > 0) {
-			storeMapInstance();
 			map.insertBlock(x / screen.getBlockSize(), 
 					y / screen.getBlockSize(), 
 					null);
 		}
+		storeMapInstance();
 	}
 	
 	private void zoom(int zoomAmount) {
@@ -338,7 +347,8 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	public void mouseDragged(MouseEvent e) {
 //		System.out.println("Mouse dragging!");
 		if(leftClickPressed) {
-//			System.out.println("Right click dragging!");
+//			System.out.println("Left click dragging!");
+			System.out.println(ctrlPressed);
 			if(ctrlPressed) {
 				canInsertBlocks = false;
 				screen.pos.x += e.getX() - 7 - mouseX;

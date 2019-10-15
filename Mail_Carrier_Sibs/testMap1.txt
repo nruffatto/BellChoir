@@ -1,0 +1,13 @@
+12 12 2
+1 1 blockUno.png false false 
+2 2 blockUno.png false false 
+2 3 blockUno.png false false 
+2 4 blockUno.png false false 
+3 7 blockUno.png false false 
+5 7 blockUno.png false false 
+5 10 blockUno.png false false 
+7 11 blockUno.png false false 
+9 8 blockUno.png false false 
+10 1 blockUno.png false false 
+11 4 blockUno.png false false 
+11 11 blockUno.png false false 

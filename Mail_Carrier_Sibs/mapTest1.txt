@@ -1,0 +1,8 @@
+4 4 2
+0 0 blockUno.png false false 
+0 2 blockUno.png false false 
+1 1 blockUno.png false false 
+2 0 blockUno.png false false 
+2 1 blockUno.png false false 
+2 2 blockUno.png false false 
+3 3 blockUno.png false false 

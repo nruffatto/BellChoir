@@ -59,11 +59,11 @@ public class Block {
 	}
 	
 	public boolean equals(Block comp) {
-		System.out.println("comparing blocks!");
+//		System.out.println("comparing blocks!");
 		if(imageName.equals(comp.getImageFileName()) && Arrays.equals(properties, comp.getProperties())){
-			return false;
-		}else {
 			return true;
+		}else {
+			return false;
 		}
 	}
 	
