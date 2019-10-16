@@ -19,12 +19,19 @@ public class Screen extends JPanel{
 	public static final int MIN_BLOCK_SIZE = 8;
 	
 	//information for how to draw the block. depends on image.
-	public static final int cubeX = 11;
-	public static final int cubeY = 22;
-	public static final int cubeWidth = 50;
-	public static final int cubeHeight = 60;
+	public static final int cubeStartX = 14;
+	public static final int cubeStartY = 28;
+	public static final int cubeX = 22;
+	public static final int cubeY = 11;
+	public static final int cubeWidth = 68 + cubeX;
+	public static final int cubeHeight = 68 + cubeY;
+	public static final int imageWidth = 120;
+	public static final int imageHeight = 98;
 	private double widthScale = (double)cubeWidth / (double)(cubeWidth - cubeX);
 	private double heightScale = (double)cubeHeight / (double)(cubeHeight - cubeY);
+	
+	public static final int startingLength = 64;
+	private double currentScale = 1;
 	
 	public Point pos;
 	private int len; //block size
@@ -38,7 +45,7 @@ public class Screen extends JPanel{
 	public Screen(Map m) {
 		super();
 		pos = new Point();
-		len = 64;
+		len = startingLength;
 		pastLen = len;
 		map = m;
 	}
@@ -48,6 +55,7 @@ public class Screen extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g) {
+		currentScale = (double) len / startingLength;
 		g.setColor(Color.RED);
 		for(int i = 0; i < map.getWidth(); i ++) {
 			for(int j = map.getHeight()-1; j >= 0 ; j --) {
@@ -66,7 +74,14 @@ public class Screen extends JPanel{
 		BufferedImage img;
 		try {
 			img = ImageIO.read(imageFile);
-			g.drawImage(img, (int)(x * len - (len * widthScale - len) / 2) + pos.x, (int)(y * len - (len * heightScale - len) / 2) + pos.y, (int)(len * widthScale), (int)(len * heightScale), this);
+//			g.drawImage(img, (int)(x * len - (len * widthScale - len) / 2) + pos.x, (int)(y * len - (len * heightScale - len) / 2) + pos.y, (int)(len * widthScale), (int)(len * heightScale), this);
+			g.drawImage(
+					img,
+					(int)(x * len - (len * widthScale - len) / 2 - cubeStartX * currentScale + pos.x),
+					(int)(y * len + (len * heightScale - len) / 2 - cubeStartY * currentScale + pos.y),
+					(int)(currentScale * imageWidth),
+					(int)(currentScale * imageHeight),
+					this);
 //			System.out.println("Block Drawn at ");
 		} catch (IOException e) {
 			e.printStackTrace();
