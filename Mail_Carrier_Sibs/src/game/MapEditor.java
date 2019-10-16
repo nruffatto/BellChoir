@@ -43,7 +43,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	public static final int TIME_STEP = 50;
 	public static final int ZOOM_STEP = 5;
 	
-	private Map map = new Map(64, 64);
+	private Map map = new Map(12, 12);
 	private Stack<Map> mapStack = new Stack<>();
 	private Screen screen = new Screen(map);
 	private JFrame editorFrame;
@@ -55,8 +55,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	private JTextField mapWidthField;
 	private JTextField mapHeightField;
 	private JButton resizeButton;
-//	private JLabel mapWidthLabel;
-//	private JLabel mapHeightLabel;
+	private JLabel messageLabel;
 	private Timer timer = new Timer();
 	
 	private int editorPanelWidth = 200;
@@ -110,10 +109,6 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		fileField.addActionListener(this);
 		fileField.setBounds(0, 0, 100, 20);
 		
-		editorPanel.add(fileField, BorderLayout.AFTER_LAST_LINE);
-		editorPanel.add(openButton, BorderLayout.AFTER_LAST_LINE);
-		editorPanel.add(saveButton, BorderLayout.AFTER_LAST_LINE);
-		
 		mapWidthField = new JTextField(map.getWidth() + "");
 		mapWidthField.setBounds(0, 0, 100, 20);
 //		mapWidthField.add(new JLabel("Map Width:"));
@@ -124,6 +119,13 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 //		mapHeightField.add(new JLabel("Map Height:"));
 		resizeButton = new JButton("Resize Map");
 		resizeButton.addActionListener(this);
+		
+		messageLabel = new JLabel("________");
+		
+		editorPanel.add(messageLabel, BorderLayout.AFTER_LAST_LINE);
+		editorPanel.add(fileField, BorderLayout.AFTER_LAST_LINE);
+		editorPanel.add(openButton, BorderLayout.AFTER_LAST_LINE);
+		editorPanel.add(saveButton, BorderLayout.AFTER_LAST_LINE);
 		
 		editorPanel.add(mapWidthField, BorderLayout.AFTER_LAST_LINE);
 		editorPanel.add(mapHeightField, BorderLayout.AFTER_LAST_LINE);
@@ -145,16 +147,16 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 //			System.out.println(mapStack.peek().equals(map));
 		}
 		if(mapStack.isEmpty() || (!mapStack.isEmpty() && !mapStack.peek().equals(map))) {
-			System.out.println("storeMapInstance: ");
-			System.out.println(map.getCopy());
+//			System.out.println("storeMapInstance: ");
+//			System.out.println(map.getCopy());
 			mapStack.push(map.getCopy());
 		}
 	}
 	
 	private void undo() {
-		System.out.println("undo");
+//		System.out.println("undo");
 		if(!mapStack.isEmpty()) {
-			System.out.println("pop!");
+//			System.out.println("pop!");
 			map = mapStack.pop().getCopy();
 			screen.map = map;
 		}
@@ -186,7 +188,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	private void openFile(String fileName) {
 		clearMap();
 		clearMapStack();
-		System.out.println("opening...");
+		messageLabel.setText("opening...");
 		File f1 = new File(fileName);
 		Scanner s1;
 		int width;
@@ -211,15 +213,16 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 				}
 				map.insertBlock(xCoord, yCoord, new Block(imageFileName, blockProperties));
 			}
-			System.out.println("done!");
+			messageLabel.setText("done opening!");
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			messageLabel.setText("File Not Found!");
+			fileField.setText("file_name.txt");
 		}
 		storeMapInstance();
 	}
 	
 	public void saveFile(String fileName) {
-		System.out.println("saving...");
+		messageLabel.setText("saving...");
 		int width = map.getWidth();
 		int height = map.getHeight();
 		int xCoord;
@@ -247,9 +250,8 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 			}
 			writer.flush();
 			writer.close();
-			System.out.println("done!");
+			messageLabel.setText("done saving!");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -345,10 +347,10 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
+		messageLabel.setText("[" + screen.getMouseX() + ", " + screen.getMouseY() + "]");
 //		System.out.println("Mouse dragging!");
 		if(leftClickPressed) {
 //			System.out.println("Left click dragging!");
-			System.out.println(ctrlPressed);
 			if(ctrlPressed) {
 				canInsertBlocks = false;
 				screen.pos.x += e.getX() - 7 - mouseX;
@@ -369,6 +371,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
+		messageLabel.setText("[" + screen.getMouseX() + ", " + screen.getMouseY() + "]");
 		mouseX = e.getX() - 7;
 		mouseY = e.getY() - 30;
 	}

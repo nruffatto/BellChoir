@@ -69,11 +69,11 @@ public class Map {
 				if(!(this.getBlock(i, j) == null && comp.getBlock(i, j) == null)) {
 					if((this.getBlock(i, j) != null && comp.getBlock(i, j) == null) ||  
 							(this.getBlock(i, j) == null && comp.getBlock(i, j) != null)) {
-						System.out.println("X1");
+//						System.out.println("X1");
 //						insertBlock(i, j, new Block("cobble.png"));
 						return false;
 					}else if(!this.getBlock(i, j).equals(comp.getBlock(i, j))) {
-						System.out.println("X2");
+//						System.out.println("X2");
 						return false;
 					}
 				}

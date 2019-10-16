@@ -87,8 +87,17 @@ public class Screen extends JPanel{
 	public int getBlockSize() {
 		return len;
 	}
+	
 	public int getPastBlockSize() {
 		return pastLen;
+	}
+	
+	public int getMouseX() {
+		return ((mouseX - pos.x) / len);
+	}
+	
+	public int getMouseY() {
+		return ((mouseY - pos.y) / len);
 	}
 	
 	public void setMousePos(int x, int y) {
