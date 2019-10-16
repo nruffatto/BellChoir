@@ -139,6 +139,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		
 		timer.schedule(this, 0, TIME_STEP);
 		storeMapInstance();
+		messageLabel.setText("[" + screen.getMouseX() + ", " + screen.getMouseY() + "]");
 	}
 	
 	private void storeMapInstance() {
@@ -176,7 +177,6 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 				map.eraseBlock(i, j);
 			}
 		}
-		storeMapInstance();
 	}
 	
 	public void clearMapStack() {

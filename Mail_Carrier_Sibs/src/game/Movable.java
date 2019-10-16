@@ -21,6 +21,41 @@ public class Movable {
 		rec = new Rectangle(x, y, 64, 64);
 	}
 	
+	public void update() {
+		moveX();
+		checkCollisionX();
+		updatePastRec();
+		moveY();
+		checkCollisionY();
+		updatePastRec();
+	}
+	
+	private void moveX() {
+		velX += accX;
+		rec.x += velX;
+	}
+	
+	private void moveY() {
+		velY += accY;
+		rec.y += velY;
+	}
+	
+	private void checkCollisionX() {
+		
+	}
+	
+	private void checkCollisionY() {
+		
+	}
+	
+	private void collideX() {
+		
+	}
+	
+	private void collideY() {
+		
+	}
+	
 	public Point[] getPoints() {
 		Point[] newPoints = {
 				new Point(rec.x, rec.y),
