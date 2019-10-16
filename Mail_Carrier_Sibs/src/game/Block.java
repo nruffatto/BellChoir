@@ -61,6 +61,10 @@ public class Block {
 		properties[attribute] = value;
 	}
 	
+	public void setImage(String imageFileName) {
+		imageName = imageFileName;
+	}
+	
 	public boolean equals(Block comp) {
 //		System.out.println("comparing blocks!");
 		if(imageName.equals(comp.getImageFileName()) && Arrays.equals(properties, comp.getProperties())){
@@ -68,6 +72,10 @@ public class Block {
 		}else {
 			return false;
 		}
+	}
+	
+	public Block getCopy() {
+		return new Block(imageName, getProperties());
 	}
 	
 	/*

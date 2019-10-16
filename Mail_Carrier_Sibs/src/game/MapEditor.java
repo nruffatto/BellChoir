@@ -10,6 +10,8 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -28,12 +30,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class MapEditor extends TimerTask implements MouseListener, KeyListener, ActionListener, MouseWheelListener, MouseMotionListener {
+public class MapEditor extends TimerTask implements MouseListener, KeyListener, ActionListener, MouseWheelListener, MouseMotionListener, ItemListener {
 
 	public static void main(String[] args) {
 		MapEditor mE = new MapEditor();
@@ -74,6 +77,11 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	private boolean canInsertBlocks = true;
 	
 	String currentFileName;
+	
+	private String[] imageFileNames = {"000","001","002","003","004",};
+	private JComboBox imageComboBox;
+	
+	private Block currentBlock;
 	
 	public MapEditor() {
 		editorFrame = new JFrame("Map Editor");
@@ -122,6 +130,10 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		
 		messageLabel = new JLabel("________");
 		
+		imageComboBox = new JComboBox(imageFileNames);
+		imageComboBox.addItemListener(this);
+		
+		
 		editorPanel.add(messageLabel, BorderLayout.AFTER_LAST_LINE);
 		editorPanel.add(fileField, BorderLayout.AFTER_LAST_LINE);
 		editorPanel.add(openButton, BorderLayout.AFTER_LAST_LINE);
@@ -130,12 +142,16 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		editorPanel.add(mapWidthField, BorderLayout.AFTER_LAST_LINE);
 		editorPanel.add(mapHeightField, BorderLayout.AFTER_LAST_LINE);
 		editorPanel.add(resizeButton, BorderLayout.AFTER_LAST_LINE);
+		editorPanel.add(imageComboBox);
 		// End of editorPanel Stuff
 
 		editorFrame.addMouseListener(this);
 		editorFrame.addMouseMotionListener(this);
 		editorFrame.addMouseWheelListener(this);
 		editorFrame.addKeyListener(this);
+		editorFrame.setFocusable(true);
+		
+		currentBlock = new Block("blockimg/" + imageComboBox.getSelectedItem().toString() + ".png");
 		
 		timer.schedule(this, 0, TIME_STEP);
 		storeMapInstance();
@@ -267,7 +283,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 				canInsertBlocks) {
 			map.insertBlock(x / screen.getBlockSize(), 
 					y / screen.getBlockSize(), 
-					new Block());
+					currentBlock.getCopy());
 //			System.out.println("Block Insertion!");
 		}
 		storeMapInstance();
@@ -295,6 +311,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		editorFrame.requestFocus();
 		if(e.getSource().equals(openButton)) {
 			openFile(fileField.getText());
 		}else if(e.getSource().equals(saveButton)) {
@@ -428,6 +445,13 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		public void paintComponent(Graphics g) {
 			g.setColor(Color.BLUE);
 			g.fillRect(128, 128, 64, 64);
+		}
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if(e.getSource() == imageComboBox) {
+			currentBlock.setImage("blockimg/" + imageComboBox.getSelectedItem().toString() + ".png");
 		}
 	}
 
