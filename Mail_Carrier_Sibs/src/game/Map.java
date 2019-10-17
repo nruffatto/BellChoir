@@ -14,6 +14,14 @@ public class Map {
 		hei = height;
 	}
 	
+	public void clear() {
+		for(int i = 0; i < getWidth(); i ++) {
+			for(int j = 0; j < getHeight(); j ++) {
+				eraseBlock(i, j);
+			}
+		}
+	}
+	
 	public void resize(int width, int height) {
 		Block[][] newMap = new Block[height][width];
 		for(int i = 0; i < Math.min(wid, width); i ++) {

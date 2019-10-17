@@ -78,7 +78,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	
 	String currentFileName;
 	
-	private String[] imageFileNames = {"000","001","002","003","004",};
+	private String[] imageFileNames = {"000","001","002","003","004"};
 	private JComboBox imageComboBox;
 	
 	private Block currentBlock;
@@ -187,14 +187,6 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 //		editorPanel.repaint();
 	}
 	
-	public void clearMap() {
-		for(int i = 0; i < map.getWidth(); i ++) {
-			for(int j = 0; j < map.getHeight(); j ++) {
-				map.eraseBlock(i, j);
-			}
-		}
-	}
-	
 	public void clearMapStack() {
 		while(!mapStack.isEmpty()) {
 			mapStack.pop();
@@ -202,7 +194,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	}
 	
 	private void openFile(String fileName) {
-		clearMap();
+		map.clear();
 		clearMapStack();
 		messageLabel.setText("opening...");
 		File f1 = new File(fileName);
