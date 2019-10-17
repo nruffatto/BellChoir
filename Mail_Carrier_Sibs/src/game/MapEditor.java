@@ -91,7 +91,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		editorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = editorFrame.getContentPane();
 		contentPane.setLayout(new BorderLayout());
-		contentPane.setBackground(Color.BLACK);
+		contentPane.setBackground(Color.WHITE);
 		editorFrame.setVisible(true);
 		
 //		TestPanel testPanel = new TestPanel();
