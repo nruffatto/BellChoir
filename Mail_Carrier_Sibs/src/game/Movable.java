@@ -2,14 +2,15 @@ package game;
 
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 public class Movable {
 	
 	
-	private double accX;
-	private double accY;
-	private double velX;
-	private double velY;
+	protected double accX;
+	protected double accY;
+	protected double velX;
+	protected double velY;
 	public Rectangle rec;
 	public Rectangle pastRec;
 	
@@ -19,6 +20,12 @@ public class Movable {
 	private String imageName;
 	public Movable(int x, int y) {
 		rec = new Rectangle(x, y, 64, 64);
+		accY = 5;
+		updatePastRec();
+	}
+	
+	public void addGame(Game g) {
+		game = g;
 	}
 	
 	public void update() {
@@ -41,19 +48,40 @@ public class Movable {
 	}
 	
 	private void checkCollisionX() {
-		
+		Point[] points = getPoints();
+		Point[] pastPoints = getPastPoints();
+		for(int i = 0; i < points.length; i ++) {
+			if(game.map.contains(new Point(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength))) {
+				if(game.map.getBlock(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength) != null) {
+					if(points[i].x > pastPoints[i].x) {
+						rec.x -= rec.x % Screen.startingLength + 1;
+						break;
+					}else {
+						rec.x += Screen.startingLength - rec.x % Screen.startingLength + 1;
+						break;
+					}
+				}
+			}
+		}
 	}
 	
 	private void checkCollisionY() {
-		
-	}
-	
-	private void collideX() {
-		
-	}
-	
-	private void collideY() {
-		
+		Point[] points = getPoints();
+		Point[] pastPoints = getPastPoints();
+		for(int i = 0; i < points.length; i ++) {
+			if(game.map.contains(new Point(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength))) {
+				if(game.map.getBlock(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength) != null) {
+					velY = 0;
+					if(points[i].y > pastPoints[i].y) {
+						rec.y -= rec.y % game.screen.startingLength + 1;
+						break;
+					}else if(points[i].y < pastPoints[i].y) {
+						rec.y += game.screen.startingLength - rec.y % game.screen.startingLength + 1;
+						break;
+					}
+				}
+			}
+		}
 	}
 	
 	public Point[] getPoints() {

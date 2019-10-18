@@ -66,6 +66,10 @@ public class Map {
 		return hei;
 	}
 	
+	public boolean contains(Point p) {
+		return p.x > 0 && p.x < wid && p.y > 0 && p.y < hei;
+	}
+	
 	public boolean equals(Map comp) {
 //		System.out.println("comparing maps!");
 		boolean equal = true;

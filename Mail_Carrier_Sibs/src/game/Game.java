@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,9 +28,11 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public static final int TIME_STEP = 50;
 	
 	private JFrame gameFrame;
-	private Map map = new Map(1, 1);
+	public Map map = new Map(1, 1);
 	private String[] mapList = {"file_name.txt"};
-	private Screen screen;
+	public Screen screen;
+	public Movable[] movables = new Movable[10];
+	public Player[] players = new Player[4];
 	private Container contentPane;
 	private Timer timer = new Timer();
 	
@@ -54,14 +57,34 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		screen.setLayout(null);
 		screen.setBackground(Color.BLUE);
 		contentPane.add(screen, BorderLayout.CENTER);
+		screen.addMovables(movables);
+		
+		movables[0] = new Player(0, 0);
+		players[0] = (Player) movables[0];
+		
+		for(int i = 0; i < movables.length; i ++) {
+			if(movables[i] != null) {
+				movables[i].addGame(this);
+			}
+		}
+		
+		gameFrame.addKeyListener(players[0]);
 		
 		timer.schedule(this, 0, TIME_STEP);
 		gameIsReady = true;
+		gameFrame.repaint();
 	}
 
 	@Override
 	public void run() {
-		gameFrame.repaint();
+		if(gameIsReady) {
+			for(int i = 0; i < movables.length; i ++) {
+				if(movables[i] != null) {
+					movables[i].update();
+				}
+			}
+			gameFrame.repaint();
+		}
 	}
 	
 	private void openMap(String fileName) {
