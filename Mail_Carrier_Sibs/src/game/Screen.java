@@ -31,7 +31,7 @@ public class Screen extends JPanel{
 	private double heightScale = (double)cubeHeight / (double)(cubeHeight - cubeY);
 	
 	public static final int startingLength = 64;
-	private double currentScale = 1;
+	public double currentScale = 1;
 	
 	public Point pos;
 	private int len; //block size
@@ -41,6 +41,9 @@ public class Screen extends JPanel{
 	
 	private int mouseX = 0;
 	private int mouseY = 0;
+	
+	private boolean mapOutlineOn = true;
+	private boolean blockOutlineOn = true;
 	
 	public Screen(Map m) {
 		super();
@@ -65,8 +68,15 @@ public class Screen extends JPanel{
 				}
 			}
 		}
-		drawBounds(g);
-		g.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len); // mouse area
+		if(movables != null) {
+			drawMovables(g);
+		}
+		if(mapOutlineOn) {
+			drawBounds(g);
+		}
+		if(blockOutlineOn) {
+			g.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len);
+		} // mouse area
 	}
 	
 	private void drawBlock(Graphics g, Block block, int x, int y) {
@@ -85,6 +95,19 @@ public class Screen extends JPanel{
 //			System.out.println("Block Drawn at ");
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	private void drawMovables(Graphics g) {
+		g.setColor(Color.BLUE);
+		for(int i = 0; i < movables.length; i ++) {
+			if(movables[i] != null) {
+				g.fillRect(
+						(int)(movables[i].rec.x * currentScale) + pos.x,
+						(int)(movables[i].rec.y * currentScale) + pos.y,
+						(int)(movables[i].rec.width * currentScale),
+						(int)(movables[i].rec.height * currentScale));
+			}
 		}
 	}
 	
@@ -118,5 +141,13 @@ public class Screen extends JPanel{
 	public void setMousePos(int x, int y) {
 		mouseX = x;
 		mouseY = y;
+	}
+	
+	public void setMapOutline(boolean state) {
+		mapOutlineOn = state;
+	}
+	
+	public void setBlockOutline(boolean state) {
+		blockOutlineOn = state;
 	}
 }
