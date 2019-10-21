@@ -54,10 +54,10 @@ public class Movable {
 			if(game.map.contains(new Point(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength))) {
 				if(game.map.getBlock(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength) != null) {
 					if(points[i].x > pastPoints[i].x) {
-						rec.x -= rec.x % Screen.startingLength + 1;
+						rec.x -= points[i].x % Screen.startingLength + 1;
 						break;
 					}else {
-						rec.x += Screen.startingLength - rec.x % Screen.startingLength + 1;
+						rec.x += Screen.startingLength - points[i].x % Screen.startingLength + 1;
 						break;
 					}
 				}
@@ -73,10 +73,10 @@ public class Movable {
 				if(game.map.getBlock(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength) != null) {
 					velY = 0;
 					if(points[i].y > pastPoints[i].y) {
-						rec.y -= rec.y % game.screen.startingLength + 1;
+						rec.y -= points[i].y % Screen.startingLength + 1;
 						break;
 					}else if(points[i].y < pastPoints[i].y) {
-						rec.y += game.screen.startingLength - rec.y % game.screen.startingLength + 1;
+						rec.y += Screen.startingLength - points[i].y % Screen.startingLength + 1;
 						break;
 					}
 				}
@@ -88,8 +88,10 @@ public class Movable {
 		Point[] newPoints = {
 				new Point(rec.x, rec.y),
 				new Point(rec.x + rec.width, rec.y),
+				new Point(rec.x + rec.width, rec.y + rec.height / 2),
 				new Point(rec.x + rec.width, rec.y + rec.height),
-				new Point(rec.x, rec.y+ rec.height),};
+				new Point(rec.x, rec.y+ rec.height),
+				new Point(rec.x, rec.y + rec.height / 2),};
 		return newPoints;
 	}
 	
@@ -97,8 +99,10 @@ public class Movable {
 		Point[] newPoints = {
 				new Point(pastRec.x, pastRec.y),
 				new Point(pastRec.x + pastRec.width, pastRec.y),
+				new Point(pastRec.x + pastRec.width, pastRec.y + pastRec.height / 2),
 				new Point(pastRec.x + rec.width, pastRec.y + pastRec.height),
-				new Point(pastRec.x, pastRec.y+ pastRec.height),};
+				new Point(pastRec.x, pastRec.y+ pastRec.height),
+				new Point(pastRec.x, pastRec.y + pastRec.height / 2),};
 		return newPoints;
 	}
 	

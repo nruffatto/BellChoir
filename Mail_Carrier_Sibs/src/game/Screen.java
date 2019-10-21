@@ -31,7 +31,7 @@ public class Screen extends JPanel{
 	private double heightScale = (double)cubeHeight / (double)(cubeHeight - cubeY);
 	
 	public static final int startingLength = 64;
-	private double currentScale = 1;
+	public double currentScale = 1;
 	
 	public Point pos;
 	private int len; //block size
@@ -68,7 +68,9 @@ public class Screen extends JPanel{
 				}
 			}
 		}
-		drawMovables(g);
+		if(movables != null) {
+			drawMovables(g);
+		}
 		if(mapOutlineOn) {
 			drawBounds(g);
 		}

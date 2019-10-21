@@ -9,6 +9,9 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	
 	private int speed = 15;
 	private int jumpingSpeed = 40;
+	private double crouchScale = 0.5;
+	
+	private boolean isCrouched = false;
 
 /* }>Key Codes<{
  * get with KeyEvent.VK_<whatever key you want> like VK_A, VK_W, or VK_S
@@ -16,6 +19,8 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	
 	public Player(int x, int y) {
 		super(x, y);
+		rec.height = 126;
+		rec.width = 62;
 	}
 	
 	@Override
@@ -28,6 +33,18 @@ public class Player extends Movable implements MouseListener, KeyListener{
 		
 	}
 	
+	private void crouch() {
+		int crouchDist = (int)(rec.height - rec.height * crouchScale);
+		rec.height -= crouchDist;
+		rec.y += crouchDist;
+	}
+	
+	private void unCrouch() {
+		int crouchDist = (int)(rec.height / crouchScale - rec.height);
+		rec.height += crouchDist;
+		rec.y -= crouchDist;
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_A) {
@@ -36,8 +53,14 @@ public class Player extends Movable implements MouseListener, KeyListener{
 		if(e.getKeyCode() == KeyEvent.VK_D) {
 				velX = speed;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+		if(e.getKeyCode() == KeyEvent.VK_W) {
 			velY = - jumpingSpeed;
+		}
+		if(e.getKeyCode() == KeyEvent.VK_S) {
+			if(!isCrouched) {
+				crouch();
+				isCrouched = true;
+			}
 		}
 	}
 
@@ -52,6 +75,10 @@ public class Player extends Movable implements MouseListener, KeyListener{
 			if(velX > 0) {
 				velX = 0;
 			}
+		}
+		if(e.getKeyCode() == KeyEvent.VK_S) {
+			unCrouch();
+			isCrouched = false;
 		}
 	}
 

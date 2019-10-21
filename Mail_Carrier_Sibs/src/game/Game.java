@@ -24,12 +24,12 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		Game g1 = new Game();
 	}
 	
-	public static final int DEFAULT_BLOCK_SIZE = 64;
+	public static final int DEFAULT_BLOCK_SIZE = 128;
 	public static final int TIME_STEP = 50;
 	
 	private JFrame gameFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"file_name.txt"};
+	private String[] mapList = {"long.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[4];
@@ -58,8 +58,11 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		screen.setBackground(Color.BLUE);
 		contentPane.add(screen, BorderLayout.CENTER);
 		screen.addMovables(movables);
+		screen.setBlockSize(DEFAULT_BLOCK_SIZE);
+		screen.setMapOutline(false);
+		screen.setBlockOutline(false);
 		
-		movables[0] = new Player(0, 0);
+		movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 0);
 		players[0] = (Player) movables[0];
 		
 		for(int i = 0; i < movables.length; i ++) {
@@ -84,6 +87,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 				}
 			}
 			gameFrame.repaint();
+			screen.pos.setLocation(-players[0].rec.x * screen.currentScale + gameFrame.getWidth() / 2,
+					-players[0].rec.y * screen.currentScale + gameFrame.getHeight() / 2);
 		}
 	}
 	
