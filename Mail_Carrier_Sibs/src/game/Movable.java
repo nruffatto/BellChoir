@@ -66,6 +66,7 @@ public class Movable {
 	}
 	
 	private void checkCollisionY() {
+		isInAir = true;
 		Point[] points = getPoints();
 		Point[] pastPoints = getPastPoints();
 		for(int i = 0; i < points.length; i ++) {
