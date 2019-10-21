@@ -16,7 +16,7 @@ public class Movable {
 	
 	private Game game;
 	
-	private boolean isInAir;
+	protected boolean isInAir;
 	private String imageName;
 	public Movable(int x, int y) {
 		rec = new Rectangle(x, y, 64, 64);
@@ -66,6 +66,7 @@ public class Movable {
 	}
 	
 	private void checkCollisionY() {
+		isInAir = true;
 		Point[] points = getPoints();
 		Point[] pastPoints = getPastPoints();
 		for(int i = 0; i < points.length; i ++) {
@@ -74,6 +75,7 @@ public class Movable {
 					velY = 0;
 					if(points[i].y > pastPoints[i].y) {
 						rec.y -= points[i].y % Screen.startingLength + 1;
+						isInAir = false;
 						break;
 					}else if(points[i].y < pastPoints[i].y) {
 						rec.y += Screen.startingLength - points[i].y % Screen.startingLength + 1;
