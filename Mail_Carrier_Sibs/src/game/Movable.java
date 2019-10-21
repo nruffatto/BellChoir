@@ -16,7 +16,7 @@ public class Movable {
 	
 	private Game game;
 	
-	private boolean isInAir;
+	protected boolean isInAir;
 	private String imageName;
 	public Movable(int x, int y) {
 		rec = new Rectangle(x, y, 64, 64);
@@ -74,6 +74,7 @@ public class Movable {
 					velY = 0;
 					if(points[i].y > pastPoints[i].y) {
 						rec.y -= rec.y % game.screen.startingLength + 1;
+						isInAir = false;
 						break;
 					}else if(points[i].y < pastPoints[i].y) {
 						rec.y += game.screen.startingLength - rec.y % game.screen.startingLength + 1;
