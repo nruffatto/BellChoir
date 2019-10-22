@@ -11,10 +11,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class Screen extends JPanel{
+public class Screen2 extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 10;
-	public static final int RENDER_HEIGHT = 100;
+	public static final int RENDER_WIDTH = 2;
+	public static final int RENDER_HEIGHT = 8;
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 512; 
@@ -47,7 +47,7 @@ public class Screen extends JPanel{
 	private boolean mapOutlineOn = true;
 	private boolean blockOutlineOn = true;
 	
-	public Screen(Map m) {
+	public Screen2(Map m) {
 		super();
 		pos = new Point();
 		len = startingLength;
@@ -62,11 +62,9 @@ public class Screen extends JPanel{
 	public void paintComponent(Graphics g) {
 		currentScale = (double) len / startingLength;
 		g.setColor(Color.RED);
-		for(int i = movables[0].rec.x / 64 - RENDER_WIDTH; i < movables[0].rec.x / 64 + RENDER_WIDTH; i ++) {
-			for(int j = movables[0].rec.y / 64 + RENDER_HEIGHT; j > movables[0].rec.y / 64 - RENDER_HEIGHT; j --) {
-				if(i > 0 && i < map.getWidth() && 
-						j > 0 && j < map.getHeight() &&
-						map.getBlock(i, j) != null) {
+		for(int i = 0; i < map.getWidth(); i ++) {
+			for(int j = map.getHeight() - 1; j > 0; j --) {
+				if(map.getBlock(i, j) != null) {
 					drawBlock(g, map.getBlock(i, j), i, j);
 				}
 			}

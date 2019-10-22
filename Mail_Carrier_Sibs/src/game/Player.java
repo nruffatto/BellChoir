@@ -7,8 +7,8 @@ import java.awt.event.MouseListener;
 
 public class Player extends Movable implements MouseListener, KeyListener{
 	
-	private int speed = 15;
-	private int jumpingSpeed = 40;
+	private int speed = 20;
+	private int jumpingSpeed = 100;
 	private double crouchScale = 0.5;
 	
 	private boolean isCrouched = false;
