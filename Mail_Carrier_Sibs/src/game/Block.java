@@ -33,7 +33,7 @@ public class Block {
 	}
 	
 	public Block() {
-		this("blockimg/000.png", new boolean[NUMBER_OF_PROPERTIES]);
+		this("blockimg/005.png", new boolean[NUMBER_OF_PROPERTIES]);
 	}
 
 	public String getImageFileName() {
