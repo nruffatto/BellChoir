@@ -8,7 +8,7 @@ import java.awt.event.MouseListener;
 public class Player extends Movable implements MouseListener, KeyListener{
 	
 	private int speed = 20;
-	private int jumpingSpeed = 100;
+	private int jumpingSpeed = 40;
 	private double crouchScale = 0.5;
 	
 	private boolean isCrouched = false;
@@ -19,8 +19,8 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	
 	public Player(int x, int y) {
 		super(x, y);
-		rec.height = 126;
-		rec.width = 62;
+		rec.height = 120;
+		rec.width = 60;
 	}
 	
 	@Override
@@ -59,7 +59,7 @@ public class Player extends Movable implements MouseListener, KeyListener{
 				velY = - jumpingSpeed;
 			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_S) {
+		if(e.getKeyCode() == KeyEvent.VK_SHIFT) {
 			if(!isCrouched) {
 				crouch();
 				isCrouched = true;
@@ -79,7 +79,7 @@ public class Player extends Movable implements MouseListener, KeyListener{
 				velX = 0;
 			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_S) {
+		if(e.getKeyCode() == KeyEvent.VK_SHIFT) {
 			unCrouch();
 			isCrouched = false;
 		}

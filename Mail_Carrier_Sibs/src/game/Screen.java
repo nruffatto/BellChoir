@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 public class Screen extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 10;
+	public static final int RENDER_WIDTH = 20;
 	public static final int RENDER_HEIGHT = 100;
 	
 	//Zoom Levels
