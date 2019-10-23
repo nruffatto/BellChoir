@@ -1,8 +1,14 @@
 package game;
 
+import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 public class Movable {
 	
@@ -21,6 +27,8 @@ public class Movable {
 	public Movable(int x, int y) {
 		rec = new Rectangle(x, y, 64, 64);
 		accY = 5;
+		
+		imageName = "mailman1.png";
 		updatePastRec();
 	}
 	

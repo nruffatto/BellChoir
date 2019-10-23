@@ -48,7 +48,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	
 	private Map map = new Map(12, 12);
 	private Stack<Map> mapStack = new Stack<>();
-	private Screen screen = new Screen(map);
+	private Screen2 screen = new Screen2(map);
 	private JFrame editorFrame;
 	private Container contentPane;
 	private JPanel editorPanel;

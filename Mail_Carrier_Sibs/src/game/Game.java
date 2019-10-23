@@ -24,12 +24,12 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		Game g1 = new Game();
 	}
 	
-	public static final int DEFAULT_BLOCK_SIZE = 128;
+	public static final int DEFAULT_BLOCK_SIZE = 32;
 	public static final int TIME_STEP = 50;
 	
 	private JFrame gameFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"long.txt"};
+	private String[] mapList = {"bigTest.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[4];
