@@ -63,7 +63,17 @@ public class Screen extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		currentScale = (double) len / startingLength;
-		g.setColor(Color.RED);
+		File imageFile = new File("spaceBackground.jpg");
+		BufferedImage img;
+		try {
+			img = ImageIO.read(imageFile);
+			g.drawImage(img, (int)(pos.x * (currentScale / 2)),
+					(int)(pos.y * (currentScale / 2)),
+					(int)(3200 * currentScale),
+					(int)(1200 * currentScale), this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		for(int i = movables[0].rec.x / 64 - RENDER_WIDTH; i < movables[0].rec.x / 64 + RENDER_WIDTH; i ++) {
 			for(int j = movables[0].rec.y / 64 + RENDER_HEIGHT; j > movables[0].rec.y / 64 - RENDER_HEIGHT; j --) {
 				if(i >= 0 && i < map.getWidth() && 

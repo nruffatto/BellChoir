@@ -14,12 +14,14 @@ import javax.imageio.ImageIO;
 public class Player extends Movable implements MouseListener, KeyListener{
 	
 	private int speed = 10;
-	private int jumpingSpeed = 30;
+	private int jumpingSpeed = 25;
 	private double crouchScale = 0.5;
 	
 	private boolean isCrouched = false;
 	
 	private String crouchImageName = "Sprites/mailmancrouch1.png";
+	
+	
 	
 /* }>Key Codes<{
  * get with KeyEvent.VK_<whatever key you want> like VK_A, VK_W, or VK_S
