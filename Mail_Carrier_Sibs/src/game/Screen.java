@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 
 public class Screen extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 20;
-	public static final int RENDER_HEIGHT = 100;
+	public static final int RENDER_WIDTH = 10;
+	public static final int RENDER_HEIGHT = 10;
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 512; 
@@ -46,6 +46,8 @@ public class Screen extends JPanel{
 	
 	private boolean mapOutlineOn = true;
 	private boolean blockOutlineOn = true;
+	private boolean hitBoxesOn = false;
+	private boolean imagesOn = true;
 	
 	public Screen(Map m) {
 		super();
@@ -64,8 +66,8 @@ public class Screen extends JPanel{
 		g.setColor(Color.RED);
 		for(int i = movables[0].rec.x / 64 - RENDER_WIDTH; i < movables[0].rec.x / 64 + RENDER_WIDTH; i ++) {
 			for(int j = movables[0].rec.y / 64 + RENDER_HEIGHT; j > movables[0].rec.y / 64 - RENDER_HEIGHT; j --) {
-				if(i > 0 && i < map.getWidth() && 
-						j > 0 && j < map.getHeight() &&
+				if(i >= 0 && i < map.getWidth() && 
+						j >= 0 && j < map.getHeight() &&
 						map.getBlock(i, j) != null) {
 					drawBlock(g, map.getBlock(i, j), i, j);
 				}
@@ -105,11 +107,30 @@ public class Screen extends JPanel{
 		g.setColor(Color.BLUE);
 		for(int i = 0; i < movables.length; i ++) {
 			if(movables[i] != null) {
-				g.fillRect(
-						(int)(movables[i].rec.x * currentScale) + pos.x,
-						(int)(movables[i].rec.y * currentScale) + pos.y,
-						(int)(movables[i].rec.width * currentScale),
-						(int)(movables[i].rec.height * currentScale));
+				Image img = movables[i].getImage();
+				if(imagesOn) {
+					g.drawImage(
+							img,
+							(int)((movables[i].rec.x - movables[i].START_POINT.x) * currentScale + pos.x),
+							(int)((movables[i].rec.y - movables[i].START_POINT.y) * currentScale + pos.y),
+							(int)(movables[i].IMAGE_WIDTH * currentScale),
+							(int)(movables[i].IMAGE_HEIGHT * currentScale),
+							this);
+				}
+				if(hitBoxesOn) {
+					g.setColor(Color.BLUE);
+					g.drawRect(
+							(int)(movables[i].rec.x * currentScale) + pos.x,
+							(int)(movables[i].rec.y * currentScale) + pos.y,
+							(int)(movables[i].rec.width * currentScale),
+							(int)(movables[i].rec.height * currentScale));
+					g.setColor(Color.YELLOW);
+					g.drawRect(
+							(int)(movables[i].pastRec.x * currentScale) + pos.x,
+							(int)(movables[i].pastRec.y * currentScale) + pos.y,
+							(int)(movables[i].pastRec.width * currentScale),
+							(int)(movables[i].pastRec.height * currentScale));
+				}
 			}
 		}
 	}

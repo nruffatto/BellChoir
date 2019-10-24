@@ -63,7 +63,7 @@ public class Screen2 extends JPanel{
 		currentScale = (double) len / startingLength;
 		g.setColor(Color.RED);
 		for(int i = 0; i < map.getWidth(); i ++) {
-			for(int j = map.getHeight() - 1; j > 0; j --) {
+			for(int j = map.getHeight() - 1; j >= 0; j --) {
 				if(map.getBlock(i, j) != null) {
 					drawBlock(g, map.getBlock(i, j), i, j);
 				}
