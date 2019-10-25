@@ -3,20 +3,26 @@ package game;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class Game extends TimerTask implements MouseListener, ActionListener, KeyListener{
 
@@ -24,12 +30,12 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		Game g1 = new Game();
 	}
 	
-	public static final int DEFAULT_BLOCK_SIZE = 32;
-	public static final int TIME_STEP = 50;
+	public static final int DEFAULT_BLOCK_SIZE = 64;
+	public static final int TIME_STEP = 20;
 	
 	private JFrame gameFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"bigTest.txt"};
+	private String[] mapList = {"mappy.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[4];
@@ -62,7 +68,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		screen.setMapOutline(false);
 		screen.setBlockOutline(false);
 		
-		movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 0);
+		movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE);
 		players[0] = (Player) movables[0];
 		
 		for(int i = 0; i < movables.length; i ++) {
@@ -84,11 +90,15 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			for(int i = 0; i < movables.length; i ++) {
 				if(movables[i] != null) {
 					movables[i].update();
+					if(movables[i].rec.y > 10000) {
+						movables[i].rec.y = 0;
+					}
 				}
 			}
-			gameFrame.repaint();
 			screen.pos.setLocation(-players[0].rec.x * screen.currentScale + gameFrame.getWidth() / 2,
 					-players[0].rec.y * screen.currentScale + gameFrame.getHeight() / 2);
+			gameFrame.revalidate();
+			gameFrame.repaint();
 		}
 	}
 	

@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -10,8 +11,14 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class Movable {
+public class Movable { // 38, 6, 69, 129   image: 138, 135
 	
+	public static final int HITBOX_WIDTH = 50;
+	public static final double HITBOX_RATIO = 127.0 / 60.0;
+	public static final double IMAGE_SCALE = HITBOX_WIDTH / 60.0;
+	public static final Point START_POINT = new Point((int)(38 * IMAGE_SCALE),(int)(7 * IMAGE_SCALE));
+	public static final int IMAGE_WIDTH = (int)(138 * IMAGE_SCALE);// * IMAGE_SCALE
+	public static final int IMAGE_HEIGHT = (int)(135 * IMAGE_SCALE);
 	
 	protected double accX;
 	protected double accY;
@@ -23,12 +30,12 @@ public class Movable {
 	private Game game;
 	
 	protected boolean isInAir;
-	private String imageName;
+	protected String imageName;
 	public Movable(int x, int y) {
-		rec = new Rectangle(x, y, 64, 64);
-		accY = 5;
+		rec = new Rectangle(x, y, HITBOX_WIDTH, (int)(HITBOX_WIDTH * HITBOX_RATIO));//(int)(HITBOX_WIDTH * HITBOX_RATIO)
+		accY = 2;
 		
-		imageName = "mailman1.png";
+		imageName = "Sprites/mailman1.png";
 		updatePastRec();
 	}
 	
@@ -37,12 +44,12 @@ public class Movable {
 	}
 	
 	public void update() {
+		updatePastRec();
 		moveX();
 		checkCollisionX();
 		updatePastRec();
 		moveY();
 		checkCollisionY();
-		updatePastRec();
 	}
 	
 	private void moveX() {
@@ -57,17 +64,17 @@ public class Movable {
 	
 	private void checkCollisionX() {
 		Point[] points = getPoints();
-		Point[] pastPoints = getPastPoints();
 		for(int i = 0; i < points.length; i ++) {
 			if(game.map.contains(new Point(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength))) {
 				if(game.map.getBlock(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength) != null) {
-					if(points[i].x > pastPoints[i].x) {
+					if(velX > 0) {
 						rec.x -= points[i].x % Screen.startingLength + 1;
-						break;
-					}else {
+//						System.out.println("X1");
+					}else if(velX < 0){
 						rec.x += Screen.startingLength - points[i].x % Screen.startingLength + 1;
-						break;
+//						System.out.println("X2");
 					}
+					break;
 				}
 			}
 		}
@@ -76,19 +83,21 @@ public class Movable {
 	private void checkCollisionY() {
 		isInAir = true;
 		Point[] points = getPoints();
-		Point[] pastPoints = getPastPoints();
 		for(int i = 0; i < points.length; i ++) {
 			if(game.map.contains(new Point(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength))) {
 				if(game.map.getBlock(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength) != null) {
-					velY = 0;
-					if(points[i].y > pastPoints[i].y) {
+					if(velY > 0) {//points[i].y > pastPoints[i].y
 						rec.y -= points[i].y % Screen.startingLength + 1;
 						isInAir = false;
-						break;
-					}else if(points[i].y < pastPoints[i].y) {
+//						System.out.println(points[i].y % Screen.startingLength + 1);
+					}else if(velY < 0){//if(points[i].y < pastPoints[i].y)
 						rec.y += Screen.startingLength - points[i].y % Screen.startingLength + 1;
-						break;
+//						System.out.println("2");
+					}else {
+//						System.out.println("same");
 					}
+					velY = 0;
+					break;
 				}
 			}
 		}
@@ -117,6 +126,19 @@ public class Movable {
 	}
 	
 	private void updatePastRec() {
-		pastRec = new Rectangle(rec.x, rec.y, rec.width, rec.height);
+		pastRec = (Rectangle) rec.clone();
+//		pastRec = new Rectangle(rec.x, rec.y, rec.width, rec.height);
+	}
+	
+	public Image getImage() {
+		File imageFile = new File(imageName);
+		BufferedImage img;
+		try {
+			img = ImageIO.read(imageFile);
+			return img;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
