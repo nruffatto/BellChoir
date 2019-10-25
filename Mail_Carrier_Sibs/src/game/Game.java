@@ -30,6 +30,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		Game g1 = new Game();
 	}
 	
+
 	public static final int DEFAULT_BLOCK_SIZE = 64;
 	public static final int TIME_STEP = 30;
 	
@@ -95,10 +96,10 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 					}
 				}
 			}
-			screen.pos.setLocation(-players[0].rec.x * screen.currentScale + gameFrame.getWidth() / 2,
-					-players[0].rec.y * screen.currentScale + gameFrame.getHeight() / 2);
 			gameFrame.revalidate();
 			gameFrame.repaint();
+			screen.pos.setLocation(-players[0].rec.x * screen.currentScale + gameFrame.getWidth() / 2,
+					-players[0].rec.y * screen.currentScale + gameFrame.getHeight() / 2);
 		}
 	}
 	
