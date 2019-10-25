@@ -54,12 +54,13 @@ public class Player extends Movable implements MouseListener, KeyListener{
 				velX = speed;
 		}
 		if(e.getKeyCode() == KeyEvent.VK_W) {
-			if (isInAir == false) {
+			
+			if (!isInAir) {
 				isInAir = true;
 				velY = - jumpingSpeed;
 			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_SHIFT) {
+		if(e.getKeyCode() == KeyEvent.VK_S) {
 			if(!isCrouched) {
 				crouch();
 				isCrouched = true;
@@ -79,7 +80,7 @@ public class Player extends Movable implements MouseListener, KeyListener{
 				velX = 0;
 			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_SHIFT) {
+		if(e.getKeyCode() == KeyEvent.VK_S) {
 			unCrouch();
 			isCrouched = false;
 		}

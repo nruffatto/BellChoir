@@ -25,7 +25,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	}
 	
 	public static final int DEFAULT_BLOCK_SIZE = 32;
-	public static final int TIME_STEP = 50;
+	public static final int TIME_STEP = 40;
 	
 	private JFrame gameFrame;
 	public Map map = new Map(1, 1);
@@ -86,6 +86,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 					movables[i].update();
 				}
 			}
+			gameFrame.revalidate();
 			gameFrame.repaint();
 			screen.pos.setLocation(-players[0].rec.x * screen.currentScale + gameFrame.getWidth() / 2,
 					-players[0].rec.y * screen.currentScale + gameFrame.getHeight() / 2);
