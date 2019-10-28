@@ -45,12 +45,14 @@ public class Player extends Movable implements MouseListener, KeyListener{
 		int crouchDist = (int)(rec.height - rec.height * crouchScale);
 		rec.height -= crouchDist;
 		rec.y += crouchDist;
+		startPoint.y += crouchDist;
 	}
 	
 	private void unCrouch() {
 		int crouchDist = (int)(rec.height / crouchScale - rec.height);
 		rec.height += crouchDist;
 		rec.y -= crouchDist;
+		startPoint.y -= crouchDist;
 	}
 	
 	@Override
