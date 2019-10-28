@@ -16,7 +16,7 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	public static final int HITBOX_WIDTH = 50;
 	public static final double HITBOX_RATIO = 127.0 / 60.0;
 	public static final double IMAGE_SCALE = HITBOX_WIDTH / 60.0;
-	public static final Point START_POINT = new Point((int)(38 * IMAGE_SCALE),(int)(7 * IMAGE_SCALE));
+	public Point startPoint = new Point((int)(38 * IMAGE_SCALE),(int)(7 * IMAGE_SCALE));
 	public static final int IMAGE_WIDTH = (int)(138 * IMAGE_SCALE);// * IMAGE_SCALE
 	public static final int IMAGE_HEIGHT = (int)(135 * IMAGE_SCALE);
 	
@@ -66,14 +66,15 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	
 	private void checkCollisionX() {
 		Point[] points = getPoints();
+		Point[] pastPoints = getPastPoints();
 		for(int i = 0; i < points.length; i ++) {
 			if(game.map.contains(new Point(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength))) {
 				if(game.map.getBlock(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength) != null) {
-					if(velX > 0) {
+					if(points[i].x > pastPoints[i].x) {
 						rec.x -= points[i].x % Screen.startingLength + 1;
 //						System.out.println("X1");
-					}else if(velX < 0){
-						rec.x += Screen.startingLength - points[i].x % Screen.startingLength + 1;
+					}else if(points[i].x < pastPoints[i].x){
+						rec.x += Screen.startingLength - points[i].x % Screen.startingLength + 7;
 //						System.out.println("X2");
 					}
 					break;
@@ -85,14 +86,15 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	private void checkCollisionY() {
 		isInAir = true;
 		Point[] points = getPoints();
+		Point[] pastPoints = getPastPoints();
 		for(int i = 0; i < points.length; i ++) {
 			if(game.map.contains(new Point(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength))) {
 				if(game.map.getBlock(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength) != null) {
-					if(velY > 0) {//points[i].y > pastPoints[i].y
+					if(points[i].y > pastPoints[i].y) {//points[i].y > pastPoints[i].y
 						rec.y -= points[i].y % Screen.startingLength + 1;
 						isInAir = false;
 //						System.out.println(points[i].y % Screen.startingLength + 1);
-					}else if(velY < 0){//if(points[i].y < pastPoints[i].y)
+					}else if(points[i].y < pastPoints[i].y){//if(points[i].y < pastPoints[i].y)
 						rec.y += Screen.startingLength - points[i].y % Screen.startingLength + 1;
 //						System.out.println("2");
 					}else {

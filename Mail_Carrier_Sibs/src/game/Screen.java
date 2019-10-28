@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 public class Screen extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 10;
+	public static final int RENDER_WIDTH = 5;
 	public static final int RENDER_HEIGHT = 10;
 	
 	//Zoom Levels
@@ -121,8 +121,8 @@ public class Screen extends JPanel{
 				if(imagesOn) {
 					g.drawImage(
 							img,
-							(int)((movables[i].rec.x - movables[i].START_POINT.x) * currentScale + pos.x),
-							(int)((movables[i].rec.y - movables[i].START_POINT.y) * currentScale + pos.y),
+							(int)((movables[i].rec.x - movables[i].startPoint.x) * currentScale + pos.x),
+							(int)((movables[i].rec.y - movables[i].startPoint.y) * currentScale + pos.y),
 							(int)(movables[i].IMAGE_WIDTH * currentScale),
 							(int)(movables[i].IMAGE_HEIGHT * currentScale),
 							this);
