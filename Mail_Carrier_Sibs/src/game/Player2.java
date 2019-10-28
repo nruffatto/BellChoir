@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Player extends Movable implements MouseListener, KeyListener{
+public class Player2 extends Movable implements MouseListener, KeyListener{
 	
 	private int speed = 10;
 	private int jumpingSpeed = 25;
@@ -19,7 +19,7 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	
 	private boolean isCrouched = false;
 	
-	private String crouchImageName = "Sprites/mailmancrouch1.png";
+	private String crouchImageName = "Sprites/mailmancrouch2.png";
 	
 	
 	
@@ -27,7 +27,7 @@ public class Player extends Movable implements MouseListener, KeyListener{
  * get with KeyEvent.VK_<whatever key you want> like VK_A, VK_W, or VK_S
  */
 	
-	public Player(int x, int y) {
+	public Player2(int x, int y) {
 		super(x, y);
 	}
 	
@@ -55,20 +55,20 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_A) {
+		if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 				velX = -speed;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_D) {
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 				velX = speed;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_W) {
+		if(e.getKeyCode() == KeyEvent.VK_UP) {
 			
 			if (!isInAir) {
 				isInAir = true;
 				velY = - jumpingSpeed;
 			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_S) {
+		if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 			if(!isCrouched) {
 				crouch();
 				isCrouched = true;
@@ -78,17 +78,17 @@ public class Player extends Movable implements MouseListener, KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_A) {
+		if(e.getKeyCode() == KeyEvent.VK_LEFT) {
 			if(velX < 0) {
 				velX = 0;
 			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_D) {
+		if(e.getKeyCode() == KeyEvent.VK_RIGHT) {
 			if(velX > 0) {
 				velX = 0;
 			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_S) {
+		if(e.getKeyCode() == KeyEvent.VK_DOWN) {
 			unCrouch();
 			isCrouched = false;
 		}
@@ -123,7 +123,7 @@ public class Player extends Movable implements MouseListener, KeyListener{
 		if(isCrouched) {
 			imageFile = new File(crouchImageName);
 		}else {
-			imageFile = new File(playerOneImage);
+			imageFile = new File(playerTwoImage);
 		}
 		BufferedImage img;
 		try {

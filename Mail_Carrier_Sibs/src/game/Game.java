@@ -41,6 +41,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[4];
+	public Player2 playerTwo;
 	private Container contentPane;
 	private Timer timer = new Timer();
 	
@@ -71,7 +72,11 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		screen.setBlockOutline(false);
 		
 		movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE);
+		movables[1] = new Player2(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE);
 		players[0] = (Player) movables[0];
+		playerTwo = (Player2) movables[1];
+		
+
 		
 		for(int i = 0; i < movables.length; i ++) {
 			if(movables[i] != null) {
@@ -80,6 +85,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		}
 		
 		gameFrame.addKeyListener(players[0]);
+		gameFrame.addKeyListener(playerTwo);
 		
 		timer.schedule(this, 0, TIME_STEP);
 		gameIsReady = true;
