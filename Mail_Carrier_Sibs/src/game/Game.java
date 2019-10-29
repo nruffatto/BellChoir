@@ -40,7 +40,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[4];
-	public Player2 playerTwo;
 	private Container contentPane;
 	private Timer timer = new Timer();
 	
@@ -71,6 +70,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 		movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 0);
 		movables[1] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 1);
+		movables[2] = new Package((int) 0.25 * DEFAULT_BLOCK_SIZE, (int) Math.floor(0.25 * DEFAULT_BLOCK_SIZE));
 		players[0] = (Player) movables[0];
 		players[1] = (Player) movables[1];
 		
