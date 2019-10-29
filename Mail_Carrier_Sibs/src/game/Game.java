@@ -50,9 +50,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public Game() {
 		gameIsReady = false;
 		gameFrame = new JFrame("Map game");
-		gameFrame.setLocation(0, 0);
-		gameFrame.setSize(800,
-				800 + 30);
+		gameFrame.setSize(1280, 720);
+		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = gameFrame.getContentPane();
 		contentPane.setLayout(new BorderLayout());
@@ -70,10 +69,10 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		screen.setMapOutline(false);
 		screen.setBlockOutline(false);
 		
-		movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE);
-		movables[1] = new Player2(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE);
+		movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 0);
+		movables[1] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 1);
 		players[0] = (Player) movables[0];
-		playerTwo = (Player2) movables[1];
+		players[1] = (Player) movables[1];
 		
 
 		
@@ -84,7 +83,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		}
 		
 		gameFrame.addKeyListener(players[0]);
-		gameFrame.addKeyListener(playerTwo);
+		gameFrame.addKeyListener(players[1]);
 		
 		timer.schedule(this, 0, TIME_STEP);
 		gameIsReady = true;

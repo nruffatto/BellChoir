@@ -30,14 +30,13 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	private Game game;
 	
 	protected boolean isInAir;
-	protected String playerOneImage;
-	protected String playerTwoImage;
+	protected String[] playerImages = new String[4];
 	public Movable(int x, int y) {
 		rec = new Rectangle(x, y, HITBOX_WIDTH, (int)(HITBOX_WIDTH * HITBOX_RATIO));//(int)(HITBOX_WIDTH * HITBOX_RATIO)
 		accY = 2;
 		
-		playerOneImage = "Sprites/mailman1.png";
-		playerTwoImage = "Sprites/mailman2.png";
+		playerImages[0] = "Sprites/mailman1.png";
+		playerImages[1] = "Sprites/mailman2.png";
 		updatePastRec();
 	}
 	
@@ -135,7 +134,7 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	}
 	
 	public Image getImage() {
-		File imageFile = new File(playerOneImage);
+		File imageFile = new File("Sprites/error.png");
 		BufferedImage img;
 		try {
 			img = ImageIO.read(imageFile);

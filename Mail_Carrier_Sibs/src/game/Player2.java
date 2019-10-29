@@ -125,7 +125,7 @@ public class Player2 extends Movable implements MouseListener, KeyListener{
 		if(isCrouched) {
 			imageFile = new File(crouchImageName);
 		}else {
-			imageFile = new File(playerTwoImage);
+			imageFile = new File(playerImages[1]);
 		}
 		BufferedImage img;
 		try {

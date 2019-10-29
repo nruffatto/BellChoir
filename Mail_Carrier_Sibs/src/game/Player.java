@@ -17,9 +17,16 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	private int jumpingSpeed = 25;
 	private double crouchScale = 0.5;
 	
+	private int left;
+	private int right;
+	private int up;
+	private int down;
+	
+	protected int playerNumber;
+	
 	private boolean isCrouched = false;
 	
-	private String crouchImageName = "Sprites/mailmancrouch1.png";
+	private String[] crouchImages = {"Sprites/mailmancrouch1.png","Sprites/mailmancrouch2.png"};
 	
 	
 	
@@ -27,8 +34,27 @@ public class Player extends Movable implements MouseListener, KeyListener{
  * get with KeyEvent.VK_<whatever key you want> like VK_A, VK_W, or VK_S
  */
 	
-	public Player(int x, int y) {
+	public Player(int x, int y, int playerNumber) {
 		super(x, y);
+		this.playerNumber = playerNumber;
+	}
+	
+	public void getControls() {
+		switch (playerNumber) {
+			case 0:
+				left = KeyEvent.VK_A;
+				right = KeyEvent.VK_D;
+				up = KeyEvent.VK_W;
+				down = KeyEvent.VK_S;
+				break;
+			case 1: 
+				left = KeyEvent.VK_LEFT;
+				right = KeyEvent.VK_RIGHT;
+				up = KeyEvent.VK_UP;
+				down = KeyEvent.VK_DOWN;
+				break;
+			default: break;
+		}
 	}
 	
 	@Override
@@ -57,20 +83,21 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_A) {
+		getControls();
+		if(e.getKeyCode() == left) {
 				velX = -speed;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_D) {
+		if(e.getKeyCode() == right) {
 				velX = speed;
 		}
-		if(e.getKeyCode() == KeyEvent.VK_W) {
+		if(e.getKeyCode() == up) {
 			
 			if (!isInAir) {
 				isInAir = true;
 				velY = - jumpingSpeed;
 			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_S) {
+		if(e.getKeyCode() == down) {
 			if(!isCrouched) {
 				crouch();
 				isCrouched = true;
@@ -80,19 +107,20 @@ public class Player extends Movable implements MouseListener, KeyListener{
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_A) {
+		getControls();
+		if(e.getKeyCode() == left) {
 			if(velX < 0) {
 				velX = 0;
 			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_D) {
+		if(e.getKeyCode() == right) {
 			if(velX > 0) {
 				velX = 0;
 			}
 		}
-		if(e.getKeyCode() == KeyEvent.VK_S) {
-			unCrouch();
-			isCrouched = false;
+		if(e.getKeyCode() == down) {
+				unCrouch();
+				isCrouched = false;
 		}
 	}
 
@@ -123,9 +151,9 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	public Image getImage() {
 		File imageFile;
 		if(isCrouched) {
-			imageFile = new File(crouchImageName);
+			imageFile = new File(crouchImages[playerNumber]);
 		}else {
-			imageFile = new File(playerOneImage);
+			imageFile = new File(playerImages[playerNumber]);
 		}
 		BufferedImage img;
 		try {

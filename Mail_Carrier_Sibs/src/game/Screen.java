@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 
 public class Screen extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 5;
+	public static final int RENDER_WIDTH = 12;
 	public static final int RENDER_HEIGHT = 10;
 	
 	//Zoom Levels
@@ -63,7 +63,7 @@ public class Screen extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		currentScale = (double) len / startingLength;
-		File imageFile = new File("spaceBackground.jpg");
+		File imageFile = new File("Sprites/sky.png");
 		BufferedImage img;
 		try {
 			img = ImageIO.read(imageFile);
