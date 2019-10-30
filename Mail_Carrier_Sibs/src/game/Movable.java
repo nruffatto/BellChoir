@@ -27,7 +27,7 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	public Rectangle rec;
 	public Rectangle pastRec;
 	
-	private Game game;
+	protected Game game;
 	
 	protected boolean isInAir;
 	protected String[] playerImages = new String[4];

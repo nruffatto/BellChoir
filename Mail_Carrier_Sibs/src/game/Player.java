@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -24,7 +25,9 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	
 	protected int playerNumber;
 	
+	private boolean crouchKeyPressed = false;
 	private boolean isCrouched = false;
+	private boolean isJumping = false;
 	
 	private String[] crouchImages = {"Sprites/mailmancrouch1.png","Sprites/mailmancrouch2.png"};
 	
@@ -45,12 +48,12 @@ public class Player extends Movable implements MouseListener, KeyListener{
 				left = KeyEvent.VK_A;
 				right = KeyEvent.VK_D;
 				up = KeyEvent.VK_W;
-				down = KeyEvent.VK_S;
+				down = KeyEvent.VK_SPACE;
 				break;
 			case 1: 
-				left = KeyEvent.VK_LEFT;
-				right = KeyEvent.VK_RIGHT;
-				up = KeyEvent.VK_UP;
+				left = KeyEvent.VK_NUMPAD4;
+				right = KeyEvent.VK_NUMPAD6;
+				up = KeyEvent.VK_NUMPAD8;
 				down = KeyEvent.VK_DOWN;
 				break;
 			default: break;
@@ -64,7 +67,17 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	}
 	
 	public void updateProperties() {
-		
+		if(isJumping && !isInAir) {
+			isInAir = true;
+			velY = - jumpingSpeed;
+		}
+		if(crouchKeyPressed && !isCrouched) {
+			crouch();
+			isCrouched = true;
+		}else if(!crouchKeyPressed && isCrouched && !checkCollisionCrouch()) {
+			unCrouch();
+			isCrouched = false;
+		}
 	}
 	
 	private void crouch() {
@@ -81,6 +94,23 @@ public class Player extends Movable implements MouseListener, KeyListener{
 		startPoint.y -= crouchDist;
 	}
 	
+	private boolean checkCollisionCrouch() {
+		boolean collision = false;
+		unCrouch();
+		Point[] points = getPoints();
+		Point[] pastPoints = getPastPoints();
+		for(int i = 0; i < points.length; i ++) {
+			if(game.map.contains(new Point(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength))) {
+				if(game.map.getBlock(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength) != null) {
+					collision = true;
+					break;
+				}
+			}
+		}
+		crouch();
+		return collision;
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		getControls();
@@ -91,17 +121,10 @@ public class Player extends Movable implements MouseListener, KeyListener{
 				velX = speed;
 		}
 		if(e.getKeyCode() == up) {
-			
-			if (!isInAir) {
-				isInAir = true;
-				velY = - jumpingSpeed;
-			}
+			isJumping = true;
 		}
 		if(e.getKeyCode() == down) {
-			if(!isCrouched) {
-				crouch();
-				isCrouched = true;
-			}
+			crouchKeyPressed = true;
 		}
 	}
 
@@ -118,9 +141,11 @@ public class Player extends Movable implements MouseListener, KeyListener{
 				velX = 0;
 			}
 		}
+		if(e.getKeyCode() == up) {
+			isJumping = false;
+		}
 		if(e.getKeyCode() == down) {
-				unCrouch();
-				isCrouched = false;
+			crouchKeyPressed = false;
 		}
 	}
 
