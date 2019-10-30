@@ -32,6 +32,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 
 	public static final int DEFAULT_BLOCK_SIZE = 64;
 	public static final int TIME_STEP = 30;
+	public static final int PACKAGE_INDEX = 2;
 	
 	private JFrame gameFrame;
 	public Map map = new Map(1, 1);
@@ -39,6 +40,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[4];
+	public Package[] packages = new Package[1];
 	private Container contentPane;
 	private Timer timer = new Timer();
 	
@@ -69,11 +71,12 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 		movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 0);
 		movables[1] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 1);
+		movables[PACKAGE_INDEX] = new Package(6 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE);
 		//movables[2] = new Package(DEFAULT_BLOCK_SIZE, DEFAULT_BLOCK_SIZE);
 		players[0] = (Player) movables[0];
 		players[1] = (Player) movables[1];
 		
-
+		packages[0] = (Package)movables[PACKAGE_INDEX];
 		
 		for(int i = 0; i < movables.length; i ++) {
 			if(movables[i] != null) {

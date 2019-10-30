@@ -13,12 +13,12 @@ import javax.imageio.ImageIO;
 
 public class Movable { // 38, 6, 69, 129   image: 138, 135
 	
-	public static final int HITBOX_WIDTH = 50;
-	public static final double HITBOX_RATIO = 127.0 / 60.0;
-	public static final double IMAGE_SCALE = HITBOX_WIDTH / 60.0;
+	public int HITBOX_WIDTH = 50;
+	public double HITBOX_RATIO = 127.0 / 60.0;
+	public double IMAGE_SCALE = HITBOX_WIDTH / 60.0;
 	public Point startPoint = new Point((int)(38 * IMAGE_SCALE),(int)(7 * IMAGE_SCALE));
-	public static final int IMAGE_WIDTH = (int)(138 * IMAGE_SCALE);// * IMAGE_SCALE
-	public static final int IMAGE_HEIGHT = (int)(135 * IMAGE_SCALE);
+	public int IMAGE_WIDTH = (int)(138 * IMAGE_SCALE);// * IMAGE_SCALE
+	public int IMAGE_HEIGHT = (int)(135 * IMAGE_SCALE);
 	
 	protected double accX;
 	protected double accY;
@@ -77,13 +77,14 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 						rec.x += Screen.startingLength - points[i].x % Screen.startingLength + 7;
 //						System.out.println("X2");
 					}
+					velX = 0;
 					break;
 				}
 			}
 		}
 	}
 	
-	private void checkCollisionY() {
+	protected void checkCollisionY() {
 		isInAir = true;
 		Point[] points = getPoints();
 		Point[] pastPoints = getPastPoints();
@@ -105,6 +106,25 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 				}
 			}
 		}
+	}
+	
+	public boolean isTouching(Movable m) {
+		boolean isTouching = false;
+		Point[] points1 = getPoints();
+		Point[] points2 = m.getPoints();
+		for(int i = 0; i < points1.length; i ++) {
+			if(m.rec.contains(points1[i])){
+				isTouching = true;
+				break;
+			}
+		}
+		for(int i = 0; i < points1.length; i ++) {
+			if(m.rec.contains(points1[i])){
+				isTouching = true;
+				break;
+			}
+		}
+		return isTouching;
 	}
 	
 	public Point[] getPoints() {

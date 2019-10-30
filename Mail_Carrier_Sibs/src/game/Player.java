@@ -2,6 +2,7 @@ package game;
 
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -25,6 +26,9 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	
 	protected int playerNumber;
 	
+	private boolean leftKeyPressed = false;
+	private boolean rightKeyPressed = false;
+	
 	private boolean crouchKeyPressed = false;
 	private boolean isCrouched = false;
 	private boolean isJumping = false;
@@ -39,6 +43,13 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	
 	public Player(int x, int y, int playerNumber) {
 		super(x, y);
+		HITBOX_WIDTH = 50;
+		HITBOX_RATIO = 127.0 / 60.0;
+		IMAGE_SCALE = HITBOX_WIDTH / 60.0;
+		startPoint = new Point((int)(38 * IMAGE_SCALE),(int)(7 * IMAGE_SCALE));
+		IMAGE_WIDTH = (int)(138 * IMAGE_SCALE);// * IMAGE_SCALE
+		IMAGE_HEIGHT = (int)(135 * IMAGE_SCALE);
+		rec = new Rectangle(x, y, HITBOX_WIDTH, (int)(HITBOX_WIDTH * HITBOX_RATIO));
 		this.playerNumber = playerNumber;
 	}
 	
@@ -78,6 +89,16 @@ public class Player extends Movable implements MouseListener, KeyListener{
 			unCrouch();
 			isCrouched = false;
 		}
+		if(isTouching(game.movables[game.PACKAGE_INDEX])) {
+			game.packages[0].setHolder(this);
+		}
+		if(leftKeyPressed && !rightKeyPressed) {
+			velX = -speed;
+		}else if(!leftKeyPressed && rightKeyPressed) {
+			velX = speed;
+		}else {
+			velX = 0;
+		}
 	}
 	
 	private void crouch() {
@@ -115,10 +136,10 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	public void keyPressed(KeyEvent e) {
 		getControls();
 		if(e.getKeyCode() == left) {
-				velX = -speed;
+				leftKeyPressed = true;
 		}
 		if(e.getKeyCode() == right) {
-				velX = speed;
+				rightKeyPressed = true;
 		}
 		if(e.getKeyCode() == up) {
 			isJumping = true;
@@ -132,14 +153,10 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	public void keyReleased(KeyEvent e) {
 		getControls();
 		if(e.getKeyCode() == left) {
-			if(velX < 0) {
-				velX = 0;
-			}
+			leftKeyPressed = false;
 		}
 		if(e.getKeyCode() == right) {
-			if(velX > 0) {
-				velX = 0;
-			}
+			rightKeyPressed = false;
 		}
 		if(e.getKeyCode() == up) {
 			isJumping = false;

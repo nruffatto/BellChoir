@@ -68,7 +68,7 @@ public class Screen extends JPanel{
 		try {
 			img = ImageIO.read(imageFile);
 			g.drawImage(img, (int)(pos.x * (currentScale / 2)),
-					(int)(pos.y * (currentScale / 2)),
+					(int)(pos.y * (currentScale / 2) - 300),
 					(int)(3200 * currentScale),
 					(int)(1200 * currentScale), this);
 		} catch (IOException e) {
