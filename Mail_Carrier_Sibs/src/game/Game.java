@@ -70,7 +70,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 		movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 0);
 		movables[1] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 1);
-		movables[2] = new Package((int) 0.25 * DEFAULT_BLOCK_SIZE, (int) Math.floor(0.25 * DEFAULT_BLOCK_SIZE));
+		//movables[2] = new Package(DEFAULT_BLOCK_SIZE, DEFAULT_BLOCK_SIZE);
 		players[0] = (Player) movables[0];
 		players[1] = (Player) movables[1];
 		
