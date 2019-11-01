@@ -86,6 +86,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 		gameFrame.addKeyListener(players[0]);
 		gameFrame.addKeyListener(players[1]);
+		gameFrame.addMouseListener(packages[0]);
 		
 		timer.schedule(this, 0, TIME_STEP);
 		gameIsReady = true;

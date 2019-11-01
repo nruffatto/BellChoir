@@ -3,13 +3,15 @@ package game;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Package extends Movable {
+public class Package extends Movable implements MouseListener {
 	
 //	public static final int HITBOX_WIDTH = 69;
 //	public static final double HITBOX_RATIO = 56.0 / 69.0;
@@ -36,11 +38,13 @@ public class Package extends Movable {
 		if(m != lastHolder) {
 			holder = m;
 			lastHolder = m;
+			System.out.println("add");
 		}
 	}
 	
 	public void removeHolder() {
 		holder = null;
+		System.out.println("remove");
 	}
 	
 	@Override
@@ -89,6 +93,36 @@ public class Package extends Movable {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		if(holder != null) {
+			removeHolder();
+			System.out.println("test");
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
