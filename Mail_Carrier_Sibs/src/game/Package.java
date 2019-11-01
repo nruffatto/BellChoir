@@ -18,7 +18,7 @@ public class Package extends Movable {
 //	public static final int IMAGE_WIDTH = (int)(69 * IMAGE_SCALE);// * IMAGE_SCALE
 //	public static final int IMAGE_HEIGHT = (int)(56 * IMAGE_SCALE);
 	
-	private Movable holder;
+	public Movable holder;
 	private Movable lastHolder;
 
 	public Package(int x, int y) {
@@ -41,6 +41,12 @@ public class Package extends Movable {
 	
 	public void removeHolder() {
 		holder = null;
+	}
+	
+	public void getThrown(int x, int y) {
+		velX = x;
+		velY = y;
+		removeHolder();
 	}
 	
 	@Override

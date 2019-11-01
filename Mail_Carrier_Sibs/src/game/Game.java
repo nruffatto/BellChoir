@@ -39,7 +39,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	private String[] mapList = {"mappy.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
-	public Player[] players = new Player[4];
+	public Player[] players = new Player[2];
 	public Package[] packages = new Package[1];
 	private Container contentPane;
 	private Timer timer = new Timer();
@@ -83,9 +83,11 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 				movables[i].addGame(this);
 			}
 		}
-		
-		gameFrame.addKeyListener(players[0]);
-		gameFrame.addKeyListener(players[1]);
+
+		for(int i = 0; i < players.length; i ++) {
+			gameFrame.addKeyListener(players[i]);
+			gameFrame.addMouseListener(players[i]);
+		}
 		
 		timer.schedule(this, 0, TIME_STEP);
 		gameIsReady = true;
