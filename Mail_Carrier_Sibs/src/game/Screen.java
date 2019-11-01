@@ -119,13 +119,15 @@ public class Screen extends JPanel{
 			if(movables[i] != null) {
 				Image img = movables[i].getImage();
 				if(imagesOn) {
-					g.drawImage(
-							img,
-							(int)((movables[i].rec.x - movables[i].startPoint.x) * currentScale + pos.x),
-							(int)((movables[i].rec.y - movables[i].startPoint.y) * currentScale + pos.y),
-							(int)(movables[i].IMAGE_WIDTH * currentScale),
-							(int)(movables[i].IMAGE_HEIGHT * currentScale),
-							this);
+					if (movables[i].isVisible) {
+						g.drawImage(
+								img,
+								(int)((movables[i].rec.x - movables[i].startPoint.x) * currentScale + pos.x),
+								(int)((movables[i].rec.y - movables[i].startPoint.y) * currentScale + pos.y),
+								(int)(movables[i].IMAGE_WIDTH * currentScale),
+								(int)(movables[i].IMAGE_HEIGHT * currentScale),
+								this);
+					}
 				}
 				if(hitBoxesOn) {
 					g.setColor(Color.BLUE);

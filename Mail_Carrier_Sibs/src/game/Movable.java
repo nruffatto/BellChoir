@@ -20,6 +20,8 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	public int IMAGE_WIDTH = (int)(138 * IMAGE_SCALE);// * IMAGE_SCALE
 	public int IMAGE_HEIGHT = (int)(135 * IMAGE_SCALE);
 	
+	public boolean isVisible = true;
+	
 	protected double accX;
 	protected double accY;
 	protected double velX;
@@ -30,6 +32,7 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	protected Game game;
 	
 	protected boolean isInAir;
+	
 	protected String[] playerImages = new String[4];
 	protected String PackageImage = "Sprites/package.png";
 	public Movable(int x, int y) {

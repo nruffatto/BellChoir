@@ -22,6 +22,8 @@ public class Package extends Movable implements MouseListener {
 	
 	private Movable holder;
 	private Movable lastHolder;
+	
+	public double accel = 0.1;
 
 	public Package(int x, int y) {
 		super(x, y);
@@ -38,13 +40,21 @@ public class Package extends Movable implements MouseListener {
 		if(m != lastHolder) {
 			holder = m;
 			lastHolder = m;
-			System.out.println("add");
+			this.isVisible = false;
 		}
 	}
 	
 	public void removeHolder() {
 		holder = null;
-		System.out.println("remove");
+		this.isVisible = true;
+	}
+	
+	public void throwPackage(MouseEvent e) {
+	    double mouseX=e.getX();
+	    double mouseY=e.getY();
+	    double xDistance = mouseX - rec.x;
+	    velX = holder.velX + 10;
+	    velY = -20; 
 	}
 	
 	@Override
@@ -67,7 +77,7 @@ public class Package extends Movable implements MouseListener {
 					lastHolder = null;
 					if(points[i].y > pastPoints[i].y) {//points[i].y > pastPoints[i].y
 						rec.y -= points[i].y % Screen.startingLength + 1;
-						isInAir = false;
+						velX = 0;
 //						System.out.println(points[i].y % Screen.startingLength + 1);
 					}else if(points[i].y < pastPoints[i].y){//if(points[i].y < pastPoints[i].y)
 						rec.y += Screen.startingLength - points[i].y % Screen.startingLength + 1;
@@ -96,31 +106,31 @@ public class Package extends Movable implements MouseListener {
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent e) {
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
+	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
+	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
+	public void mousePressed(MouseEvent e) {
 		if(holder != null) {
+			throwPackage(e);
 			removeHolder();
-			System.out.println("test");
 		}
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
+	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
