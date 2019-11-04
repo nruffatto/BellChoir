@@ -108,7 +108,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			gameFrame.revalidate();
 			gameFrame.repaint();
 			screen.pos.setLocation(-players[0].rec.x * screen.currentScale + gameFrame.getWidth() / 2,
-					-players[0].rec.y * screen.currentScale + gameFrame.getHeight() / 2);
+					-players[0].rec.y * screen.currentScale + gameFrame.getHeight() / 1.5);
 		}
 	}
 	

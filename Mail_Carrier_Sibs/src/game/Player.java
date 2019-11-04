@@ -134,9 +134,19 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	}
 	
 	public void throwPackage(int x, int y) {
+		double vY;
+		double vX;
+		if(y > 0) {
+			vY = y * .1;
+			vX = x * .1;
+		}else {
+			vY = -Math.sqrt(-2 * accY * y);
+			double t = - (2 * vY) / accY;
+			vX = x / t;
+		}
 		game.packages[0].getThrown(
-				(int)(x * throwingPower),
-				(int)(y * throwingPower)
+				(int)(vX),
+				(int)(vY)
 				);
 	}
 	
@@ -182,8 +192,8 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	public void mouseClicked(MouseEvent e) {
 		if(game.packages[0].holder == this) {
 			throwPackage(
-					(int)(e.getX() / game.screen.currentScale - game.screen.pos.x) - this.rec.x, 
-					(int)(e.getY() / game.screen.currentScale - game.screen.pos.y) - this.rec.y
+					(int)((e.getX() / game.screen.currentScale - game.screen.pos.x) - this.rec.getCenterX()), 
+					(int)((e.getY() / game.screen.currentScale - game.screen.pos.y) - this.rec.getCenterY())
 					);
 		}
 	}

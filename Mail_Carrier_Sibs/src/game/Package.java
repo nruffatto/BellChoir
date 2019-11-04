@@ -20,6 +20,7 @@ public class Package extends Movable {
 	
 	public Movable holder;
 	private Movable lastHolder;
+	
 
 	public Package(int x, int y) {
 		super(x, y);
@@ -78,6 +79,7 @@ public class Package extends Movable {
 //						System.out.println("same");
 					}
 					velY = 0;
+					velX = 0;
 					break;
 				}
 			}
