@@ -50,11 +50,10 @@ public class Package extends Movable implements MouseListener {
 	}
 	
 	public void throwPackage(MouseEvent e) {
-	    double mouseX=e.getX();
-	    double mouseY=e.getY();
-	    double xDistance = mouseX - rec.x;
-	    velX = holder.velX + 10;
-	    velY = -20; 
+	    double distanceX = (e.getX()/game.screen.currentScale - game.screen.pos.x) - rec.getCenterX();
+	    double distanceY= (e.getY()/game.screen.currentScale - game.screen.pos.y) - rec.getCenterY(); 
+	    velX = 10;
+	    velY = (distanceY+Math.pow((distanceX/10), 2))/Math.pow((distanceX/10), 2); 
 	}
 	
 	@Override
