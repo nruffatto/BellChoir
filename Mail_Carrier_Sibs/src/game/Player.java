@@ -137,14 +137,16 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	public void throwPackage(int x, int y) {
 		double vY;
 		double vX;
-		if(y > 0) {
-			vY = y * .1;
-			vX = x * .1;
-		}else {
-			vY = -Math.sqrt(-2 * accY * y);
-			double t = - (2 * vY) / accY;
-			vX = x / t;
-		}
+		vY = throwingPower * y;
+		vX = throwingPower * x;
+//		if(y > 0) {
+//			vY = y * .1;
+//			vX = x * .1;
+//		}else {
+//			vY = -Math.sqrt(-2 * accY * y);
+//			double t = - (2 * vY) / accY;
+//			vX = x / t;
+//		}
 		game.packages[0].getThrown(
 				(int)(vX),
 				(int)(vY)
