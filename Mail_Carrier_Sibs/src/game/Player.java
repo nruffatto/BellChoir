@@ -18,6 +18,7 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	private int speed = 10;
 	private int jumpingSpeed = 25;
 	private double crouchScale = 0.5;
+	private double throwingPower = 0.1;
 	
 	private int left;
 	private int right;
@@ -63,9 +64,9 @@ public class Player extends Movable implements MouseListener, KeyListener{
 				down = KeyEvent.VK_SPACE;
 				break;
 			case 1: 
-				left = KeyEvent.VK_NUMPAD4;
-				right = KeyEvent.VK_NUMPAD6;
-				up = KeyEvent.VK_NUMPAD8;
+				left = KeyEvent.VK_LEFT;
+				right = KeyEvent.VK_RIGHT;
+				up = KeyEvent.VK_UP;
 				down = KeyEvent.VK_DOWN;
 				break;
 			default: break;
@@ -133,6 +134,23 @@ public class Player extends Movable implements MouseListener, KeyListener{
 		return collision;
 	}
 	
+	public void throwPackage(int x, int y) {
+		double vY;
+		double vX;
+		if(y > 0) {
+			vY = y * .1;
+			vX = x * .1;
+		}else {
+			vY = -Math.sqrt(-2 * accY * y);
+			double t = - (2 * vY) / accY;
+			vX = x / t;
+		}
+		game.packages[0].getThrown(
+				(int)(vX),
+				(int)(vY)
+				);
+	}
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		getControls();
@@ -175,6 +193,12 @@ public class Player extends Movable implements MouseListener, KeyListener{
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		if(game.packages[0].holder == this) {
+			throwPackage(
+					(int)((e.getX() / game.screen.currentScale - game.screen.pos.x) - this.rec.getCenterX()), 
+					(int)((e.getY() / game.screen.currentScale - game.screen.pos.y) - this.rec.getCenterY())
+					);
+		}
 	}
 
 	@Override

@@ -24,8 +24,12 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	protected double accY;
 	protected double velX;
 	protected double velY;
+	private int maxVelX = 50;
+	private int maxVelY = 30;
 	public Rectangle rec;
 	public Rectangle pastRec;
+	
+	public boolean isVisible = true;
 	
 	protected Game game;
 	
@@ -56,11 +60,21 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	
 	private void moveX() {
 		velX += accX;
+		if(velX > maxVelX) {
+			velX = maxVelX;
+		}else if(velX < -maxVelX) {
+			velX = -maxVelX;
+		}
 		rec.x += velX;
 	}
 	
 	private void moveY() {
 		velY += accY;
+		if(velY > maxVelY) {
+			velY = maxVelY;
+		}else if(velY < -maxVelY) {
+			velY = -maxVelY;
+		}
 		rec.y += velY;
 	}
 	
@@ -102,6 +116,7 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 //						System.out.println("same");
 					}
 					velY = 0;
+					velX = 0;
 					break;
 				}
 			}
