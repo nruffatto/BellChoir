@@ -32,7 +32,8 @@ public class Player extends Movable implements MouseListener, KeyListener{
 	private boolean crouchKeyPressed = false;
 	private boolean isCrouched = false;
 	private boolean isJumping = false;
-	
+	public boolean isFacingLeft;
+
 	private String[] crouchImages = {"Sprites/mailmancrouch1.png","Sprites/mailmancrouch2.png"};
 	
 	
@@ -137,9 +138,11 @@ public class Player extends Movable implements MouseListener, KeyListener{
 		getControls();
 		if(e.getKeyCode() == left) {
 				leftKeyPressed = true;
+				isFacingLeft = true;
 		}
 		if(e.getKeyCode() == right) {
 				rightKeyPressed = true;
+				isFacingLeft = false;
 		}
 		if(e.getKeyCode() == up) {
 			isJumping = true;
