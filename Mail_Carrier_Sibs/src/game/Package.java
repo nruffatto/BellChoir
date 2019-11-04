@@ -3,13 +3,15 @@ package game;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Package extends Movable {
+public class Package extends Movable implements MouseListener {
 	
 //	public static final int HITBOX_WIDTH = 69;
 //	public static final double HITBOX_RATIO = 56.0 / 69.0;
@@ -20,7 +22,6 @@ public class Package extends Movable {
 	
 	public Movable holder;
 	private Movable lastHolder;
-	
 
 	public Package(int x, int y) {
 		super(x, y);
@@ -37,11 +38,21 @@ public class Package extends Movable {
 		if(m != lastHolder) {
 			holder = m;
 			lastHolder = m;
+			this.isVisible = false;
 		}
 	}
 	
 	public void removeHolder() {
 		holder = null;
+		this.isVisible = true;
+	}
+	
+	public void throwPackage(MouseEvent e) {
+	    double distanceX = ((e.getX()/game.screen.currentScale - game.screen.pos.x) - rec.getCenterX());
+	    double distanceY= ((e.getY()/game.screen.currentScale - game.screen.pos.y) - rec.getCenterY());
+	    System.out.println(distanceX);
+	    velX = distanceX/15;
+	    velY = (distanceY-225)/15; 
 	}
 	
 	public void getThrown(int x, int y) {
@@ -70,7 +81,7 @@ public class Package extends Movable {
 					lastHolder = null;
 					if(points[i].y > pastPoints[i].y) {//points[i].y > pastPoints[i].y
 						rec.y -= points[i].y % Screen.startingLength + 1;
-						isInAir = false;
+						velX = 0;
 //						System.out.println(points[i].y % Screen.startingLength + 1);
 					}else if(points[i].y < pastPoints[i].y){//if(points[i].y < pastPoints[i].y)
 						rec.y += Screen.startingLength - points[i].y % Screen.startingLength + 1;
@@ -97,6 +108,36 @@ public class Package extends Movable {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if(holder != null) {
+			throwPackage(e);
+			removeHolder();
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
