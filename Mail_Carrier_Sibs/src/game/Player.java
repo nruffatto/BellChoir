@@ -35,6 +35,8 @@ public class Player extends Movable implements KeyListener{
 	public boolean isFacingLeft;
 
 	private String[] crouchImages = {"Sprites/mailmancrouch1.png","Sprites/mailmancrouch2.png"};
+	private String[] packageImages = {"Sprites/packagerun1.png","Sprites/packagerun2.png"};
+	
 	
 	
 	
@@ -60,7 +62,7 @@ public class Player extends Movable implements KeyListener{
 				left = KeyEvent.VK_A;
 				right = KeyEvent.VK_D;
 				up = KeyEvent.VK_W;
-				down = KeyEvent.VK_SPACE;
+				down = KeyEvent.VK_S;
 				break;
 			case 1: 
 				left = KeyEvent.VK_LEFT;
@@ -178,7 +180,9 @@ public class Player extends Movable implements KeyListener{
 		File imageFile;
 		if(isCrouched) {
 			imageFile = new File(crouchImages[playerNumber]);
-		}else {
+		}else if(game.packages[0].holder == this){
+			imageFile = new File(packageImages[playerNumber]);
+		}else{
 			imageFile = new File(playerImages[playerNumber]);
 		}
 		BufferedImage img;
