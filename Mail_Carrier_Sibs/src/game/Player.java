@@ -92,7 +92,7 @@ public class Player extends Movable implements KeyListener{
 			unCrouch();
 			isCrouched = false;
 		}
-		if(isTouching(game.movables[game.PACKAGE_INDEX])) {
+		if(game.packages[0].holder == null && isTouching(game.packages[0])) {
 			game.packages[0].setHolder(this);
 		}
 		if(leftKeyPressed && !rightKeyPressed) {

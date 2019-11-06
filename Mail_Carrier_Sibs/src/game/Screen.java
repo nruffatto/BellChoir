@@ -7,6 +7,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -40,6 +41,7 @@ public class Screen extends JPanel{
 	private int pastLen;
 	public Map map;
 	private Movable[] movables;
+//	private ArrayList<Movable> targets = new ArrayList<>();
 	
 	private int mouseX = 0;
 	private int mouseY = 0;
@@ -68,14 +70,14 @@ public class Screen extends JPanel{
 		try {
 			img = ImageIO.read(imageFile);
 			g.drawImage(img, (int)(pos.x * (currentScale / 2)),
-					(int)(pos.y * (currentScale / 2) - 300),
+					(int)(pos.y * (currentScale / 2) - 100),
 					(int)(3200 * currentScale),
 					(int)(1200 * currentScale), this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		for(int i = movables[0].rec.x / 64 - RENDER_WIDTH; i < movables[0].rec.x / 64 + RENDER_WIDTH; i ++) {
-			for(int j = movables[0].rec.y / 64 + RENDER_HEIGHT; j > movables[0].rec.y / 64 - RENDER_HEIGHT; j --) {
+		for(int i = movables[Game.PACKAGE_INDEX].rec.x / 64 - RENDER_WIDTH; i < movables[Game.PACKAGE_INDEX].rec.x / 64 + RENDER_WIDTH; i ++) {
+			for(int j = movables[Game.PACKAGE_INDEX].rec.y / 64 + RENDER_HEIGHT; j > movables[Game.PACKAGE_INDEX].rec.y / 64 - RENDER_HEIGHT; j --) {
 				if(i >= 0 && i < map.getWidth() && 
 						j >= 0 && j < map.getHeight() &&
 						map.getBlock(i, j) != null) {
@@ -93,6 +95,13 @@ public class Screen extends JPanel{
 			g.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len);
 		} // mouse area
 	}
+//	
+//	public void addTarget(Movable m) {
+//	}
+//	
+//	private void target() {
+//		
+//	}
 	
 	private void drawBlock(Graphics g, Block block, int x, int y) {
 		File imageFile = new File(block.getImageFileName());
