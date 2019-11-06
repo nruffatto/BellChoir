@@ -20,8 +20,8 @@ public class Package extends Movable implements MouseListener {
 //	public static final int IMAGE_WIDTH = (int)(69 * IMAGE_SCALE);// * IMAGE_SCALE
 //	public static final int IMAGE_HEIGHT = (int)(56 * IMAGE_SCALE);
 	
-	public Movable holder;
-	private Movable lastHolder;
+	public Player holder;
+	private Player lastHolder;
 
 	public Package(int x, int y) {
 		super(x, y);
@@ -34,7 +34,7 @@ public class Package extends Movable implements MouseListener {
 		rec = new Rectangle(x, y, HITBOX_WIDTH, (int)(HITBOX_WIDTH * HITBOX_RATIO));
 	}
 	
-	public void setHolder(Movable m) {
+	public void setHolder(Player m) {
 		if(m != lastHolder) {
 			holder = m;
 			lastHolder = m;
@@ -43,6 +43,7 @@ public class Package extends Movable implements MouseListener {
 	}
 	
 	public void removeHolder() {
+		holder.hasPackage = false;
 		holder = null;
 		this.isVisible = true;
 	}

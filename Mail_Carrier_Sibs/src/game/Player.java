@@ -14,6 +14,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Player extends Movable implements KeyListener{
+	public static final int NUMBER_OF_STATS = 2;
+	public static final int SPEED_INDEX = 0;
+	public static final int JUMP_INDEX = 1;
+	public static final int NORMAL_INDEX = 0;
+	public static final int HAS_PACKAGE_INDEX = 1;
+	private int currentState = NORMAL_INDEX;
+	private int[][] stats = new int[2][NUMBER_OF_STATS];
 	
 	private int speed = 10;
 	private int jumpingSpeed = 25;
@@ -33,6 +40,7 @@ public class Player extends Movable implements KeyListener{
 	private boolean isCrouched = false;
 	private boolean isJumping = false;
 	public boolean isFacingLeft;
+	public boolean hasPackage;
 
 	private String[] crouchImages = {"Sprites/mailmancrouch1.png","Sprites/mailmancrouch2.png"};
 	private String[] packageImages = {"Sprites/packagerun1.png","Sprites/packagerun2.png"};
@@ -54,6 +62,11 @@ public class Player extends Movable implements KeyListener{
 		IMAGE_HEIGHT = (int)(135 * IMAGE_SCALE);
 		rec = new Rectangle(x, y, HITBOX_WIDTH, (int)(HITBOX_WIDTH * HITBOX_RATIO));
 		this.playerNumber = playerNumber;
+
+		stats[NORMAL_INDEX][SPEED_INDEX] = 10;
+		stats[HAS_PACKAGE_INDEX][SPEED_INDEX] = 7;
+		stats[NORMAL_INDEX][JUMP_INDEX] = 25;
+		stats[HAS_PACKAGE_INDEX][JUMP_INDEX] = 20;
 	}
 	
 	public void getControls() {
@@ -81,19 +94,32 @@ public class Player extends Movable implements KeyListener{
 	}
 	
 	public void updateProperties() {
+		if(hasPackage) {
+			currentState = HAS_PACKAGE_INDEX;
+		}else {
+			currentState = NORMAL_INDEX;
+		}
+		speed = stats[currentState][SPEED_INDEX];
+		jumpingSpeed = stats[currentState][JUMP_INDEX];
 		if(isJumping && !isInAir) {
 			isInAir = true;
 			velY = - jumpingSpeed;
 		}
 		if(crouchKeyPressed && !isCrouched) {
-			crouch();
-			isCrouched = true;
+			if(!hasPackage) {
+				crouch();
+				isCrouched = true;
+			}
 		}else if(!crouchKeyPressed && isCrouched && !checkCollisionCrouch()) {
 			unCrouch();
 			isCrouched = false;
 		}
-		if(game.packages[0].holder == null && isTouching(game.packages[0])) {
-			game.packages[0].setHolder(this);
+		if(game.packages[0].holder == null && !isCrouched) {
+			hasPackage = false;
+			if(isTouching(game.packages[0])) {
+				game.packages[0].setHolder(this);
+				hasPackage = true;
+			}
 		}
 		if(leftKeyPressed && !rightKeyPressed) {
 			velX = -speed;
