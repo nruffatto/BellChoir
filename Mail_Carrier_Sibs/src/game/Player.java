@@ -37,6 +37,7 @@ public class Player extends Movable implements KeyListener{
 	private boolean rightKeyPressed = false;
 	
 	private boolean crouchKeyPressed = false;
+	private boolean isRunning = false;
 	private boolean isCrouched = false;
 	private boolean isJumping = false;
 	public boolean isFacingLeft;
@@ -45,6 +46,7 @@ public class Player extends Movable implements KeyListener{
 	private String[] crouchImages = {"Sprites/mailmancrouch1.png","Sprites/mailmancrouch2.png"};
 	private String[] packageImages = {"Sprites/packagerun1.png","Sprites/packagerun2.png"};
 	
+	protected Animation animation = new Animation("Sprites/mailmanrun_8_.png");
 	
 	
 	
@@ -128,6 +130,12 @@ public class Player extends Movable implements KeyListener{
 		}else {
 			velX = 0;
 		}
+		if(isRunning) {
+			animation.currentFrame++;
+			if(animation.currentFrame == animation.frames) {
+				animation.currentFrame = 0;
+			}
+		}
 	}
 	
 	private void crouch() {
@@ -170,6 +178,7 @@ public class Player extends Movable implements KeyListener{
 		}
 		if(e.getKeyCode() == right) {
 				rightKeyPressed = true;
+				isRunning = true;
 				isFacingLeft = false;
 		}
 		if(e.getKeyCode() == up) {
@@ -188,6 +197,7 @@ public class Player extends Movable implements KeyListener{
 		}
 		if(e.getKeyCode() == right) {
 			rightKeyPressed = false;
+			isRunning = false;
 		}
 		if(e.getKeyCode() == up) {
 			isJumping = false;
@@ -212,11 +222,16 @@ public class Player extends Movable implements KeyListener{
 			imageFile = new File(playerImages[playerNumber]);
 		}
 		BufferedImage img;
-		try {
-			img = ImageIO.read(imageFile);
-			return img;
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (isRunning) {
+			return img = animation.images[animation.currentFrame];
+		}
+		else {
+			try {
+				img = ImageIO.read(imageFile);
+				return img;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
