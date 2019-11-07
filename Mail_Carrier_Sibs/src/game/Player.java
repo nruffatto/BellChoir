@@ -18,18 +18,28 @@ public class Player extends Movable implements KeyListener{
 	public static final int SPEED_INDEX = 0;
 	public static final int JUMP_INDEX = 1;
 	public static final int NORMAL_INDEX = 0;
-	public static final int HAS_PACKAGE_INDEX = 1;
-	private int currentState = NORMAL_INDEX;
+	public static final int HAS_PACKAGE_INDEX = 1;	
+	private int packageState = NORMAL_INDEX;
 	private int[][] stats = new int[2][NUMBER_OF_STATS];
+	
+	private static final int IDLE_INDEX = 0;
+	private static final int RUN_INDEX = 1;
+	private static final int PACKAGE_RUN_INDEX = 2;
+	private static final int PACKAGE_IDLE_INDEX = 3;
+	private static final int CROUCH_INDEX = 4;
+	private static final int DEFAULT_INDEX = 5;
 	
 	private int speed = 10;
 	private int jumpingSpeed = 25;
+	private int playerState;
 	private double crouchScale = 0.5;
 	
 	private int left;
 	private int right;
 	private int up;
 	private int down;
+	
+
 	
 	protected int playerNumber;
 	
@@ -40,16 +50,20 @@ public class Player extends Movable implements KeyListener{
 	private boolean isRunning = false;
 	private boolean isCrouched = false;
 	private boolean isJumping = false;
-	public boolean isFacingLeft;
 	public boolean hasPackage;
 
-	private String[] crouchImages = {"Sprites/mailmancrouch1.png","Sprites/mailmancrouch2.png"};
-	private String[] packageImages = {"Sprites/packagerun1.png","Sprites/packagerun2.png"};
+	private Animation[][] playerImages = {
+			{},
+			{
+				new Animation("Sprites/mailman2idle_8_.png"),
+				new Animation("Sprites/mailman2run_8_.png"),
+				new Animation("Sprites/mailman2boxrun_16_.png"),
+				new Animation("Sprites/mailman2boxidle_1_.png"),
+				new Animation("Sprites/mailman2crouch_1_.png"), 
+				new Animation("Sprites/mailman2_1_.png")}
+	};
 	
-	protected Animation animation = new Animation("Sprites/mailmanrun_8_.png");
-	
-	
-	
+
 /* }>Key Codes<{
  * get with KeyEvent.VK_<whatever key you want> like VK_A, VK_W, or VK_S
  */
@@ -97,12 +111,16 @@ public class Player extends Movable implements KeyListener{
 	
 	public void updateProperties() {
 		if(hasPackage) {
-			currentState = HAS_PACKAGE_INDEX;
+			packageState = HAS_PACKAGE_INDEX;
+			playerState = PACKAGE_IDLE_INDEX;
 		}else {
-			currentState = NORMAL_INDEX;
+			packageState = NORMAL_INDEX;
+			if(!isCrouched) {
+				playerState = IDLE_INDEX;
+			}
 		}
-		speed = stats[currentState][SPEED_INDEX];
-		jumpingSpeed = stats[currentState][JUMP_INDEX];
+		speed = stats[packageState][SPEED_INDEX];
+		jumpingSpeed = stats[packageState][JUMP_INDEX];
 		if(isJumping && !isInAir) {
 			isInAir = true;
 			velY = - jumpingSpeed;
@@ -125,16 +143,32 @@ public class Player extends Movable implements KeyListener{
 		}
 		if(leftKeyPressed && !rightKeyPressed) {
 			velX = -speed;
+			if(!isCrouched) {
+				if (hasPackage) {
+					playerState = PACKAGE_RUN_INDEX;
+				}else {
+					playerState = RUN_INDEX;
+				}
+			}
+			
 		}else if(!leftKeyPressed && rightKeyPressed) {
 			velX = speed;
+			if(!isCrouched) {
+				if (hasPackage) {
+					playerState = PACKAGE_RUN_INDEX;
+				}else {
+					playerState = RUN_INDEX;
+				}
+			}
 		}else {
 			velX = 0;
 		}
-		if(isRunning) {
-			animation.currentFrame++;
-			if(animation.currentFrame == animation.frames) {
-				animation.currentFrame = 0;
-			}
+		
+		switch(playerState) {
+			case 0: playerImages[playerNumber][IDLE_INDEX].nextFrame(); break;
+			case 1: playerImages[playerNumber][RUN_INDEX].nextFrame(); break;
+			case 2: playerImages[playerNumber][PACKAGE_RUN_INDEX].nextFrame(); break;
+			default: break;
 		}
 	}
 	
@@ -143,6 +177,7 @@ public class Player extends Movable implements KeyListener{
 		rec.height -= crouchDist;
 		rec.y += crouchDist;
 		startPoint.y += crouchDist;
+		playerState = CROUCH_INDEX;
 	}
 	
 	private void unCrouch() {
@@ -150,6 +185,7 @@ public class Player extends Movable implements KeyListener{
 		rec.height += crouchDist;
 		rec.y -= crouchDist;
 		startPoint.y -= crouchDist;
+		playerState = IDLE_INDEX;
 	}
 	
 	private boolean checkCollisionCrouch() {
@@ -194,10 +230,12 @@ public class Player extends Movable implements KeyListener{
 		getControls();
 		if(e.getKeyCode() == left) {
 			leftKeyPressed = false;
+			playerState = IDLE_INDEX;
 		}
 		if(e.getKeyCode() == right) {
 			rightKeyPressed = false;
 			isRunning = false;
+			playerState = IDLE_INDEX;
 		}
 		if(e.getKeyCode() == up) {
 			isJumping = false;
@@ -213,27 +251,14 @@ public class Player extends Movable implements KeyListener{
 
 	@Override
 	public Image getImage() {
-		File imageFile;
-		if(isCrouched) {
-			imageFile = new File(crouchImages[playerNumber]);
-		}else if(game.packages[0].holder == this){
-			imageFile = new File(packageImages[playerNumber]);
-		}else{
-			imageFile = new File(playerImages[playerNumber]);
+		switch(playerState) {
+			case 0: return playerImages[playerNumber][IDLE_INDEX].getImage();
+			case 1: return playerImages[playerNumber][RUN_INDEX].getImage();
+			case 2: return playerImages[playerNumber][PACKAGE_RUN_INDEX].getImage();
+			case 3: return playerImages[playerNumber][PACKAGE_IDLE_INDEX].getImage();
+			case 4: return playerImages[playerNumber][CROUCH_INDEX].getImage();
+			default: return playerImages[playerNumber][DEFAULT_INDEX].getImage();
 		}
-		BufferedImage img;
-		if (isRunning) {
-			return img = animation.images[animation.currentFrame];
-		}
-		else {
-			try {
-				img = ImageIO.read(imageFile);
-				return img;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return null;
 	}
 
 }

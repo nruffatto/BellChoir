@@ -29,7 +29,20 @@ public class Animation {
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.println(a);
 			e.printStackTrace();
+
+		}
+	}
+	
+	public BufferedImage  getImage() {
+		return images[currentFrame];
+	}
+	
+	public void nextFrame() {
+		currentFrame++;
+		if(currentFrame == frames) {
+			currentFrame = 0;
 		}
 	}
 }

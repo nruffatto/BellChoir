@@ -33,16 +33,12 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	
 	protected Game game;
 	
-	protected boolean isInAir;
-	
-	protected String[] playerImages = new String[4];
+	protected boolean isInAir = false;
+	protected boolean isFacingLeft = false;
 	protected String PackageImage = "Sprites/package.png";
 	public Movable(int x, int y) {
 		rec = new Rectangle(x, y, HITBOX_WIDTH, (int)(HITBOX_WIDTH * HITBOX_RATIO));//(int)(HITBOX_WIDTH * HITBOX_RATIO)
 		accY = 2;
-		
-		playerImages[0] = "Sprites/mailman1.png";
-		playerImages[1] = "Sprites/mailman2.png";
 		updatePastRec();
 	}
 	
