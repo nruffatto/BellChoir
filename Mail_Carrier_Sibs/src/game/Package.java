@@ -22,6 +22,9 @@ public class Package extends Movable implements MouseListener {
 	
 	public Player holder;
 	private Player lastHolder;
+	
+	protected int packageThrows;
+	protected int packageDrops;
 
 	public Package(int x, int y) {
 		super(x, y);
