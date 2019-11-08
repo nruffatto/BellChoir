@@ -30,7 +30,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	}
 	
 
-	public static final int DEFAULT_BLOCK_SIZE = 32;
+	public static final int DEFAULT_BLOCK_SIZE = 64;
 	public static final int TIME_STEP = 30;
 	public static final int PACKAGE_INDEX = 2;
 	
@@ -69,7 +69,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		screen.setMapOutline(false);
 		screen.setBlockOutline(false);
 		
-		//movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 0);
+		movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 0);
 		movables[1] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 1);
 		movables[PACKAGE_INDEX] = new Package(6 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE);
 		//movables[2] = new Package(DEFAULT_BLOCK_SIZE, DEFAULT_BLOCK_SIZE);
