@@ -22,7 +22,7 @@ public class Player extends Movable implements KeyListener{
 	private int packageState = NORMAL_INDEX;
 	private int[][] stats = new int[2][NUMBER_OF_STATS];
 	
-	private static final int IDLE_INDEX = 0;
+	protected static final int IDLE_INDEX = 0;
 	private static final int RUN_INDEX = 1;
 	private static final int PACKAGE_RUN_INDEX = 2;
 	private static final int PACKAGE_IDLE_INDEX = 3;
@@ -31,7 +31,7 @@ public class Player extends Movable implements KeyListener{
 	
 	private int speed = 10;
 	private int jumpingSpeed = 25;
-	private int playerState;
+	protected int playerState;
 	private double crouchScale = 0.5;
 	
 	private int left;
@@ -48,19 +48,25 @@ public class Player extends Movable implements KeyListener{
 	
 	private boolean crouchKeyPressed = false;
 	private boolean isRunning = false;
-	private boolean isCrouched = false;
+	protected boolean isCrouched = false;
 	private boolean isJumping = false;
 	public boolean hasPackage;
 
 	private Animation[][] playerImages = {
-			{},
+			{	new Animation("Sprites/mailman1idle_8_.png"),
+				new Animation("Sprites/mailman1run_8_.png"),
+				new Animation("Sprites/mailman1boxrun_16_.png"),
+				new Animation("Sprites/mailman1boxidle_1_.png"),
+				new Animation("Sprites/mailman1crouch_1_.png"), 
+				new Animation("Sprites/mailman1_1_.png")},
 			{
 				new Animation("Sprites/mailman2idle_8_.png"),
 				new Animation("Sprites/mailman2run_8_.png"),
 				new Animation("Sprites/mailman2boxrun_16_.png"),
 				new Animation("Sprites/mailman2boxidle_1_.png"),
 				new Animation("Sprites/mailman2crouch_1_.png"), 
-				new Animation("Sprites/mailman2_1_.png")}
+				new Animation("Sprites/mailman2_1_.png")
+			}
 	};
 	
 
