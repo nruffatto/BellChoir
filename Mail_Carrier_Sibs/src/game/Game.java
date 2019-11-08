@@ -30,7 +30,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	}
 	
 
-	public static final int DEFAULT_BLOCK_SIZE = 64;
+	public static final int DEFAULT_BLOCK_SIZE = 32;
 	public static final int TIME_STEP = 30;
 	public static final int PACKAGE_INDEX = 2;
 	
