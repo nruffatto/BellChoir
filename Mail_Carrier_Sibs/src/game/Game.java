@@ -36,7 +36,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	public JFrame gameFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"mappy.txt"};
+	private String[] mapList = {"file1.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -81,8 +81,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 		for(int i = 0; i < movables.length; i ++) {
 			if(movables[i] != null) {
-				movables[i].addGame(this);
 				screen.addTarget(movables[i]);
+			}
+		}
+		
+		for(int i = 0; i < movables.length; i ++) {
+			if(movables[i] != null) {
+				movables[i].addGame(this);
 			}
 		}
 		
@@ -108,8 +113,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			}
 			gameFrame.revalidate();
 			gameFrame.repaint();
-//			screen.pos.setLocation(-packages[0].rec.x * screen.currentScale + gameFrame.getWidth() / 2,
-//					-packages[0].rec.y * screen.currentScale + gameFrame.getHeight() / 1.5);
 		}
 	}
 	

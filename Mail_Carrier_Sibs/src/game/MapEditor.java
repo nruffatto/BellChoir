@@ -209,7 +209,9 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		try {
 			s1 = new Scanner(f1);
 			width = s1.nextInt();
+			mapWidthField.setText(width + "");
 			height = s1.nextInt();
+			mapHeightField.setText(height + "");
 			numBlockPropertiesOfFile = s1.nextInt();
 			map.resize(width, height);
 			while(s1.hasNextLine() && s1.hasNext()) {

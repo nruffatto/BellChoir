@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 
 public class Screen2 extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 2;
-	public static final int RENDER_HEIGHT = 8;
+	public static final int RENDER_WIDTH = 10;
+	public static final int RENDER_HEIGHT = 10;
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 512; 
@@ -61,10 +61,31 @@ public class Screen2 extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		currentScale = (double) len / startingLength;
+		File imageFile = new File("Sprites/sky.png");
+		BufferedImage img;
+		try {
+			img = ImageIO.read(imageFile);
+			g.drawImage(img, (int)(pos.x * (currentScale / 2)),
+					(int)(pos.y * (currentScale / 2)),
+					(int)(3200 * currentScale),
+					(int)(1200 * currentScale), this);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		g.setColor(Color.RED);
-		for(int i = 0; i < map.getWidth(); i ++) {
-			for(int j = map.getHeight() - 1; j >= 0; j --) {
-				if(map.getBlock(i, j) != null) {
+//		for(int i = 0; i < map.getWidth(); i ++) {
+//			for(int j = map.getHeight() - 1; j >= 0; j --) {
+//				if(map.getBlock(i, j) != null) {
+//					drawBlock(g, map.getBlock(i, j), i, j);
+//				}
+//			}
+//		}
+
+		for(int i = getMouseX() - RENDER_WIDTH; i < getMouseX() + RENDER_WIDTH; i ++) {
+			for(int j = getMouseY() + RENDER_HEIGHT; j > getMouseY() - RENDER_HEIGHT; j --) {
+				if(i >= 0 && i < map.getWidth() && 
+						j >= 0 && j < map.getHeight() &&
+						map.getBlock(i, j) != null) {
 					drawBlock(g, map.getBlock(i, j), i, j);
 				}
 			}

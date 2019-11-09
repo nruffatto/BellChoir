@@ -14,12 +14,16 @@ import javax.swing.JPanel;
 
 public class Screen extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 5;
-	public static final int RENDER_HEIGHT = 5;
+	public static final int RENDER_WIDTH = 10;
+	public static final int RENDER_HEIGHT = 10;
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 64; 
 	public static final int MIN_BLOCK_SIZE = 32;
+//	public static final int MIN_X = 0;
+//	public static final int MIN_Y = 0;
+//	public static final int MAX_X = 0;
+//	public static final int MAX_Y = 0;
 	
 	//information for how to draw the block. depends on image.
 	public static final int cubeStartX = 14;
@@ -78,7 +82,7 @@ public class Screen extends JPanel{
 		try {
 			img = ImageIO.read(imageFile);
 			g.drawImage(img, (int)(pos.x * (currentScale / 2)),
-					(int)(pos.y * (currentScale / 2) - 100),
+					(int)(pos.y * (currentScale / 2)),
 					(int)(3200 * currentScale),
 					(int)(1200 * currentScale), this);
 		} catch (IOException e) {
@@ -129,9 +133,11 @@ public class Screen extends JPanel{
 				minY = currentY;
 			}
 		}
-		pos.setLocation(-(maxX + minX) / 2 * currentScale + game.gameFrame.getWidth() / 2, 
+		setLocation(-(maxX + minX) / 2 * currentScale + game.gameFrame.getWidth() / 2, 
 				-(maxY + minY) / 2 * currentScale + game.gameFrame.getHeight() / 2);
-		setScale((double)(game.gameFrame.getWidth() * 7) / (double)((maxX - minX) * 8));
+		double scaleX = (double)(game.gameFrame.getWidth() * 7) / (double)((maxX - minX) * 8);
+		double scaleY = (double)(game.gameFrame.getHeight() * 7) / (double)((maxY - minY) * 8);
+		setScale(Math.min(scaleX, scaleY));
 //		System.out.println((double)(game.gameFrame.getWidth() * 7) / (double)((maxX - minX) * 8));
 	}
 	
@@ -151,6 +157,23 @@ public class Screen extends JPanel{
 //			System.out.println("Block Drawn at ");
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void setLocation(double x, double y) {
+		if(x > 0) {
+			pos.x = 0;
+		}else if((x - game.gameFrame.getWidth()) < -map.getWidth() * len) {
+			pos.x = -map.getWidth() * len + game.gameFrame.getWidth();
+		}else {
+			pos.x = (int) x;
+		}
+		if(y > 0) {
+			pos.y = 0;
+		}else if((y - game.gameFrame.getHeight() - 30) < -map.getHeight() * len) {
+			pos.y = -map.getHeight() * len + game.gameFrame.getHeight();
+		}else {
+			pos.y = (int) y;
 		}
 	}
 	
