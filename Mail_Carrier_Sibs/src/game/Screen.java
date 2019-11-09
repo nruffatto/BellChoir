@@ -14,12 +14,12 @@ import javax.swing.JPanel;
 
 public class Screen extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 10;
-	public static final int RENDER_HEIGHT = 10;
+	public static final int RENDER_WIDTH = 5;
+	public static final int RENDER_HEIGHT = 5;
 	
 	//Zoom Levels
-	public static final int MAX_BLOCK_SIZE = 512; 
-	public static final int MIN_BLOCK_SIZE = 8;
+	public static final int MAX_BLOCK_SIZE = 64; 
+	public static final int MIN_BLOCK_SIZE = 32;
 	
 	//information for how to draw the block. depends on image.
 	public static final int cubeStartX = 14;
@@ -40,8 +40,9 @@ public class Screen extends JPanel{
 	private int len; //block size
 	private int pastLen;
 	public Map map;
+	public Game game;
 	private Movable[] movables;
-//	private ArrayList<Movable> targets = new ArrayList<>();
+	private ArrayList<Movable> targets = new ArrayList<>();
 	
 	private int mouseX = 0;
 	private int mouseY = 0;
@@ -51,6 +52,8 @@ public class Screen extends JPanel{
 	private boolean hitBoxesOn = false;
 	private boolean imagesOn = true;
 	
+	public int maxX, minX, maxY, minY;
+	
 	public Screen(Map m) {
 		super();
 		pos = new Point();
@@ -59,11 +62,16 @@ public class Screen extends JPanel{
 		map = m;
 	}
 	
+	public void setGame(Game g) {
+		game = g;
+	}
+	
 	public void addMovables(Movable[] ms) {
 		movables = ms;
 	}
 	
 	public void paintComponent(Graphics g) {
+		target();
 		currentScale = (double) len / startingLength;
 		File imageFile = new File("Sprites/sky.png");
 		BufferedImage img;
@@ -76,8 +84,10 @@ public class Screen extends JPanel{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		for(int i = movables[Game.PACKAGE_INDEX].rec.x / 64 - RENDER_WIDTH; i < movables[Game.PACKAGE_INDEX].rec.x / 64 + RENDER_WIDTH; i ++) {
-			for(int j = movables[Game.PACKAGE_INDEX].rec.y / 64 + RENDER_HEIGHT; j > movables[Game.PACKAGE_INDEX].rec.y / 64 - RENDER_HEIGHT; j --) {
+		int avX = (minX + maxX) / 2;
+		int avY = (minY + maxY) / 2;
+		for(int i = avX / 64 - RENDER_WIDTH; i < avX / 64 + RENDER_WIDTH; i ++) {
+			for(int j = avY / 64 + RENDER_HEIGHT; j > avY / 64 - RENDER_HEIGHT; j --) {
 				if(i >= 0 && i < map.getWidth() && 
 						j >= 0 && j < map.getHeight() &&
 						map.getBlock(i, j) != null) {
@@ -95,13 +105,35 @@ public class Screen extends JPanel{
 			g.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len);
 		} // mouse area
 	}
-//	
-//	public void addTarget(Movable m) {
-//	}
-//	
-//	private void target() {
-//		
-//	}
+	
+	public void addTarget(Movable m) {
+		targets.add(m);
+	}
+	
+	private void target() {
+		int currentX, currentY;
+		currentX = (int)targets.get(0).rec.getCenterX();
+		currentY = (int)targets.get(0).rec.getCenterY();
+		maxX = currentX; minX = currentX; maxY = currentY; minY = currentY;
+		for(int i = 0; i < targets.size(); i ++) {
+			currentX = (int)targets.get(i).rec.getCenterX();
+			currentY = (int)targets.get(i).rec.getCenterY();
+			if(currentX > maxX) {
+				maxX = currentX;
+			}else if(currentX < minX) {
+				minX = currentX;
+			}
+			if(currentY > maxY) {
+				maxY = currentY;
+			}else if(currentY < minY) {
+				minY = currentY;
+			}
+		}
+		pos.setLocation(-(maxX + minX) / 2 * currentScale + game.gameFrame.getWidth() / 2, 
+				-(maxY + minY) / 2 * currentScale + game.gameFrame.getHeight() / 2);
+		setScale((double)(game.gameFrame.getWidth() * 7) / (double)((maxX - minX) * 8));
+//		System.out.println((double)(game.gameFrame.getWidth() * 7) / (double)((maxX - minX) * 8));
+	}
 	
 	private void drawBlock(Graphics g, Block block, int x, int y) {
 		File imageFile = new File(block.getImageFileName());
@@ -175,6 +207,10 @@ public class Screen extends JPanel{
 			pastLen = len;
 			len = s;
 		}
+	}
+	
+	public void setScale(double s) {
+		setBlockSize((int)((double)startingLength * s));
 	}
 	
 	public int getBlockSize() {
