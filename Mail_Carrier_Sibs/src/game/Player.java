@@ -236,12 +236,10 @@ public class Player extends Movable implements KeyListener{
 		getControls();
 		if(e.getKeyCode() == left) {
 			leftKeyPressed = false;
-			playerState = IDLE_INDEX;
 		}
 		if(e.getKeyCode() == right) {
 			rightKeyPressed = false;
 			isRunning = false;
-			playerState = IDLE_INDEX;
 		}
 		if(e.getKeyCode() == up) {
 			isJumping = false;
