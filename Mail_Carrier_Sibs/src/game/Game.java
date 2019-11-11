@@ -34,9 +34,9 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public static final int TIME_STEP = 30;
 	public static final int PACKAGE_INDEX = 2;
 	
-	private JFrame gameFrame;
+	public JFrame gameFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"mappy.txt"};
+	private String[] mapList = {"file1.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -68,6 +68,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		screen.setBlockSize(DEFAULT_BLOCK_SIZE);
 		screen.setMapOutline(false);
 		screen.setBlockOutline(false);
+		screen.setGame(this);
 		
 		movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 0);
 		movables[1] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 1);
@@ -77,6 +78,12 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		players[1] = (Player) movables[1];
 		
 		packages[0] = (Package)movables[PACKAGE_INDEX];
+		
+		for(int i = 0; i < movables.length; i ++) {
+			if(movables[i] != null) {
+				screen.addTarget(movables[i]);
+			}
+		}
 		
 		for(int i = 0; i < movables.length; i ++) {
 			if(movables[i] != null) {
@@ -106,8 +113,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			}
 			gameFrame.revalidate();
 			gameFrame.repaint();
-			screen.pos.setLocation(-packages[0].rec.x * screen.currentScale + gameFrame.getWidth() / 2,
-					-packages[0].rec.y * screen.currentScale + gameFrame.getHeight() / 1.5);
 		}
 	}
 	

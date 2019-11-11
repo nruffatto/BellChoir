@@ -21,7 +21,7 @@ public class Package extends Movable implements MouseListener {
 //	public static final int IMAGE_HEIGHT = (int)(56 * IMAGE_SCALE);
 	
 	public Player holder;
-	private Player lastHolder;
+	public Player lastHolder;
 	
 	protected int packageThrows;
 	protected int packageDrops;
@@ -55,8 +55,8 @@ public class Package extends Movable implements MouseListener {
 	}
 	
 	public void throwPackage(MouseEvent e) {
-	    double distanceX = ((e.getX()/game.screen.currentScale - game.screen.pos.x) - rec.getCenterX());
-	    double distanceY= ((e.getY()/game.screen.currentScale - game.screen.pos.y) - rec.getCenterY());
+	    double distanceX = ((e.getX() - game.screen.pos.x)/game.screen.currentScale - rec.getCenterX());
+	    double distanceY= ((e.getY() - game.screen.pos.y)/game.screen.currentScale - rec.getCenterY());
 	    velX = distanceX/15;
 	    velY = (distanceY-225)/15; 
 	}

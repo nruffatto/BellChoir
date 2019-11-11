@@ -86,7 +86,7 @@ public class Player extends Movable implements KeyListener{
 		this.playerNumber = playerNumber;
 
 		stats[NORMAL_INDEX][SPEED_INDEX] = 10;
-		stats[HAS_PACKAGE_INDEX][SPEED_INDEX] = 7;
+		stats[HAS_PACKAGE_INDEX][SPEED_INDEX] = 5;
 		stats[NORMAL_INDEX][JUMP_INDEX] = 25;
 		stats[HAS_PACKAGE_INDEX][JUMP_INDEX] = 20;
 	}
@@ -236,10 +236,12 @@ public class Player extends Movable implements KeyListener{
 		getControls();
 		if(e.getKeyCode() == left) {
 			leftKeyPressed = false;
+//			playerState = IDLE_INDEX;
 		}
 		if(e.getKeyCode() == right) {
 			rightKeyPressed = false;
 			isRunning = false;
+//			playerState = IDLE_INDEX;
 		}
 		if(e.getKeyCode() == up) {
 			isJumping = false;
