@@ -49,7 +49,6 @@ public class Package extends Movable implements MouseListener {
 	}
 	
 	public void removeHolder() {
-		holder.playerState = holder.IDLE_INDEX;
 		holder.hasPackage = false;
 		holder = null;
 		this.isVisible = true;
