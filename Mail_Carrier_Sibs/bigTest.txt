@@ -1,4 +1,4 @@
-64 32 2
+64 32 2 done
 0 10 blockimg/000.png false false 
 0 11 blockimg/000.png false false 
 0 12 blockimg/000.png false false 

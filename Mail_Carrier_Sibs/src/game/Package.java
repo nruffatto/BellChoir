@@ -28,7 +28,7 @@ public class Package extends Movable implements MouseListener {
 
 	public Package(int x, int y) {
 		super(x, y);
-		HITBOX_WIDTH = 69;
+		HITBOX_WIDTH = 50;
 		HITBOX_RATIO = 56.0 / 69.0;
 		IMAGE_SCALE = HITBOX_WIDTH / 60.0;
 		startPoint = new Point((int)(0),(int)(0));

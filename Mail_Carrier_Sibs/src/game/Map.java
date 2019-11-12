@@ -1,10 +1,12 @@
 package game;
 
 import java.awt.Point;
+import java.util.ArrayList;
 
 public class Map {
 	
 	private Block[][] map;
+	private ArrayList<Point> spawnPoints = new ArrayList<>();
 	private int wid; //width
 	private int hei; //height
 	
@@ -12,6 +14,7 @@ public class Map {
 		map = new Block[height][width];
 		wid = width;
 		hei = height;
+		spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);
 	}
 	
 	public void clear() {
@@ -56,6 +59,19 @@ public class Map {
 	
 	public void eraseBlock(int x, int y) {
 		map[y][x] = null;
+	}
+	
+	public void insertSpawnPoint(int x, int y, int i) {
+		spawnPoints.remove(i);
+		spawnPoints.add(i, new Point(x, y));
+	}
+	
+	public Point getSpawnPoint(int i) {
+		return spawnPoints.get(i);
+	}
+	
+	public int getSpawnPointsSize() {
+		return spawnPoints.size();
 	}
 	
 	public int getWidth() {

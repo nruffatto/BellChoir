@@ -39,13 +39,15 @@ public class Screen2 extends JPanel{
 	private int len; //block size
 	private int pastLen;
 	public Map map;
-	private Movable[] movables;
+	public Movable[] movables = new Movable[4];
 	
 	private int mouseX = 0;
 	private int mouseY = 0;
 	
 	private boolean mapOutlineOn = true;
 	private boolean blockOutlineOn = true;
+	private boolean hitBoxesOn = false;
+	private boolean imagesOn = true;
 	
 	public Screen2(Map m) {
 		super();
@@ -119,19 +121,63 @@ public class Screen2 extends JPanel{
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void drawMovables(Graphics g) {
 		g.setColor(Color.BLUE);
 		for(int i = 0; i < movables.length; i ++) {
 			if(movables[i] != null) {
-				g.fillRect(
-						(int)(movables[i].rec.x * currentScale) + pos.x,
-						(int)(movables[i].rec.y * currentScale) + pos.y,
-						(int)(movables[i].rec.width * currentScale),
-						(int)(movables[i].rec.height * currentScale));
+				Image img = movables[i].getImage();
+				if(imagesOn) {
+					if(movables[i].isVisible) {
+						if(!movables[i].isFacingLeft) {
+							g.drawImage(
+									img,
+									(int)((movables[i].rec.x - movables[i].startPoint.x) * currentScale + pos.x),
+									(int)((movables[i].rec.y - movables[i].startPoint.y) * currentScale + pos.y),
+									(int)(movables[i].IMAGE_WIDTH * currentScale),
+									(int)(movables[i].IMAGE_HEIGHT * currentScale),
+									this);
+						} else {
+							g.drawImage(
+									img,
+									(int)(((movables[i].rec.x - movables[i].startPoint.x) * currentScale + pos.x)+(movables[i].IMAGE_WIDTH * currentScale)),
+									(int)((movables[i].rec.y - movables[i].startPoint.y) * currentScale + pos.y),
+									(int)-(movables[i].IMAGE_WIDTH * currentScale),
+									(int)(movables[i].IMAGE_HEIGHT * currentScale),
+									this);
+						}
+					}	
+				}
+				if(hitBoxesOn) {
+					g.setColor(Color.BLUE);
+					g.drawRect(
+							(int)(movables[i].rec.x * currentScale) + pos.x,
+							(int)(movables[i].rec.y * currentScale) + pos.y,
+							(int)(movables[i].rec.width * currentScale),
+							(int)(movables[i].rec.height * currentScale));
+					g.setColor(Color.YELLOW);
+					g.drawRect(
+							(int)(movables[i].pastRec.x * currentScale) + pos.x,
+							(int)(movables[i].pastRec.y * currentScale) + pos.y,
+							(int)(movables[i].pastRec.width * currentScale),
+							(int)(movables[i].pastRec.height * currentScale));
+				}
 			}
 		}
 	}
+	
+//	private void drawMovables(Graphics g) {
+//		g.setColor(Color.BLUE);
+//		for(int i = 0; i < movables.length; i ++) {
+//			if(movables[i] != null) {
+//				g.fillRect(
+//						(int)(movables[i].rec.x * currentScale) + pos.x,
+//						(int)(movables[i].rec.y * currentScale) + pos.y,
+//						(int)(movables[i].rec.width * currentScale),
+//						(int)(movables[i].rec.height * currentScale));
+//			}
+//		}
+//	}
 	
 	public void drawBounds(Graphics g) {
 		g.drawRect(pos.x, pos.y, map.getWidth() * len, map.getHeight() * len);

@@ -171,7 +171,7 @@ public class Screen extends JPanel{
 		if(y > 0) {
 			pos.y = 0;
 		}else if((y - game.gameFrame.getHeight() - 30) < -map.getHeight() * len) {
-			pos.y = -map.getHeight() * len + game.gameFrame.getHeight();
+			pos.y = -map.getHeight() * len + game.gameFrame.getHeight() - 30;
 		}else {
 			pos.y = (int) y;
 		}
