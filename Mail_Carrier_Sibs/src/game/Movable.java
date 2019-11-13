@@ -75,7 +75,7 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 		rec.y += velY;
 	}
 	
-	private void checkCollisionX() {
+	protected void checkCollisionX() {
 		Point[] points = getPoints();
 		Point[] pastPoints = getPastPoints();
 		for(int i = 0; i < points.length; i ++) {
@@ -175,5 +175,21 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public boolean isPlayer() {
+		return false;
+	}
+	
+	public boolean isPackage() {
+		return false;
+	}
+	
+	public boolean isDog() {
+		return false;
+	}
+	
+	public boolean isMailbox() {
+		return false;
 	}
 }

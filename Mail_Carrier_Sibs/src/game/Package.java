@@ -143,4 +143,9 @@ public class Package extends Movable implements MouseListener {
 		
 	}
 	
+	@Override
+	public boolean isPackage() {
+		return true;
+	}
+	
 }

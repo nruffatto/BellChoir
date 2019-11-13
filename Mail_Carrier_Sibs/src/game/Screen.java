@@ -53,7 +53,7 @@ public class Screen extends JPanel{
 	
 	private boolean mapOutlineOn = true;
 	private boolean blockOutlineOn = true;
-	private boolean hitBoxesOn = false;
+	private boolean hitBoxesOn = true;
 	private boolean imagesOn = true;
 	
 	public int maxX, minX, maxY, minY;
@@ -133,11 +133,12 @@ public class Screen extends JPanel{
 				minY = currentY;
 			}
 		}
-		setLocation(-(maxX + minX) / 2 * currentScale + game.gameFrame.getWidth() / 2, 
-				-(maxY + minY) / 2 * currentScale + game.gameFrame.getHeight() / 2);
+
 		double scaleX = (double)(game.gameFrame.getWidth() * 7) / (double)((maxX - minX) * 8);
 		double scaleY = (double)(game.gameFrame.getHeight() * 7) / (double)((maxY - minY) * 8);
 		setScale(Math.min(scaleX, scaleY));
+		setLocation(-(maxX + minX) / 2 * currentScale + game.gameFrame.getWidth() / 2, 
+				-(maxY + minY) / 2 * currentScale + game.gameFrame.getHeight() / 2);
 //		System.out.println((double)(game.gameFrame.getWidth() * 7) / (double)((maxX - minX) * 8));
 	}
 	
