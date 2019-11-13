@@ -133,11 +133,12 @@ public class Screen extends JPanel{
 				minY = currentY;
 			}
 		}
-		setLocation(-(maxX + minX) / 2 * currentScale + game.gameFrame.getWidth() / 2, 
-				-(maxY + minY) / 2 * currentScale + game.gameFrame.getHeight() / 2);
+
 		double scaleX = (double)(game.gameFrame.getWidth() * 7) / (double)((maxX - minX) * 8);
 		double scaleY = (double)(game.gameFrame.getHeight() * 7) / (double)((maxY - minY) * 8);
 		setScale(Math.min(scaleX, scaleY));
+		setLocation(-(maxX + minX) / 2 * currentScale + game.gameFrame.getWidth() / 2, 
+				-(maxY + minY) / 2 * currentScale + game.gameFrame.getHeight() / 2);
 //		System.out.println((double)(game.gameFrame.getWidth() * 7) / (double)((maxX - minX) * 8));
 	}
 	
@@ -171,7 +172,7 @@ public class Screen extends JPanel{
 		if(y > 0) {
 			pos.y = 0;
 		}else if((y - game.gameFrame.getHeight() - 30) < -map.getHeight() * len) {
-			pos.y = -map.getHeight() * len + game.gameFrame.getHeight();
+			pos.y = -map.getHeight() * len + game.gameFrame.getHeight() - 30;
 		}else {
 			pos.y = (int) y;
 		}
