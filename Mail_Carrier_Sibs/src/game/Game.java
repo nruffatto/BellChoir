@@ -41,6 +41,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
 	public Package[] packages = new Package[1];
+	public Dog[] dogs = new Dog[1];
 	private Container contentPane;
 	private Timer timer = new Timer();
 	
@@ -73,11 +74,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		movables[0] = new Player(map.getSpawnPoint(0).x, map.getSpawnPoint(0).y, 0);
 		movables[1] = new Player(map.getSpawnPoint(1).x, map.getSpawnPoint(1).y, 1);
 		movables[PACKAGE_INDEX] = new Package(map.getSpawnPoint(2).x, map.getSpawnPoint(2).y);
-		//movables[2] = new Package(DEFAULT_BLOCK_SIZE, DEFAULT_BLOCK_SIZE);
+		movables[3] = new Dog(1000,500);
 		players[0] = (Player) movables[0];
 		players[1] = (Player) movables[1];
 		
 		packages[0] = (Package)movables[PACKAGE_INDEX];
+		
+		dogs[0] = (Dog) movables[3];
 		
 		for(int i = 0; i < movables.length; i ++) {
 			if(movables[i] != null) {
