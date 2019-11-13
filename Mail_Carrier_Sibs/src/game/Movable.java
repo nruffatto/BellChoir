@@ -140,25 +140,24 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	}
 	
 	public Point[] getPoints() {
+		return getP(rec);
+	}
+	
+	private Point[] getP(Rectangle r) {
 		Point[] newPoints = {
-				new Point(rec.x, rec.y),
-				new Point(rec.x + rec.width, rec.y),
-				new Point(rec.x + rec.width, rec.y + rec.height / 2),
-				new Point(rec.x + rec.width, rec.y + rec.height),
-				new Point(rec.x, rec.y+ rec.height),
-				new Point(rec.x, rec.y + rec.height / 2),};
+				new Point(r.x, r.y),
+				new Point(r.x + r.width, r.y),
+				new Point(r.x + r.width, r.y + r.height),
+				new Point(r.x, r.y+ r.height),
+				new Point(r.x, r.y + r.height / 2),
+				new Point(r.x + r.width, r.y + r.height / 2),
+				new Point(r.x + r.width / 2, r.y + r.height),
+				new Point(r.x + r.width / 2, r.y),};
 		return newPoints;
 	}
 	
 	public Point[] getPastPoints() {
-		Point[] newPoints = {
-				new Point(pastRec.x, pastRec.y),
-				new Point(pastRec.x + pastRec.width, pastRec.y),
-				new Point(pastRec.x + pastRec.width, pastRec.y + pastRec.height / 2),
-				new Point(pastRec.x + rec.width, pastRec.y + pastRec.height),
-				new Point(pastRec.x, pastRec.y+ pastRec.height),
-				new Point(pastRec.x, pastRec.y + pastRec.height / 2),};
-		return newPoints;
+		return getP(pastRec);
 	}
 	
 	private void updatePastRec() {
@@ -176,5 +175,21 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public boolean isPlayer() {
+		return false;
+	}
+	
+	public boolean isPackage() {
+		return false;
+	}
+	
+	public boolean isDog() {
+		return false;
+	}
+	
+	public boolean isMailbox() {
+		return false;
 	}
 }

@@ -149,7 +149,7 @@ public class Player extends Movable implements KeyListener{
 		}
 		if(game.packages[0].holder == null && !isCrouched) {
 			hasPackage = false;
-			if(isTouching(game.packages[0])) {
+			if(this.isTouching(game.packages[0]) || game.packages[0].isTouching(this)) {
 				game.packages[0].setHolder(this);
 				hasPackage = true;
 			}
@@ -278,6 +278,11 @@ public class Player extends Movable implements KeyListener{
 			case 5: return playerImages[playerNumber][CROUCH_RUN_INDEX].getImage();
 			default: return playerImages[playerNumber][DEFAULT_INDEX].getImage();
 		}
+	}
+	
+	@Override
+	public boolean isPlayer() {
+		return true;
 	}
 
 }

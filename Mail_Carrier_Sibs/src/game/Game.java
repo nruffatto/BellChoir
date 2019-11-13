@@ -84,7 +84,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		dogs[0] = (Dog) movables[3];
 		
 		for(int i = 0; i < movables.length; i ++) {
-			if(movables[i] != null) {
+			if(movables[i] != null && !movables[i].isDog() && !movables[i].isMailbox()) {
 				screen.addTarget(movables[i]);
 			}
 		}

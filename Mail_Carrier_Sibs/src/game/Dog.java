@@ -11,8 +11,9 @@ import javax.imageio.ImageIO;
 
 public class Dog extends Movable{
 	
-	private int speed = 15;
+	private int speed = 11;
 	private int jumpingSpeed = 20;
+	private int vision = 7;
 
 	public Dog(int x, int y) {
 		super(x, y);
@@ -55,8 +56,8 @@ public class Dog extends Movable{
 	}
 	
 	private boolean inRange(Movable m) {
-		double distanceX = Math.abs(m.rec.getCenterX() - this.rec.getCenterX())/game.screen.currentScale;
-		if(distanceX <= 5) {
+		double distanceX = Math.abs(m.rec.getCenterX() - this.rec.getCenterX());
+		if(distanceX <= vision * game.screen.startingLength) {
 			return true;
 		} else {
 			return false;
@@ -73,11 +74,15 @@ public class Dog extends Movable{
 				if(game.map.getBlock(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength) != null) {
 					if(points[i].x > pastPoints[i].x) {
 						rec.x -= points[i].x % Screen.startingLength + 1;
-						velY = jumpingSpeed;
+						if(!isInAir) {
+							velY = -jumpingSpeed;
+						}
 //						System.out.println("X1");
 					}else if(points[i].x < pastPoints[i].x){
 						rec.x += Screen.startingLength - points[i].x % Screen.startingLength + 7;
-						velY = jumpingSpeed;
+						if(!isInAir) {
+							velY = -jumpingSpeed;
+						}
 //						System.out.println("X2");
 					}
 					velX = 0;
@@ -98,5 +103,10 @@ public class Dog extends Movable{
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	@Override
+	public boolean isDog() {
+		return true;
 	}
 }
