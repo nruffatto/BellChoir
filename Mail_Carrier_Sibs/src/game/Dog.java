@@ -41,8 +41,7 @@ public class Dog extends Movable{
 			move(game.packages[0]);
 		}else {
 			velX = 0;
-		}
-		
+		}	
 	}
 	
 	private void move(Movable m) {
