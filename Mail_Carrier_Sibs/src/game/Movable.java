@@ -144,15 +144,28 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	}
 	
 	private Point[] getP(Rectangle r) {
-		Point[] newPoints = {
-				new Point(r.x, r.y),
-				new Point(r.x + r.width, r.y),
-				new Point(r.x + r.width, r.y + r.height),
-				new Point(r.x, r.y+ r.height),
-				new Point(r.x, r.y + r.height / 2),
-				new Point(r.x + r.width, r.y + r.height / 2),
-				new Point(r.x + r.width / 2, r.y + r.height),
-				new Point(r.x + r.width / 2, r.y),};
+		int n = 3;
+		Point[] newPoints = new Point[n * 4];
+		int counter = 0;
+		for(int i = 0; i < n; i ++) {
+			newPoints[counter] = new Point(r.x + i * (r.width / n), r.y);
+			counter ++;
+			newPoints[counter] = new Point(r.x + r.width, r.y + i * (r.height / n));
+			counter ++;
+			newPoints[counter] = new Point(r.x + r.width - i * (r.width / n), r.y + r.height);
+			counter ++;
+			newPoints[counter] = new Point(r.x, r.y + r.height - i * (r.height / n));
+			counter ++;
+		}
+//		Point[] newPoints = {
+//				new Point(r.x, r.y),
+//				new Point(r.x + r.width, r.y),
+//				new Point(r.x + r.width, r.y + r.height),
+//				new Point(r.x, r.y+ r.height),
+//				new Point(r.x, r.y + r.height / 2),
+//				new Point(r.x + r.width, r.y + r.height / 2),
+//				new Point(r.x + r.width / 2, r.y + r.height),
+//				new Point(r.x + r.width / 2, r.y),};
 		return newPoints;
 	}
 	
