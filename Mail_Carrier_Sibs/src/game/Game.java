@@ -38,7 +38,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 
 	public static final int DEFAULT_BLOCK_SIZE = 64;
-	public static final int TIME_STEP = 30;
+	public static final int TIME_STEP = 5;
 	public static final int PACKAGE_INDEX = 2;
 	
 	public JFrame gameFrame;
@@ -48,6 +48,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
 	public Package[] packages = new Package[1];
+	public Dog[] dogs = new Dog[1];
 	private Container contentPane;
 	private Container contentPane1;
 	private Timer timer = new Timer();
@@ -164,17 +165,20 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		screen.setBlockOutline(false);
 		screen.setGame(this);
 		
-		movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 0);
-		movables[1] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 1);
-		movables[PACKAGE_INDEX] = new Package(6 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE);
-		//movables[2] = new Package(DEFAULT_BLOCK_SIZE, DEFAULT_BLOCK_SIZE);
+		movables[0] = new Player(map.getSpawnPoint(0).x, map.getSpawnPoint(0).y, 0);
+		movables[1] = new Player(map.getSpawnPoint(1).x, map.getSpawnPoint(1).y, 1);
+		movables[PACKAGE_INDEX] = new Package(map.getSpawnPoint(2).x, map.getSpawnPoint(2).y);
+		movables[3] = new Dog(1000,500);
+		movables[4] = new mailbox(1000,500);
 		players[0] = (Player) movables[0];
 		players[1] = (Player) movables[1];
 		
 		packages[0] = (Package)movables[PACKAGE_INDEX];
 		
+		dogs[0] = (Dog) movables[3];
+		
 		for(int i = 0; i < movables.length; i ++) {
-			if(movables[i] != null) {
+			if(movables[i] != null && !movables[i].isDog() && !movables[i].isMailbox()) {
 				screen.addTarget(movables[i]);
 			}
 		}
@@ -231,6 +235,17 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			height = s1.nextInt();
 			numBlockPropertiesOfFile = s1.nextInt();
 			map.resize(width, height);
+			boolean done = false;
+			int counter = 0;
+			while(!done) {
+				String next = s1.next();
+				if(next.equals("done")) {
+					done = true;
+				}else {
+					map.insertSpawnPoint(Integer.parseInt(next), s1.nextInt(), counter);
+				}
+				counter ++;
+			}
 			while(s1.hasNextLine() && s1.hasNext()) {
 				xCoord = s1.nextInt();
 				yCoord = s1.nextInt();

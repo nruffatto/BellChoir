@@ -1,4 +1,4 @@
-12 12 2
+12 12 2 21 161 474 69 388 377 done
 0 5 blockimg/003.png false false 
 0 6 blockimg/000.png false false 
 0 7 blockimg/000.png false false 

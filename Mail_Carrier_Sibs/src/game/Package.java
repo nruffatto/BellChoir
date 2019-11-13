@@ -28,7 +28,7 @@ public class Package extends Movable implements MouseListener {
 
 	public Package(int x, int y) {
 		super(x, y);
-		HITBOX_WIDTH = 69;
+		HITBOX_WIDTH = 50;
 		HITBOX_RATIO = 56.0 / 69.0;
 		IMAGE_SCALE = HITBOX_WIDTH / 60.0;
 		startPoint = new Point((int)(0),(int)(0));
@@ -49,29 +49,33 @@ public class Package extends Movable implements MouseListener {
 	}
 	
 	public void removeHolder() {
-		holder.playerState = holder.IDLE_INDEX;
 		holder.hasPackage = false;
 		holder = null;
 		this.isVisible = true;
 	}
 	
-	public void throwPackage(MouseEvent e) {
-	    double distanceX = ((e.getX() - game.screen.pos.x)/game.screen.currentScale - rec.getCenterX());
-	    double distanceY= ((e.getY() - game.screen.pos.y)/game.screen.currentScale - rec.getCenterY());
+	public void throwPackage(int x, int y) {
+	    double distanceX = ((x - game.screen.pos.x)/game.screen.currentScale - rec.getCenterX());
+	    double distanceY= ((y - game.screen.pos.y)/game.screen.currentScale - rec.getCenterY());
 	    velX = distanceX/15;
 	    velY = (distanceY-225)/15; 
-	}
-	
-	public void getThrown(int x, int y) {
-		velX = x;
-		velY = y;
-		removeHolder();
 	}
 	
 	@Override
 	public void update() {
 		if(holder != null) {
 			rec.setLocation(holder.rec.x, holder.rec.y);
+			if (holder.isTouching(game.dogs[0])) {
+				if(holder.isFacingLeft) {
+					removeHolder();
+					velX = Math.floor(Math.random()*-15 - 5);
+					velY = Math.floor(Math.random()*15 + 5);
+				}else {
+					removeHolder();
+					velX = Math.floor(Math.random()*15 + 5);
+					velY = Math.floor(Math.random()*15 + 5);
+				}
+			}
 		}else {
 			super.update();
 		}
@@ -123,28 +127,30 @@ public class Package extends Movable implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if(holder != null) {
-			throwPackage(e);
+			throwPackage(e.getX(), e.getY());
 			removeHolder();
 		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public boolean isPackage() {
+		return true;
 	}
 	
 }

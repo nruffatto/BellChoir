@@ -26,8 +26,9 @@ public class Player extends Movable implements KeyListener{
 	private static final int RUN_INDEX = 1;
 	private static final int PACKAGE_RUN_INDEX = 2;
 	private static final int PACKAGE_IDLE_INDEX = 3;
-	private static final int CROUCH_INDEX = 4;
-	private static final int DEFAULT_INDEX = 5;
+	private static final int CROUCH_IDLE_INDEX = 4;
+	private static final int CROUCH_RUN_INDEX = 5;
+	private static final int DEFAULT_INDEX = 6;
 	
 	private int speed = 10;
 	private int jumpingSpeed = 25;
@@ -56,15 +57,17 @@ public class Player extends Movable implements KeyListener{
 			{	new Animation("Sprites/mailman1idle_8_.png"),
 				new Animation("Sprites/mailman1run_8_.png"),
 				new Animation("Sprites/mailman1boxrun_16_.png"),
-				new Animation("Sprites/mailman1boxidle_1_.png"),
-				new Animation("Sprites/mailman1crouch_1_.png"), 
+				new Animation("Sprites/mailman1boxidle_8_.png"),
+				new Animation("Sprites/mailman1crouchidle_6_.png"),
+				new Animation("Sprites/mailman1crouchwalk_6_.png"),  
 				new Animation("Sprites/mailman1_1_.png")},
 			{
 				new Animation("Sprites/mailman2idle_8_.png"),
 				new Animation("Sprites/mailman2run_8_.png"),
 				new Animation("Sprites/mailman2boxrun_16_.png"),
-				new Animation("Sprites/mailman2boxidle_1_.png"),
-				new Animation("Sprites/mailman2crouch_1_.png"), 
+				new Animation("Sprites/mailman2boxidle_8_.png"),
+				new Animation("Sprites/mailman2crouchidle_6_.png"),
+				new Animation("Sprites/mailman2crouchwalk_6_.png"), 
 				new Animation("Sprites/mailman2_1_.png")
 			}
 	};
@@ -123,6 +126,8 @@ public class Player extends Movable implements KeyListener{
 			packageState = NORMAL_INDEX;
 			if(!isCrouched) {
 				playerState = IDLE_INDEX;
+			}else {
+				playerState = CROUCH_IDLE_INDEX;
 			}
 		}
 		speed = stats[packageState][SPEED_INDEX];
@@ -134,15 +139,17 @@ public class Player extends Movable implements KeyListener{
 		if(crouchKeyPressed && !isCrouched) {
 			if(!hasPackage) {
 				crouch();
+				playerState = CROUCH_IDLE_INDEX;
 				isCrouched = true;
 			}
 		}else if(!crouchKeyPressed && isCrouched && !checkCollisionCrouch()) {
 			unCrouch();
+			playerState = IDLE_INDEX;
 			isCrouched = false;
 		}
 		if(game.packages[0].holder == null && !isCrouched) {
 			hasPackage = false;
-			if(isTouching(game.packages[0])) {
+			if(this.isTouching(game.packages[0]) || game.packages[0].isTouching(this)) {
 				game.packages[0].setHolder(this);
 				hasPackage = true;
 			}
@@ -155,6 +162,8 @@ public class Player extends Movable implements KeyListener{
 				}else {
 					playerState = RUN_INDEX;
 				}
+			}else {
+				playerState = CROUCH_RUN_INDEX;
 			}
 			
 		}else if(!leftKeyPressed && rightKeyPressed) {
@@ -165,6 +174,8 @@ public class Player extends Movable implements KeyListener{
 				}else {
 					playerState = RUN_INDEX;
 				}
+			}else {
+				playerState = CROUCH_RUN_INDEX;
 			}
 		}else {
 			velX = 0;
@@ -174,6 +185,9 @@ public class Player extends Movable implements KeyListener{
 			case 0: playerImages[playerNumber][IDLE_INDEX].nextFrame(); break;
 			case 1: playerImages[playerNumber][RUN_INDEX].nextFrame(); break;
 			case 2: playerImages[playerNumber][PACKAGE_RUN_INDEX].nextFrame(); break;
+			case 3: playerImages[playerNumber][PACKAGE_IDLE_INDEX].nextFrame(); break;
+			case 4: playerImages[playerNumber][CROUCH_IDLE_INDEX].nextFrame(); break;
+			case 5: playerImages[playerNumber][CROUCH_RUN_INDEX].nextFrame(); break;
 			default: break;
 		}
 	}
@@ -183,7 +197,6 @@ public class Player extends Movable implements KeyListener{
 		rec.height -= crouchDist;
 		rec.y += crouchDist;
 		startPoint.y += crouchDist;
-		playerState = CROUCH_INDEX;
 	}
 	
 	private void unCrouch() {
@@ -191,7 +204,6 @@ public class Player extends Movable implements KeyListener{
 		rec.height += crouchDist;
 		rec.y -= crouchDist;
 		startPoint.y -= crouchDist;
-		playerState = IDLE_INDEX;
 	}
 	
 	private boolean checkCollisionCrouch() {
@@ -262,9 +274,15 @@ public class Player extends Movable implements KeyListener{
 			case 1: return playerImages[playerNumber][RUN_INDEX].getImage();
 			case 2: return playerImages[playerNumber][PACKAGE_RUN_INDEX].getImage();
 			case 3: return playerImages[playerNumber][PACKAGE_IDLE_INDEX].getImage();
-			case 4: return playerImages[playerNumber][CROUCH_INDEX].getImage();
+			case 4: return playerImages[playerNumber][CROUCH_IDLE_INDEX].getImage();
+			case 5: return playerImages[playerNumber][CROUCH_RUN_INDEX].getImage();
 			default: return playerImages[playerNumber][DEFAULT_INDEX].getImage();
 		}
+	}
+	
+	@Override
+	public boolean isPlayer() {
+		return true;
 	}
 
 }

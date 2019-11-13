@@ -76,6 +76,8 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	
 	private boolean canInsertBlocks = true;
 	
+	private int currentMovableIndex = -1;// `: 192, 1: 49, 2: 50, 3: 51, ...
+	
 	String currentFileName;
 	
 	private String[] imageFileNames = {"000","001","002","003","004"};
@@ -214,6 +216,17 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 			mapHeightField.setText(height + "");
 			numBlockPropertiesOfFile = s1.nextInt();
 			map.resize(width, height);
+			boolean done = false;
+			int counter = 0;
+			while(!done) {
+				String next = s1.next();
+				if(next.equals("done")) {
+					done = true;
+				}else {
+					map.insertSpawnPoint(Integer.parseInt(next), s1.nextInt(), counter);
+				}
+				counter ++;
+			}
 			while(s1.hasNextLine() && s1.hasNext()) {
 				xCoord = s1.nextInt();
 				yCoord = s1.nextInt();
@@ -242,6 +255,12 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
 			writer.write(width + " " + height + " " + Block.NUMBER_OF_PROPERTIES);
+			for(int i = 0; i < map.getSpawnPointsSize(); i ++) {
+				if(map.getSpawnPoint(i) != null) {
+					writer.write(" " + map.getSpawnPoint(i).x + " " + map.getSpawnPoint(i).y);
+				}
+			}
+			writer.write(" done");
 			writer.newLine();
 			for(int i = 0; i < width; i ++) {
 				for(int j = 0; j < height; j ++) {
@@ -275,10 +294,25 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		if(x < map.getWidth() * screen.getBlockSize() && x > 0 &&
 				y < map.getHeight() * screen.getBlockSize() && y > 0 &&
 				canInsertBlocks) {
-			map.insertBlock(x / screen.getBlockSize(), 
-					y / screen.getBlockSize(), 
-					currentBlock.getCopy());
-//			System.out.println("Block Insertion!");
+			if(currentMovableIndex >= 0) {
+				x = (int)((double)x / screen.currentScale);
+				y = (int)((double)y / screen.currentScale);
+				map.insertSpawnPoint(x, y, currentMovableIndex);
+				if(currentMovableIndex == 0) {
+					screen.movables[currentMovableIndex] = new Player(x, y, 0);
+				}else if(currentMovableIndex == 1) {
+						screen.movables[currentMovableIndex] = new Player(x, y, 1);
+				}else if(currentMovableIndex == 2) {
+					screen.movables[currentMovableIndex] = new Package(x, y);
+				}else if(currentMovableIndex == 3) {
+					// put in the mailBox
+				}
+			}else {
+				map.insertBlock(x / screen.getBlockSize(), 
+						y / screen.getBlockSize(), 
+						currentBlock.getCopy());
+//				System.out.println("Block Insertion!");
+			}
 		}
 		storeMapInstance();
 	}
@@ -345,9 +379,18 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	public void keyReleased(KeyEvent e) {
 		if(e.getKeyCode() == 17) {
 			ctrlPressed = false;
-		}
-		else if (e.getKeyCode() == 18) {
+		}else if (e.getKeyCode() == 18) {
 			altPressed = false;
+		}else if (e.getKeyCode() == 192) {
+			currentMovableIndex = -1;
+		}else if (e.getKeyCode() == 49) {
+			currentMovableIndex = 0;
+		}else if (e.getKeyCode() == 50) {
+			currentMovableIndex = 1;
+		}else if (e.getKeyCode() == 51) {
+			currentMovableIndex = 2;
+		}else if (e.getKeyCode() == 52) {
+			currentMovableIndex = 3;
 		}
 	}
 
