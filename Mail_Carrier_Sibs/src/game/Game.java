@@ -70,9 +70,9 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		screen.setBlockOutline(false);
 		screen.setGame(this);
 		
-		movables[0] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 0);
-		movables[1] = new Player(2 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE, 1);
-		movables[PACKAGE_INDEX] = new Package(6 * DEFAULT_BLOCK_SIZE, 2 * DEFAULT_BLOCK_SIZE);
+		movables[0] = new Player(map.getSpawnPoint(0).x, map.getSpawnPoint(0).y, 0);
+		movables[1] = new Player(map.getSpawnPoint(1).x, map.getSpawnPoint(1).y, 1);
+		movables[PACKAGE_INDEX] = new Package(map.getSpawnPoint(2).x, map.getSpawnPoint(2).y);
 		//movables[2] = new Package(DEFAULT_BLOCK_SIZE, DEFAULT_BLOCK_SIZE);
 		players[0] = (Player) movables[0];
 		players[1] = (Player) movables[1];
@@ -133,6 +133,17 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			height = s1.nextInt();
 			numBlockPropertiesOfFile = s1.nextInt();
 			map.resize(width, height);
+			boolean done = false;
+			int counter = 0;
+			while(!done) {
+				String next = s1.next();
+				if(next.equals("done")) {
+					done = true;
+				}else {
+					map.insertSpawnPoint(Integer.parseInt(next), s1.nextInt(), counter);
+				}
+				counter ++;
+			}
 			while(s1.hasNextLine() && s1.hasNext()) {
 				xCoord = s1.nextInt();
 				yCoord = s1.nextInt();
