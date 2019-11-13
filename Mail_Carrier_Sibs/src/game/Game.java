@@ -1,8 +1,11 @@
 package game;
 import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,8 +23,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
+import javax.swing.AbstractButton;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Game extends TimerTask implements MouseListener, ActionListener, KeyListener{
 
@@ -36,16 +43,24 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	public JFrame gameFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"file1.txt"};
+	private String[] mapList = {"file1.txt","testFile1.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
 	public Package[] packages = new Package[1];
 	private Container contentPane;
+	private Container contentPane1;
 	private Timer timer = new Timer();
 	
 	private boolean gameIsReady;
 	
+	public int LevelNumber = mapList.length;
+	public JButton[] LevelButtons = new JButton[LevelNumber];
+	public JButton[] MenuButtons = new JButton[4];
+	
+	private boolean levelpanel;
+	
+	public String MenuImage = "Sprites/logo.png";
 	
 	public Game() {
 		gameIsReady = false;
@@ -58,12 +73,91 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		contentPane.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
 		
-		openMap(mapList[0]);
+		levelpanel = false;
+		
+		JPanel panel = new MenuImage();
+		
+		JButton startbtn = new JButton("Start");
+		startbtn.setPreferredSize(new Dimension(200, 40));
+		startbtn.addActionListener(this);
+		startbtn.setActionCommand("Start");
+		MenuButtons[0] = startbtn;
+		startbtn.setLocation(gameFrame.getWidth()/2, gameFrame.getHeight()/2);
+		panel.add(startbtn);
+		
+		
+		
+		
+		gameFrame.setContentPane(panel);
+		gameFrame.setVisible(true);
+		
+		
+
+	}
+	
+	
+	public void LoadLevelButtons()
+	{
+		
+		contentPane = gameFrame.getContentPane();
+		contentPane.setLayout(new BorderLayout());
+		contentPane.setBackground(Color.WHITE);
+		gameFrame.setVisible(true);
+		
+		JPanel panel = new JPanel(new GridLayout(4,4,4,4));
+
+		for(int i=0 ; i<LevelNumber ; i++){
+		    JButton btn = new JButton("Level " + String.valueOf(i+1));
+		    LevelButtons[i] = btn;
+		    btn.setPreferredSize(new Dimension(40, 40));
+		    btn.addActionListener(this);
+		    btn.setActionCommand(mapList[i]);
+		    panel.add(btn);
+		}
+		gameFrame.setContentPane(panel);
+		gameFrame.setVisible(true);
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent ae) {
+        String action = ae.getActionCommand();
+        if (action.equals("Start"))
+        {
+        	LoadLevelButtons();
+        	
+        	MenuButtons[0].setVisible(false);
+        }
+       
+        for(int i=0 ; i<LevelNumber ; i++)
+        {
+        	if (action.equals(mapList[i]))
+                {
+                	StartLevel(mapList[i]);
+                	for(int j=0 ; j<LevelNumber ; j++)
+                	{
+                		LevelButtons[j].setFocusable(false);
+                    	LevelButtons[j].setVisible(false);
+                    }
+                }
+        }
+                
+        
+    }
+
+	
+	public void StartLevel(String level) {
+		
+		contentPane1 = gameFrame.getContentPane();
+		contentPane1.setLayout(new BorderLayout());
+		contentPane1.setBackground(Color.WHITE);
+		gameFrame.setVisible(true);
+		
+		openMap(level);
 		
 		screen  = new Screen(map);
 		screen.setLayout(null);
 		screen.setBackground(Color.BLUE);
-		contentPane.add(screen, BorderLayout.CENTER);
+		contentPane1.add(screen, BorderLayout.CENTER);
 		screen.addMovables(movables);
 		screen.setBlockSize(DEFAULT_BLOCK_SIZE);
 		screen.setMapOutline(false);
@@ -91,14 +185,18 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			}
 		}
 		
-		gameFrame.addKeyListener(players[0]);
-		gameFrame.addKeyListener(players[1]);
-		gameFrame.addMouseListener(packages[0]);
+		contentPane1.requestFocus();
+		contentPane1.addKeyListener(players[0]);
+		contentPane1.addKeyListener(players[1]);
+		contentPane1.addMouseListener(packages[0]);
 		
 		timer.schedule(this, 0, TIME_STEP);
 		gameIsReady = true;
 		gameFrame.repaint();
+		
 	}
+	
+
 
 	@Override
 	public void run() {
@@ -165,11 +263,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -199,6 +293,22 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private class MenuImage extends JPanel {
+		@Override
+	    public void paintComponent(Graphics g) {
+	        super.paintComponent(g);
+	        BufferedImage img;
+			try {
+	        img = ImageIO.read(new File(MenuImage));
+	        if (img != null)
+	            g.drawImage(img, 0, 0,700,700, this);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
 	}
 
 }
