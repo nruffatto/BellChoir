@@ -54,23 +54,28 @@ public class Package extends Movable implements MouseListener {
 		this.isVisible = true;
 	}
 	
-	public void throwPackage(MouseEvent e) {
-	    double distanceX = ((e.getX() - game.screen.pos.x)/game.screen.currentScale - rec.getCenterX());
-	    double distanceY= ((e.getY() - game.screen.pos.y)/game.screen.currentScale - rec.getCenterY());
+	public void throwPackage(int x, int y) {
+	    double distanceX = ((x - game.screen.pos.x)/game.screen.currentScale - rec.getCenterX());
+	    double distanceY= ((y - game.screen.pos.y)/game.screen.currentScale - rec.getCenterY());
 	    velX = distanceX/15;
 	    velY = (distanceY-225)/15; 
-	}
-	
-	public void getThrown(int x, int y) {
-		velX = x;
-		velY = y;
-		removeHolder();
 	}
 	
 	@Override
 	public void update() {
 		if(holder != null) {
 			rec.setLocation(holder.rec.x, holder.rec.y);
+			if (holder.isTouching(game.dogs[0])) {
+				if(holder.isFacingLeft) {
+					removeHolder();
+					velX = Math.floor(Math.random()*-15 - 5);
+					velY = Math.floor(Math.random()*15 + 5);
+				}else {
+					removeHolder();
+					velX = Math.floor(Math.random()*15 + 5);
+					velY = Math.floor(Math.random()*15 + 5);
+				}
+			}
 		}else {
 			super.update();
 		}
@@ -135,7 +140,7 @@ public class Package extends Movable implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		if(holder != null) {
-			throwPackage(e);
+			throwPackage(e.getX(), e.getY());
 			removeHolder();
 		}
 	}

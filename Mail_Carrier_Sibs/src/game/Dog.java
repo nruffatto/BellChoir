@@ -40,13 +40,11 @@ public class Dog extends Movable{
 			move(game.packages[0]);
 		}else {
 			velX = 0;
-		}
-		
+		}	
 	}
 	
 	private void move(Movable m) {
-		double distanceX = m.rec.getCenterX() - this.pastRec.getCenterX();
-		System.out.println("help");
+		double distanceX = m.rec.getCenterX() - this.rec.getCenterX();
 		if (distanceX > 0) {
 			velX = speed;
 		}else if (distanceX < 0) {
@@ -57,7 +55,7 @@ public class Dog extends Movable{
 	}
 	
 	private boolean inRange(Movable m) {
-		double distanceX = (m.rec.getCenterX() - this.pastRec.getCenterX())/game.screen.currentScale;
+		double distanceX = Math.abs(m.rec.getCenterX() - this.rec.getCenterX())/game.screen.currentScale;
 		if(distanceX <= 5) {
 			return true;
 		} else {

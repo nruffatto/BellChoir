@@ -75,6 +75,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		movables[1] = new Player(map.getSpawnPoint(1).x, map.getSpawnPoint(1).y, 1);
 		movables[PACKAGE_INDEX] = new Package(map.getSpawnPoint(2).x, map.getSpawnPoint(2).y);
 		movables[3] = new Dog(1000,500);
+		movables[4] = new mailbox(1000,500);
 		players[0] = (Player) movables[0];
 		players[1] = (Player) movables[1];
 		
