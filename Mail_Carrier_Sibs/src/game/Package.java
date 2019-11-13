@@ -68,16 +68,19 @@ public class Package extends Movable implements MouseListener {
 			if (holder.isTouching(game.dogs[0])) {
 				if(holder.isFacingLeft) {
 					removeHolder();
-					velX = Math.floor(Math.random()*-15 - 5);
-					velY = Math.floor(Math.random()*15 + 5);
+					velX = Math.floor(Math.random()*-20 - 10);
+					velY = Math.floor(Math.random()*20 + 10);
 				}else {
 					removeHolder();
-					velX = Math.floor(Math.random()*15 + 5);
-					velY = Math.floor(Math.random()*15 + 5);
+					velX = Math.floor(Math.random()*20 + 10);
+					velY = Math.floor(Math.random()*20 + 10);
 				}
 			}
 		}else {
 			super.update();
+		}
+		if (this.isTouching(game.mailboxes[0])) {
+			//System.out.println("Winner");
 		}
 	}
 	

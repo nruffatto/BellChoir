@@ -9,9 +9,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class mailbox extends Movable{
+public class Mailbox extends Movable{
 
-	public mailbox(int x, int y) {
+	public Mailbox(int x, int y) {
 		super(x, y);
 		HITBOX_WIDTH = 50;
 		HITBOX_RATIO = 127.0 / 60.0;
