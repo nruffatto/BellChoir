@@ -34,4 +34,9 @@ public class Mailbox extends Movable{
 		}
 		return null;
 	}
+	
+	@Override
+	public boolean isMailbox() {
+		return true;
+	}
 }

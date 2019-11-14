@@ -33,7 +33,10 @@ public class Dog extends Movable{
 	}
 
 	private void updateProperties() {
-		if (inRange(game.players[0]) && game.players[0].isCrouched){
+		if (inRange(game.packages[0]) && game.packages[0].holder != null) { 
+			// So that the dog goes after the player when he has the package
+			move(game.packages[0]);
+		}else if (inRange(game.players[0]) && game.players[0].isCrouched){
 			move(game.players[0]);
 		}else if (inRange(game.players[1]) && game.players[1].isCrouched) {
 			move(game.players[1]);

@@ -19,7 +19,7 @@ public class Screen extends JPanel{
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 64; 
-	public static final int MIN_BLOCK_SIZE = 32;
+	public static final int MIN_BLOCK_SIZE = 8;
 //	public static final int MIN_X = 0;
 //	public static final int MIN_Y = 0;
 //	public static final int MAX_X = 0;
@@ -53,7 +53,7 @@ public class Screen extends JPanel{
 	
 	private boolean mapOutlineOn = true;
 	private boolean blockOutlineOn = true;
-	private boolean hitBoxesOn = true;
+	private boolean hitBoxesOn = false;
 	private boolean imagesOn = true;
 	
 	public int maxX, minX, maxY, minY;
@@ -81,10 +81,10 @@ public class Screen extends JPanel{
 		BufferedImage img;
 		try {
 			img = ImageIO.read(imageFile);
-			g.drawImage(img, (int)(pos.x * (currentScale / 2)),
+			g.drawImage(img, (int)(pos.x * (currentScale / 2)), //
 					(int)(pos.y * (currentScale / 2)),
-					(int)(3200 * currentScale),
-					(int)(1200 * currentScale), this);
+					(int)(3200 * currentScale * 1.5),//
+					(int)(1200 * currentScale * 1.5), this);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

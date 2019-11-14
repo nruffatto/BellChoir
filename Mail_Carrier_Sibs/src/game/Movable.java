@@ -26,8 +26,8 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	protected double accY;
 	protected double velX;
 	protected double velY;
-	private int maxVelX = 1000;
-	private int maxVelY = 1000;
+	private int maxVelX = 100;
+	private int maxVelY = 100;
 	public Rectangle rec;
 	public Rectangle pastRec;
 	

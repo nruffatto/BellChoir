@@ -39,7 +39,7 @@ public class Screen2 extends JPanel{
 	private int len; //block size
 	private int pastLen;
 	public Map map;
-	public Movable[] movables = new Movable[4];
+	public Movable[] movables = new Movable[5];
 	
 	private int mouseX = 0;
 	private int mouseY = 0;
