@@ -12,15 +12,15 @@ import javax.imageio.ImageIO;
 public class Dog extends Movable{
 	
 	private int speed = 11;
-	private int jumpingSpeed = 20;
+	private int jumpingSpeed = 25;
 	private int vision = 7;
 
 	public Dog(int x, int y) {
 		super(x, y);
-		HITBOX_WIDTH = 100;
-		HITBOX_RATIO = 120.0 / 127;
+		HITBOX_WIDTH = 150;
+		HITBOX_RATIO = 2.2 / 3.0;
 		IMAGE_SCALE = (double) HITBOX_WIDTH / 150;
-		startPoint = new Point((int)(0),(int)(0));
+		startPoint = new Point((int)(38 * IMAGE_SCALE),(int)(7 * IMAGE_SCALE));
 		IMAGE_WIDTH = (int)(209 * IMAGE_SCALE);// * IMAGE_SCALE
 		IMAGE_HEIGHT = (int)(122 * IMAGE_SCALE);
 		rec = new Rectangle(x, y, HITBOX_WIDTH, (int)(HITBOX_WIDTH * HITBOX_RATIO));
@@ -33,7 +33,10 @@ public class Dog extends Movable{
 	}
 
 	private void updateProperties() {
-		if (inRange(game.players[0]) && game.players[0].isCrouched){
+		if (inRange(game.packages[0]) && game.packages[0].holder != null) { 
+			// So that the dog goes after the player when he has the package
+			move(game.packages[0]);
+		}else if (inRange(game.players[0]) && game.players[0].isCrouched){
 			move(game.players[0]);
 		}else if (inRange(game.players[1]) && game.players[1].isCrouched) {
 			move(game.players[1]);

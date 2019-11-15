@@ -147,7 +147,8 @@ public class Player extends Movable implements KeyListener{
 			playerState = IDLE_INDEX;
 			isCrouched = false;
 		}
-		if(game.packages[0].holder == null && !isCrouched) {
+		if(game.packages[0].holder == null && !isCrouched &&
+				!this.isTouching(game.dogs[0])) {
 			hasPackage = false;
 			if(this.isTouching(game.packages[0]) || game.packages[0].isTouching(this)) {
 				game.packages[0].setHolder(this);

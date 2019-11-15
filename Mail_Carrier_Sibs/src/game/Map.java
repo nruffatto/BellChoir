@@ -14,7 +14,8 @@ public class Map {
 		map = new Block[height][width];
 		wid = width;
 		hei = height;
-		spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);
+		spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);
+		spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);
 	}
 	
 	public void clear() {
