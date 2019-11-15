@@ -18,8 +18,8 @@ public class Screen extends JPanel{
 	public static final int RENDER_HEIGHT = 20;
 	
 	//Zoom Levels
-	public static final int MAX_BLOCK_SIZE = 64; 
-	public static final int MIN_BLOCK_SIZE = 8;
+	public static final int MAX_BLOCK_SIZE = 96; 
+	public static final int MIN_BLOCK_SIZE = 56;
 //	public static final int MIN_X = 0;
 //	public static final int MIN_Y = 0;
 //	public static final int MAX_X = 0;
@@ -58,12 +58,21 @@ public class Screen extends JPanel{
 	
 	public int maxX, minX, maxY, minY;
 	
+	private BufferedImage img;
+	
 	public Screen(Map m) {
 		super();
 		pos = new Point();
 		len = startingLength;
 		pastLen = len;
 		map = m;
+
+		File imageFile = new File("Sprites/sky.png");
+		try {
+			img = ImageIO.read(imageFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void setGame(Game g) {
@@ -77,17 +86,10 @@ public class Screen extends JPanel{
 	public void paintComponent(Graphics g) {
 		target();
 		currentScale = (double) len / startingLength;
-		File imageFile = new File("Sprites/sky.png");
-		BufferedImage img;
-		try {
-			img = ImageIO.read(imageFile);
-			g.drawImage(img, (int)(pos.x * (currentScale / 2)), //
-					(int)(pos.y * (currentScale / 2)),
-					(int)(3200 * currentScale * 1.5),//
-					(int)(1200 * currentScale * 1.5), this);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		g.drawImage(img, (int)(pos.x * (currentScale / 2)), //
+				(int)(pos.y * (currentScale / 2)),
+				(int)(3200 * currentScale / 2),//
+				(int)(1200 * currentScale / 2), this);
 		int avX = (minX + maxX) / 2;
 		int avY = (minY + maxY) / 2;
 		for(int i = avX / 64 - RENDER_WIDTH; i < avX / 64 + RENDER_WIDTH; i ++) {

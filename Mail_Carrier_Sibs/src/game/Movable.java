@@ -122,6 +122,9 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	
 	public boolean isTouching(Movable m) {
 		boolean isTouching = false;
+		if(m == null) {
+			return false;
+		}
 		Point[] points1 = getPoints();
 		Point[] points2 = m.getPoints();
 		for(int i = 0; i < points1.length; i ++) {
