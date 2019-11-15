@@ -6,6 +6,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,6 +26,7 @@ import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -61,12 +64,14 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public JButton[] MenuButtons = new JButton[4];
 	
 	private boolean levelpanel;
+	public static final Color LIGHT_BLUE = new Color(51,204,255);
 	
 	public String MenuImage = "Sprites/logo.png";
 	
 	public Game() {
 		gameIsReady = false;
 		gameFrame = new JFrame("Map game");
+		
 		gameFrame.setSize(1280, 720);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,14 +83,51 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		levelpanel = false;
 		
 		JPanel panel = new MenuImage();
+		panel.setBackground(LIGHT_BLUE);
 		
-		JButton startbtn = new JButton("Start");
-		startbtn.setPreferredSize(new Dimension(200, 40));
+		
+		JButton startbtn = new JButton();
+		try {
+		    BufferedImage img = ImageIO.read(new File("Sprites/play.png"));
+		    BufferedImage img2 = ImageIO.read(new File("Sprites/playhover.png"));
+		    startbtn.setIcon(new ImageIcon(img));
+		    startbtn.setRolloverIcon(new ImageIcon(img2));
+		  } catch (Exception ex) {
+		    System.out.println(ex);
+		  }
+		startbtn.setBorderPainted(false); 
+		startbtn.setContentAreaFilled(false); 
+		startbtn.setFocusPainted(false); 
+		startbtn.setOpaque(false);
+		panel.setLayout(null);
+		Insets insets = panel.getInsets();
+		Dimension size = startbtn.getPreferredSize();
+		startbtn.setBounds(800 + insets.right, 100 + insets.top,size.width+50, size.height+25);
 		startbtn.addActionListener(this);
 		startbtn.setActionCommand("Start");
 		MenuButtons[0] = startbtn;
-		startbtn.setLocation(gameFrame.getWidth()/2, gameFrame.getHeight()/2);
 		panel.add(startbtn);
+		
+		
+		JButton exitbtn = new JButton();
+		try {
+		    BufferedImage img = ImageIO.read(new File("Sprites/exit.png"));
+		    BufferedImage img2 = ImageIO.read(new File("Sprites/exithover.png"));
+		    exitbtn.setIcon(new ImageIcon(img));
+		    exitbtn.setRolloverIcon(new ImageIcon(img2));
+		  } catch (Exception ex) {
+		    System.out.println(ex);
+		  }
+		exitbtn.setBorderPainted(false); 
+		exitbtn.setContentAreaFilled(false); 
+		exitbtn.setFocusPainted(false); 
+		exitbtn.setOpaque(false);
+		panel.setLayout(null);
+		exitbtn.setBounds(800 + insets.right, 300 + insets.top,size.width+50, size.height+25);
+		exitbtn.addActionListener(this);
+		exitbtn.setActionCommand("Exit");
+		MenuButtons[1] = exitbtn;
+		panel.add(exitbtn);
 		
 		
 		
@@ -107,6 +149,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setVisible(true);
 		
 		JPanel panel = new JPanel(new GridLayout(4,4,4,4));
+		panel.setBackground(LIGHT_BLUE);
 
 		for(int i=0 ; i<LevelNumber ; i++){
 		    JButton btn = new JButton("Level " + String.valueOf(i+1));
@@ -128,6 +171,10 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         	LoadLevelButtons();
         	
         	MenuButtons[0].setVisible(false);
+        }
+        if (action.equals("Exit"))
+        {
+        	System.exit(0);
         }
        
         for(int i=0 ; i<LevelNumber ; i++)
