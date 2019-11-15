@@ -41,12 +41,12 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 
 	public static final int DEFAULT_BLOCK_SIZE = 64;
-	public static final int TIME_STEP = 5;
+	public static final int TIME_STEP = 30;
 	public static final int PACKAGE_INDEX = 2;
 	
 	public JFrame gameFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"mappy.txt","file1.txt"};
+	private String[] mapList = {"mappy.txt","test1.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -58,7 +58,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	private Timer timer = new Timer();
 	
 	private boolean gameIsReady;
-	
 	public int LevelNumber = mapList.length;
 	public JButton[] LevelButtons = new JButton[LevelNumber];
 	public JButton[] MenuButtons = new JButton[4];
@@ -70,8 +69,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	public Game() {
 		gameIsReady = false;
-		gameFrame = new JFrame("Map game");
-		
+		gameFrame = new JFrame("Super Mail Carrier Sibs");
 		gameFrame.setSize(1280, 720);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -217,7 +215,9 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		movables[1] = new Player(map.getSpawnPoint(1).x, map.getSpawnPoint(1).y, 1);
 		movables[PACKAGE_INDEX] = new Package(map.getSpawnPoint(2).x, map.getSpawnPoint(2).y);
 		movables[3] = new Mailbox(map.getSpawnPoint(3).x, map.getSpawnPoint(3).y);
-		movables[4] = new Dog(map.getSpawnPoint(4).x, map.getSpawnPoint(4).y);
+		if(map.getSpawnPoint(4) != null) {
+			movables[4] = new Dog(map.getSpawnPoint(4).x, map.getSpawnPoint(4).y);
+		}
 		
 		players[0] = (Player) movables[0];
 		players[1] = (Player) movables[1];

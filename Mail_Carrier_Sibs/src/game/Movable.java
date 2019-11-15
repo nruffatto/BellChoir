@@ -36,6 +36,8 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	protected boolean isInAir = false;
 	protected boolean isFacingLeft = false;
 	protected String PackageImage = "Sprites/package.png";
+	public boolean hasPackage = false;
+	
 	public Movable(int x, int y) {
 		rec = new Rectangle(x, y, HITBOX_WIDTH, (int)(HITBOX_WIDTH * HITBOX_RATIO));//(int)(HITBOX_WIDTH * HITBOX_RATIO)
 		accY = 2;
@@ -122,6 +124,9 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	
 	public boolean isTouching(Movable m) {
 		boolean isTouching = false;
+		if(m == null) {
+			return false;
+		}
 		Point[] points1 = getPoints();
 		Point[] points2 = m.getPoints();
 		for(int i = 0; i < points1.length; i ++) {

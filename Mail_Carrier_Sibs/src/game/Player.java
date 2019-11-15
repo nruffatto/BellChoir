@@ -51,7 +51,6 @@ public class Player extends Movable implements KeyListener{
 	private boolean isRunning = false;
 	protected boolean isCrouched = false;
 	private boolean isJumping = false;
-	public boolean hasPackage;
 
 	private Animation[][] playerImages = {
 			{	new Animation("Sprites/mailman1idle_8_.png",138,135),
