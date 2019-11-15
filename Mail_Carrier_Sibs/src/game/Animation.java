@@ -8,14 +8,12 @@ import java.awt.Point;
 import javax.imageio.ImageIO;
 
 public class Animation {
-	public int frameX = 138;
-	public int frameY = 135;
 	public Point topCorner = new Point(0,0);
 	public int frames;
 	public int currentFrame = 0;
 	public BufferedImage[] images;
 	
-	public Animation(String a) {
+	public Animation(String a, int frameX, int frameY) {
 		String[] splitFile = a.split("_");
 		frames = Integer.parseInt(splitFile[1]);
 		images = new BufferedImage[frames];

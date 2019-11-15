@@ -22,7 +22,7 @@ public class Player extends Movable implements KeyListener{
 	private int packageState = NORMAL_INDEX;
 	private int[][] stats = new int[2][NUMBER_OF_STATS];
 	
-	protected static final int IDLE_INDEX = 0;
+	private static final int IDLE_INDEX = 0;
 	private static final int RUN_INDEX = 1;
 	private static final int PACKAGE_RUN_INDEX = 2;
 	private static final int PACKAGE_IDLE_INDEX = 3;
@@ -54,21 +54,21 @@ public class Player extends Movable implements KeyListener{
 	public boolean hasPackage;
 
 	private Animation[][] playerImages = {
-			{	new Animation("Sprites/mailman1idle_8_.png"),
-				new Animation("Sprites/mailman1run_8_.png"),
-				new Animation("Sprites/mailman1boxrun_16_.png"),
-				new Animation("Sprites/mailman1boxidle_8_.png"),
-				new Animation("Sprites/mailman1crouchidle_6_.png"),
-				new Animation("Sprites/mailman1crouchwalk_6_.png"),  
-				new Animation("Sprites/mailman1_1_.png")},
+			{	new Animation("Sprites/mailman1idle_8_.png",138,135),
+				new Animation("Sprites/mailman1run_8_.png",138,135),
+				new Animation("Sprites/mailman1boxrun_16_.png",138,135),
+				new Animation("Sprites/mailman1boxidle_8_.png",138,135),
+				new Animation("Sprites/mailman1crouchidle_6_.png",138,135),
+				new Animation("Sprites/mailman1crouchwalk_6_.png",138,135),  
+				new Animation("Sprites/mailman1_1_.png",138,135)},
 			{
-				new Animation("Sprites/mailman2idle_8_.png"),
-				new Animation("Sprites/mailman2run_8_.png"),
-				new Animation("Sprites/mailman2boxrun_16_.png"),
-				new Animation("Sprites/mailman2boxidle_8_.png"),
-				new Animation("Sprites/mailman2crouchidle_6_.png"),
-				new Animation("Sprites/mailman2crouchwalk_6_.png"), 
-				new Animation("Sprites/mailman2_1_.png")
+				new Animation("Sprites/mailman2idle_8_.png",138,135),
+				new Animation("Sprites/mailman2run_8_.png",138,135),
+				new Animation("Sprites/mailman2boxrun_16_.png",138,135),
+				new Animation("Sprites/mailman2boxidle_8_.png",138,135),
+				new Animation("Sprites/mailman2crouchidle_6_.png",138,135),
+				new Animation("Sprites/mailman2crouchwalk_6_.png",138,135), 
+				new Animation("Sprites/mailman2_1_.png",138,135)
 			}
 	};
 	

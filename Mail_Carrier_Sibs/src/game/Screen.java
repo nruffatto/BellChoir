@@ -53,7 +53,7 @@ public class Screen extends JPanel{
 	
 	private boolean mapOutlineOn = true;
 	private boolean blockOutlineOn = true;
-	private boolean hitBoxesOn = false;
+	private boolean hitBoxesOn = true;
 	private boolean imagesOn = true;
 	
 	public int maxX, minX, maxY, minY;
