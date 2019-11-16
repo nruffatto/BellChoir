@@ -20,7 +20,7 @@ public class Screen extends JPanel{
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 64; 
-	public static final int MIN_BLOCK_SIZE = 56;
+	public static final int MIN_BLOCK_SIZE = 32;
 //	public static final int MIN_X = 0;
 //	public static final int MIN_Y = 0;
 //	public static final int MAX_X = 0;
