@@ -63,17 +63,17 @@ public class Screen2 extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		currentScale = (double) len / startingLength;
-		File imageFile = new File("Sprites/sky.png");
-		BufferedImage img;
-		try {
-			img = ImageIO.read(imageFile);
-			g.drawImage(img, (int)(pos.x * (currentScale / 2)),
-					(int)(pos.y * (currentScale / 2)),
-					(int)(3200 * currentScale),
-					(int)(1200 * currentScale), this);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		File imageFile = new File("Sprites/sky.png");
+//		BufferedImage img;
+//		try {
+//			img = ImageIO.read(imageFile);
+//			g.drawImage(img, (int)(pos.x * (currentScale / 2)),
+//					(int)(pos.y * (currentScale / 2)),
+//					(int)(3200 * currentScale),
+//					(int)(1200 * currentScale), this);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		g.setColor(Color.RED);
 //		for(int i = 0; i < map.getWidth(); i ++) {
 //			for(int j = map.getHeight() - 1; j >= 0; j --) {
@@ -104,21 +104,41 @@ public class Screen2 extends JPanel{
 	}
 	
 	private void drawBlock(Graphics g, Block block, int x, int y) {
-		File imageFile = new File(block.getImageFileName());
-		BufferedImage img;
-		try {
-			img = ImageIO.read(imageFile);
-//			g.drawImage(img, (int)(x * len - (len * widthScale - len) / 2) + pos.x, (int)(y * len - (len * heightScale - len) / 2) + pos.y, (int)(len * widthScale), (int)(len * heightScale), this);
-			g.drawImage(
-					img,
-					(int)(x * len - (len * widthScale - len) / 2 - cubeStartX * currentScale + pos.x),
-					(int)(y * len + (len * heightScale - len) / 2 - cubeStartY * currentScale + pos.y),
-					(int)(currentScale * imageWidth),
-					(int)(currentScale * imageHeight),
-					this);
-//			System.out.println("Block Drawn at ");
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(!block.getImageFileName().equals("none")) {
+			File imageFile = new File(block.getImageFileName());
+			BufferedImage img;
+			try {
+				img = ImageIO.read(imageFile);
+//				g.drawImage(img, (int)(x * len - (len * widthScale - len) / 2) + pos.x, (int)(y * len - (len * heightScale - len) / 2) + pos.y, (int)(len * widthScale), (int)(len * heightScale), this);
+				g.drawImage(
+						img,
+						(int)(x * len - (len * widthScale - len) / 2 - cubeStartX * currentScale + pos.x),
+						(int)(y * len + (len * heightScale - len) / 2 - cubeStartY * currentScale + pos.y),
+						(int)(currentScale * imageWidth),
+						(int)(currentScale * imageHeight),
+						this);
+//				System.out.println("Block Drawn at ");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else {
+			File imageFile = new File("Sprites/error.png");
+			BufferedImage img;
+			try {
+				img = ImageIO.read(imageFile);
+//				g.drawImage(img, (int)(x * len - (len * widthScale - len) / 2) + pos.x, (int)(y * len - (len * heightScale - len) / 2) + pos.y, (int)(len * widthScale), (int)(len * heightScale), this);
+				g.drawImage(
+						img,
+						(int)(x * len - (len * widthScale - len) / 2 - cubeStartX * currentScale + pos.x),
+						(int)(y * len + (len * heightScale - len) / 2 - cubeStartY * currentScale + pos.y),
+						(int)(currentScale * imageWidth),
+						(int)(currentScale * imageHeight),
+						this);
+//				System.out.println("Block Drawn at ");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 		}
 	}
 

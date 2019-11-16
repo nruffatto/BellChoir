@@ -65,7 +65,7 @@ public class Package extends Movable implements MouseListener {
 	public void update() {
 		if(holder != null) {
 			rec.setLocation(holder.rec.x, holder.rec.y);
-			if (holder.isTouching(game.dogs[0])) {
+			if (holder.isTouching(game.dogs[0]) && !holder.isMailbox()) {
 				if(holder.isFacingLeft) {
 					removeHolder();
 					velX = Math.floor(Math.random()*-20 - 10);
@@ -86,6 +86,10 @@ public class Package extends Movable implements MouseListener {
 			setHolder(game.mailboxes[0]);
 			//System.out.println("Winner");
 		}
+		if(!isInAir && wasInAir) {
+			game.score += 10;
+		}
+		wasInAir = isInAir;
 	}
 	
 	@Override
@@ -100,6 +104,7 @@ public class Package extends Movable implements MouseListener {
 					if(points[i].y > pastPoints[i].y) {//points[i].y > pastPoints[i].y
 						rec.y -= points[i].y % Screen.startingLength + 1;
 						velX = 0;
+						isInAir = false;
 //						System.out.println(points[i].y % Screen.startingLength + 1);
 					}else if(points[i].y < pastPoints[i].y){//if(points[i].y < pastPoints[i].y)
 						rec.y += Screen.startingLength - points[i].y % Screen.startingLength + 1;

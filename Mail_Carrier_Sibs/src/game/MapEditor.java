@@ -80,7 +80,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	
 	String currentFileName;
 	
-	private String[] imageFileNames = {"000","001","002","003","004"};
+	private String[] imageFileNames = {"000","001","002","003","004","none",};
 	private JComboBox imageComboBox;
 	
 	private Block currentBlock;
@@ -499,7 +499,11 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
 		if(e.getSource() == imageComboBox) {
-			currentBlock.setImage("blockimg/" + imageComboBox.getSelectedItem().toString() + ".png");
+			if(imageComboBox.getSelectedItem().toString().equals("none")) {
+				currentBlock.setImage("none");
+			}else {
+				currentBlock.setImage("blockimg/" + imageComboBox.getSelectedItem().toString() + ".png");
+			}
 		}
 	}
 
