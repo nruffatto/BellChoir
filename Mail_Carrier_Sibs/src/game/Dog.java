@@ -77,7 +77,6 @@ public class Dog extends Movable{
 		}else {
 			velX = 0;
 			dogState = SIT_INDEX;
-			System.out.println(dogState);
 		}
 	}
 	
