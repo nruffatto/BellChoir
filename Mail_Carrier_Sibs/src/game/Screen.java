@@ -111,9 +111,9 @@ public class Screen extends JPanel{
 		if(blockOutlineOn) {
 			g.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len);
 		} // mouse area
-		g.setColor(Color.yellow);
+		g.setColor(Color.white);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-		g.drawString(String.format("%1$,.0f", game.score), (int)(game.gameFrame.getWidth() / 2), 30);
+		g.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2), 30);
 	}
 	
 	public void addTarget(Movable m) {
