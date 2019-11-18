@@ -28,7 +28,7 @@ public class Dog extends Movable{
 
 	public Dog(int x, int y) {
 		super(x, y);
-		HITBOX_WIDTH = 150;
+		HITBOX_WIDTH = 100;
 		HITBOX_RATIO = 2.2 / 3.0;
 		IMAGE_SCALE = (double) HITBOX_WIDTH / 150;
 		startPoint = new Point((int)(38 * IMAGE_SCALE),(int)(7 * IMAGE_SCALE));
@@ -68,22 +68,22 @@ public class Dog extends Movable{
 	private void move(Movable m) {
 		double distanceX = m.rec.getCenterX() - this.rec.getCenterX();
 		dogState = RUN_INDEX;
-		if (distanceX > 0) {
+		if (distanceX > 5) {
 			isFacingLeft = false;
 			velX = speed;
-		}else if (distanceX < 0) {
+		}else if (distanceX < -5) {
 			isFacingLeft = true;
 			velX = -speed;
 		}else {
 			velX = 0;
 			dogState = SIT_INDEX;
-			System.out.println(dogState);
 		}
 	}
 	
 	private boolean inRange(Movable m) {
 		double distanceX = Math.abs(m.rec.getCenterX() - this.rec.getCenterX());
-		if(distanceX <= vision * game.screen.startingLength) {
+		double distanceY = Math.abs(m.rec.getCenterY() - this.rec.getCenterY());
+		if(distanceY <= vision * game.screen.startingLength && distanceX <= vision * game.screen.startingLength) {
 			return true;
 		} else {
 			return false;
