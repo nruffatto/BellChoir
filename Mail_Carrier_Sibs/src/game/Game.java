@@ -47,7 +47,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	public JFrame gameFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"mappy.txt","m2.txt"};
+	private String[] mapList = {"tunnel.txt","m1.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -213,7 +213,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		movables[PACKAGE_INDEX] = new Package(map.getSpawnPoint(2).x, map.getSpawnPoint(2).y);
 		movables[3] = new Mailbox(map.getSpawnPoint(3).x, map.getSpawnPoint(3).y);
 		if(map.getSpawnPoint(4) != null) {
-			movables[4] = new Dog(map.getSpawnPoint(4).x, map.getSpawnPoint(4).y);
+			movables[4] = new Dog(map.getSpawnPoint(4).x, map.getSpawnPoint(4).y, 200);
 		}
 		
 		players[0] = (Player) movables[0];

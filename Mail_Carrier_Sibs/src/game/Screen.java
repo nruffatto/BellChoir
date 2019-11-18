@@ -20,13 +20,7 @@ public class Screen extends JPanel{
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 64; 
-<<<<<<< HEAD
-
-	public static final int MIN_BLOCK_SIZE = 56;
-
-=======
 	public static final int MIN_BLOCK_SIZE = 32;
->>>>>>> 3df05cf6f08005ba77a038fcbd99187f4ffcf116
 //	public static final int MIN_X = 0;
 //	public static final int MIN_Y = 0;
 //	public static final int MAX_X = 0;
@@ -93,18 +87,10 @@ public class Screen extends JPanel{
 	public void paintComponent(Graphics g) {
 		target();
 		currentScale = (double) len / startingLength;
-<<<<<<< HEAD
-
-		g.drawImage(img, (int)(pos.x * (currentScale / 2)), //
-				(int)(pos.y * (currentScale / 2)),
-				(int)(3200 * currentScale / 2),//
-				(int)(1200 * currentScale / 2), this);
-=======
 		g.drawImage(img, (int)(pos.x * (currentScale / 2)), //
 				(int)(pos.y * (currentScale / 2)),
 				(int)(3200 * currentScale),//
 				(int)(1200 * currentScale), this);
->>>>>>> 3df05cf6f08005ba77a038fcbd99187f4ffcf116
 		int avX = (minX + maxX) / 2;
 		int avY = (minY + maxY) / 2;
 		for(int i = avX / 64 - RENDER_WIDTH; i < avX / 64 + RENDER_WIDTH; i ++) {
