@@ -34,6 +34,7 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	protected Game game;
 	
 	protected boolean isInAir = false;
+	protected boolean wasInAir = false;
 	protected boolean isFacingLeft = false;
 	protected String PackageImage = "Sprites/package.png";
 	public boolean hasPackage = false;
@@ -107,7 +108,6 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 					if(points[i].y > pastPoints[i].y) {//points[i].y > pastPoints[i].y
 						rec.y -= points[i].y % Screen.startingLength + 1;
 						isInAir = false;
-//						System.out.println(points[i].y % Screen.startingLength + 1);
 					}else if(points[i].y < pastPoints[i].y){//if(points[i].y < pastPoints[i].y)
 						rec.y += Screen.startingLength - points[i].y % Screen.startingLength + 1;
 //						System.out.println("2");

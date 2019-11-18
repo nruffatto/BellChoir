@@ -29,6 +29,7 @@ import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,7 +47,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	public JFrame gameFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"mappy.txt","test1.txt"};
+	private String[] mapList = {"mappy.txt","m2.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -66,6 +67,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public static final Color LIGHT_BLUE = new Color(51,204,255);
 	
 	public String MenuImage = "Sprites/logo.png";
+	
+	public double score = 0;
 	
 	public Game() {
 		gameIsReady = false;
@@ -127,14 +130,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		MenuButtons[1] = exitbtn;
 		panel.add(exitbtn);
 		
-		
-		
-		
 		gameFrame.setContentPane(panel);
 		gameFrame.setVisible(true);
-		
-		
-
 	}
 	
 	
@@ -267,6 +264,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			gameFrame.revalidate();
 			gameFrame.repaint();
 		}
+		score += ((double)TIME_STEP / 1000);
 	}
 	
 	private void openMap(String fileName) {

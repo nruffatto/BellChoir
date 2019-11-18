@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -19,7 +20,7 @@ public class Screen extends JPanel{
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 64; 
-	public static final int MIN_BLOCK_SIZE = 56;
+	public static final int MIN_BLOCK_SIZE = 32;
 //	public static final int MIN_X = 0;
 //	public static final int MIN_Y = 0;
 //	public static final int MAX_X = 0;
@@ -53,7 +54,7 @@ public class Screen extends JPanel{
 	
 	private boolean mapOutlineOn = true;
 	private boolean blockOutlineOn = true;
-	private boolean hitBoxesOn = true;
+	private boolean hitBoxesOn = false;
 	private boolean imagesOn = true;
 	
 	public int maxX, minX, maxY, minY;
@@ -88,8 +89,8 @@ public class Screen extends JPanel{
 		currentScale = (double) len / startingLength;
 		g.drawImage(img, (int)(pos.x * (currentScale / 2)), //
 				(int)(pos.y * (currentScale / 2)),
-				(int)(3200 * currentScale / 2),//
-				(int)(1200 * currentScale / 2), this);
+				(int)(3200 * currentScale),//
+				(int)(1200 * currentScale), this);
 		int avX = (minX + maxX) / 2;
 		int avY = (minY + maxY) / 2;
 		for(int i = avX / 64 - RENDER_WIDTH; i < avX / 64 + RENDER_WIDTH; i ++) {
@@ -110,6 +111,9 @@ public class Screen extends JPanel{
 		if(blockOutlineOn) {
 			g.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len);
 		} // mouse area
+		g.setColor(Color.yellow);
+		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
+		g.drawString(String.format("%1$,.0f", game.score), (int)(game.gameFrame.getWidth() / 2), 30);
 	}
 	
 	public void addTarget(Movable m) {
@@ -145,21 +149,23 @@ public class Screen extends JPanel{
 	}
 	
 	private void drawBlock(Graphics g, Block block, int x, int y) {
-		File imageFile = new File(block.getImageFileName());
-		BufferedImage img;
-		try {
-			img = ImageIO.read(imageFile);
-//			g.drawImage(img, (int)(x * len - (len * widthScale - len) / 2) + pos.x, (int)(y * len - (len * heightScale - len) / 2) + pos.y, (int)(len * widthScale), (int)(len * heightScale), this);
-			g.drawImage(
-					img,
-					(int)(x * len - (len * widthScale - len) / 2 - cubeStartX * currentScale + pos.x),
-					(int)(y * len + (len * heightScale - len) / 2 - cubeStartY * currentScale + pos.y),
-					(int)(currentScale * imageWidth),
-					(int)(currentScale * imageHeight),
-					this);
-//			System.out.println("Block Drawn at ");
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(!block.getImageFileName().equals("none")) {
+			File imageFile = new File(block.getImageFileName());
+			BufferedImage img;
+			try {
+				img = ImageIO.read(imageFile);
+	//			g.drawImage(img, (int)(x * len - (len * widthScale - len) / 2) + pos.x, (int)(y * len - (len * heightScale - len) / 2) + pos.y, (int)(len * widthScale), (int)(len * heightScale), this);
+				g.drawImage(
+						img,
+						(int)(x * len - (len * widthScale - len) / 2 - cubeStartX * currentScale + pos.x),
+						(int)(y * len + (len * heightScale - len) / 2 - cubeStartY * currentScale + pos.y),
+						(int)(currentScale * imageWidth),
+						(int)(currentScale * imageHeight),
+						this);
+	//			System.out.println("Block Drawn at ");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -177,6 +183,12 @@ public class Screen extends JPanel{
 			pos.y = -map.getHeight() * len + game.gameFrame.getHeight() - 30;
 		}else {
 			pos.y = (int) y;
+		}
+		if(pos.x > 0) {
+			pos.x = 0;
+		}
+		if(pos.y > 0) {
+			pos.y = 0;
 		}
 	}
 	
