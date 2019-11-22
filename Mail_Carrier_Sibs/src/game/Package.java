@@ -25,6 +25,8 @@ public class Package extends Movable implements MouseListener {
 	
 	protected int packageThrows;
 	protected int packageDrops;
+	
+	protected boolean isDroped;
 
 	public Package(int x, int y) {
 		super(x, y);
@@ -39,6 +41,7 @@ public class Package extends Movable implements MouseListener {
 	
 	public void setHolder(Movable m) {
 		if (lastHolder != null) {
+			isDroped = false;
 			lastHolder.hasPackage = false;
 		}
 		if(m != lastHolder) {
@@ -49,6 +52,7 @@ public class Package extends Movable implements MouseListener {
 	}
 	
 	public void removeHolder() {
+		isDroped = true;
 		holder.hasPackage = false;
 		holder = null;
 		this.isVisible = true;
@@ -58,7 +62,8 @@ public class Package extends Movable implements MouseListener {
 	    double distanceX = ((x - game.screen.pos.x)/game.screen.currentScale - rec.getCenterX());
 	    double distanceY= ((y - game.screen.pos.y)/game.screen.currentScale - rec.getCenterY());
 	    velX = distanceX/15;
-	    velY = (distanceY-225)/15; 
+	    velY = (distanceY-225)/15;
+		game.score += 5;
 	}
 	
 	@Override
@@ -87,7 +92,8 @@ public class Package extends Movable implements MouseListener {
 			//System.out.println("Winner");
 		}
 		if(!isInAir && wasInAir) {
-			game.score += 10;
+			game.score += 20;
+			packageDrops++;
 		}
 		wasInAir = isInAir;
 	}
@@ -122,7 +128,16 @@ public class Package extends Movable implements MouseListener {
 	
 	@Override
 	public Image getImage() {
-		File imageFile = new File("Sprites/package.png");
+		File imageFile;
+		if(packageDrops >= 12) {
+			imageFile = new File("Sprites/package3.png");
+		}else if(packageDrops >= 8) {
+			imageFile = new File("Sprites/package2.png");
+		}else if(packageDrops >= 4) {
+			imageFile = new File("Sprites/package1.png");
+		}else {
+			imageFile = new File("Sprites/package.png");	
+		}
 		BufferedImage img;
 		try {
 			img = ImageIO.read(imageFile);

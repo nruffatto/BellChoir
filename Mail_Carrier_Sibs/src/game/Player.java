@@ -118,6 +118,11 @@ public class Player extends Movable implements KeyListener{
 	}
 	
 	public void updateProperties() {
+		if(game.packages[0].holder == this) {
+			hasPackage = true;
+		}else {
+			hasPackage = false;
+		}
 		if(hasPackage) {
 			packageState = HAS_PACKAGE_INDEX;
 			playerState = PACKAGE_IDLE_INDEX;

@@ -80,7 +80,10 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	
 	String currentFileName;
 	
-	private String[] imageFileNames = {"000","001","002","003","004","none",};
+	private String[] imageFileNames = {
+			"dirt/000","dirt/001","dirt/002","dirt/003",
+			"grass/000","grass/001","grass/002","grass/003",
+			"sidewalk/000","sidewalk/001","sidewalk/002","sidewalk/003","none",};
 	private JComboBox imageComboBox;
 	
 	private Block currentBlock;
@@ -242,11 +245,21 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 			fileField.setText("file_name.txt");
 		}
 		storeMapInstance();
-		screen.movables[0] = new Player(map.getSpawnPoint(0).x, map.getSpawnPoint(0).y, 0);
-		screen.movables[1] = new Player(map.getSpawnPoint(1).x, map.getSpawnPoint(1).y, 1);
-		screen.movables[2] = new Package(map.getSpawnPoint(2).x, map.getSpawnPoint(2).y);
-		screen.movables[3] = new Mailbox(map.getSpawnPoint(3).x, map.getSpawnPoint(3).y);
-		screen.movables[4] = new Dog(map.getSpawnPoint(4).x, map.getSpawnPoint(4).y);
+		if(screen.movables[0] != null) {
+			screen.movables[0] = new Player(map.getSpawnPoint(0).x, map.getSpawnPoint(0).y, 0);
+		}
+		if(screen.movables[1] != null) {
+			screen.movables[1] = new Player(map.getSpawnPoint(1).x, map.getSpawnPoint(1).y, 1);
+		}
+		if(screen.movables[2] != null) {
+			screen.movables[2] = new Package(map.getSpawnPoint(2).x, map.getSpawnPoint(2).y);
+		}
+		if(screen.movables[3] != null) {
+			screen.movables[3] = new Mailbox(map.getSpawnPoint(3).x, map.getSpawnPoint(3).y);
+		}
+		if(screen.movables[4] != null) {
+			screen.movables[4] = new Dog(map.getSpawnPoint(4).x, map.getSpawnPoint(4).y, 200);
+		}
 	}
 	
 	public void saveFile(String fileName) {
@@ -314,7 +327,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 					screen.movables[currentMovableIndex] = new Mailbox(x, y);
 				}else if(currentMovableIndex == 4) {
 					// put in the mailBox
-					screen.movables[currentMovableIndex] = new Dog(x, y);
+					screen.movables[currentMovableIndex] = new Dog(x, y, 200);
 				}
 			}else {
 				map.insertBlock(x / screen.getBlockSize(), 

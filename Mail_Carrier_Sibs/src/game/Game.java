@@ -45,13 +45,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 
 	public static final int DEFAULT_BLOCK_SIZE = 64;
-	public static final int TIME_STEP = 60;
+	public static final int TIME_STEP = 100;
 	public static final int PACKAGE_INDEX = 2;
 	
 	public JFrame gameFrame;
 	public JFrame pauseFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"mappy.txt","m2.txt","m2.txt","m2.txt"};
+	private String[] mapList = {"tunnel.txt","m2.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -267,12 +267,20 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		screen.setBlockOutline(false);
 		screen.setGame(this);
 		
-		movables[0] = new Player(map.getSpawnPoint(0).x, map.getSpawnPoint(0).y, 0);
-		movables[1] = new Player(map.getSpawnPoint(1).x, map.getSpawnPoint(1).y, 1);
-		movables[PACKAGE_INDEX] = new Package(map.getSpawnPoint(2).x, map.getSpawnPoint(2).y);
-		movables[3] = new Mailbox(map.getSpawnPoint(3).x, map.getSpawnPoint(3).y);
+		if(map.getSpawnPoint(0) != null) {
+			movables[0] = new Player(map.getSpawnPoint(0).x, map.getSpawnPoint(0).y, 0);
+		}
+		if(map.getSpawnPoint(1) != null) {
+			movables[1] = new Player(map.getSpawnPoint(1).x, map.getSpawnPoint(1).y, 1);
+		}
+		if(map.getSpawnPoint(2) != null) {
+			movables[PACKAGE_INDEX] = new Package(map.getSpawnPoint(2).x, map.getSpawnPoint(2).y);
+		}
+		if(map.getSpawnPoint(3) != null) {
+			movables[3] = new Mailbox(map.getSpawnPoint(3).x, map.getSpawnPoint(3).y);
+		}
 		if(map.getSpawnPoint(4) != null) {
-			movables[4] = new Dog(map.getSpawnPoint(4).x, map.getSpawnPoint(4).y);
+			movables[4] = new Dog(map.getSpawnPoint(4).x, map.getSpawnPoint(4).y, 200);
 		}
 		
 		players[0] = (Player) movables[0];
