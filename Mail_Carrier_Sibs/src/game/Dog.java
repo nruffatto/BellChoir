@@ -26,9 +26,9 @@ public class Dog extends Movable{
 			new Animation("Sprites/dog_1_.png",209,122)
 	};
 
-	public Dog(int x, int y) {
+	public Dog(int x, int y, int size) {
 		super(x, y);
-		HITBOX_WIDTH = 100;
+		HITBOX_WIDTH = size;
 		HITBOX_RATIO = 2.2 / 3.0;
 		IMAGE_SCALE = (double) HITBOX_WIDTH / 150;
 		startPoint = new Point((int)(38 * IMAGE_SCALE),(int)(7 * IMAGE_SCALE));

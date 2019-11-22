@@ -62,7 +62,8 @@ public class Package extends Movable implements MouseListener {
 	    double distanceX = ((x - game.screen.pos.x)/game.screen.currentScale - rec.getCenterX());
 	    double distanceY= ((y - game.screen.pos.y)/game.screen.currentScale - rec.getCenterY());
 	    velX = distanceX/15;
-	    velY = (distanceY-225)/15; 
+	    velY = (distanceY-225)/15;
+		game.score += 5;
 	}
 	
 	@Override
@@ -91,7 +92,7 @@ public class Package extends Movable implements MouseListener {
 			//System.out.println("Winner");
 		}
 		if(!isInAir && wasInAir) {
-			game.score += 10;
+			game.score += 20;
 			packageDrops++;
 		}
 		wasInAir = isInAir;
