@@ -21,6 +21,7 @@ public class Screen extends JPanel{
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 64; 
 	public static final int MIN_BLOCK_SIZE = 32;
+
 //	public static final int MIN_X = 0;
 //	public static final int MIN_Y = 0;
 //	public static final int MAX_X = 0;
@@ -87,10 +88,12 @@ public class Screen extends JPanel{
 	public void paintComponent(Graphics g) {
 		target();
 		currentScale = (double) len / startingLength;
+
 		g.drawImage(img, (int)(pos.x * (currentScale / 2)), //
 				(int)(pos.y * (currentScale / 2)),
 				(int)(3200 * currentScale),//
 				(int)(1200 * currentScale), this);
+
 		int avX = (minX + maxX) / 2;
 		int avY = (minY + maxY) / 2;
 		for(int i = avX / 64 - RENDER_WIDTH; i < avX / 64 + RENDER_WIDTH; i ++) {
@@ -111,9 +114,11 @@ public class Screen extends JPanel{
 		if(blockOutlineOn) {
 			g.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len);
 		} // mouse area
-		g.setColor(Color.yellow);
+		g.setColor(new Color(0, 0, 0, 75));
+		g.fillRect((int)(game.gameFrame.getWidth() / 2) - 10, 0, 100, 40);
+		g.setColor(Color.white);
 		g.setFont(new Font("TimesRoman", Font.PLAIN, 30));
-		g.drawString(String.format("%1$,.0f", game.score), (int)(game.gameFrame.getWidth() / 2), 30);
+		g.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2), 30);
 	}
 	
 	public void addTarget(Movable m) {
