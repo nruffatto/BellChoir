@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -26,6 +27,8 @@ import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -42,12 +45,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 
 	public static final int DEFAULT_BLOCK_SIZE = 64;
-	public static final int TIME_STEP = 30;
+	public static final int TIME_STEP = 60;
 	public static final int PACKAGE_INDEX = 2;
 	
 	public JFrame gameFrame;
+	public JFrame pauseFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"mappy.txt","m2.txt"};
+	private String[] mapList = {"mappy.txt","m2.txt","m2.txt","m2.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -56,7 +60,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public Mailbox[] mailboxes = new Mailbox[1];
 	private Container contentPane;
 	private Container contentPane1;
-	private Timer timer = new Timer();
+	private Timer timer;
 	
 	private boolean gameIsReady;
 	public int LevelNumber = mapList.length;
@@ -67,8 +71,11 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public static final Color LIGHT_BLUE = new Color(51,204,255);
 	
 	public String MenuImage = "Sprites/logo.png";
+	public String PauseImage = "Sprites/PauseImage1.png";
 	
 	public double score = 0;
+	
+	public boolean paused = false;
 	
 	public Game() {
 		gameIsReady = false;
@@ -81,6 +88,14 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		contentPane.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
 		
+		timer = new Timer();
+		timer.schedule(this, 0, TIME_STEP);
+		
+		LoadMenu();
+	}
+	
+	public void LoadMenu()
+	{
 		levelpanel = false;
 		
 		JPanel panel = new MenuImage();
@@ -134,30 +149,58 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setVisible(true);
 	}
 	
-	
 	public void LoadLevelButtons()
 	{
 		
 		contentPane = gameFrame.getContentPane();
-		contentPane.setLayout(new BorderLayout());
+		contentPane.setLayout(null);
 		contentPane.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
 		
 		JPanel panel = new JPanel(new GridLayout(4,4,4,4));
+		panel.setPreferredSize(Dimension (30,30));
 		panel.setBackground(LIGHT_BLUE);
 
 		for(int i=0 ; i<LevelNumber ; i++){
 		    JButton btn = new JButton("Level " + String.valueOf(i+1));
 		    LevelButtons[i] = btn;
-		    btn.setPreferredSize(new Dimension(40, 40));
+		    //btn.setPreferredSize(new Dimension(40, 40));
 		    btn.addActionListener(this);
 		    btn.setActionCommand(mapList[i]);
 		    panel.add(btn);
 		}
+		
+		JButton backbtn = new JButton();
+		try {
+		    BufferedImage img = ImageIO.read(new File("Sprites/back.png"));
+		    BufferedImage img2 = ImageIO.read(new File("Sprites/backhover.png"));
+		    backbtn.setIcon(new ImageIcon(img));
+		    backbtn.setRolloverIcon(new ImageIcon(img2));
+		  } catch (Exception ex) {
+		    System.out.println(ex);
+		  }
+		backbtn.setBorderPainted(false); 
+		backbtn.setContentAreaFilled(false); 
+		backbtn.setFocusPainted(false); 
+		backbtn.setOpaque(false);
+		//panel.setLayout(null);
+		Insets insets = panel.getInsets();
+		Dimension size = backbtn.getPreferredSize();
+		backbtn.setBounds(800 + insets.right, 300 + insets.top,size.width+50, size.height+25);
+		backbtn.addActionListener(this);
+		backbtn.setActionCommand("Back");
+		MenuButtons[1] = backbtn;
+		//panel.add(backbtn);
+		
 		gameFrame.setContentPane(panel);
 		gameFrame.setVisible(true);
 	}
 	
+	private Dimension Dimension(int i, int j) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent ae) {
         String action = ae.getActionCommand();
@@ -170,6 +213,22 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         if (action.equals("Exit"))
         {
         	System.exit(0);
+        }
+        
+        if (action.equals("Back"))
+        {
+        	LoadMenu();
+        }
+        
+        if (action.equals("BackMenu"))
+        {
+        	pauseFrame.setVisible(false);
+        	LoadMenu();
+        }
+        
+        if (action.equals("UnPause"))
+        {
+        	unpauseGame();
         }
        
         for(int i=0 ; i<LevelNumber ; i++)
@@ -238,11 +297,14 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		}
 		
 		contentPane1.requestFocus();
+		contentPane1.addKeyListener(this);
 		contentPane1.addKeyListener(players[0]);
 		contentPane1.addKeyListener(players[1]);
 		contentPane1.addMouseListener(packages[0]);
 		
-		timer.schedule(this, 0, TIME_STEP);
+		
+		
+		
 		gameIsReady = true;
 		gameFrame.repaint();
 		
@@ -308,11 +370,92 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			e.printStackTrace();
 		}
 	}
+	
+	public void pauseGame()
+	{
+		
+		
+		pauseFrame = new JFrame("Super Mail Carrier Sibs");
+		pauseFrame.setSize(1280/2, 500);
+		pauseFrame.setLocationRelativeTo(null);
+		
+		pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
+		pauseFrame.setUndecorated(true);
+		pauseFrame.setBackground(new Color(0,0,0,123));
+		
+		contentPane = pauseFrame.getContentPane();
+		contentPane.setLayout(new BorderLayout());
+		contentPane.setBackground(Color.WHITE);
+		gameFrame.setVisible(true);
+		
+		JPanel panel = new PauseImage();
+		panel.setBackground(new Color(0, 0, 0, 0));
+		
+		JButton contbtn = new JButton();
+		try {
+		    BufferedImage img = ImageIO.read(new File("Sprites/continue.png"));
+		    BufferedImage img2 = ImageIO.read(new File("Sprites/continuehover.png"));
+		    contbtn.setIcon(new ImageIcon(img));
+		    contbtn.setRolloverIcon(new ImageIcon(img2));
+		  } catch (Exception ex) {
+		    System.out.println(ex);
+		  }
+		
+		contbtn.setBorderPainted(false); 
+		contbtn.setContentAreaFilled(false); 
+		contbtn.setFocusPainted(false); 
+		contbtn.setOpaque(false);
+		panel.setLayout(null);
+		Insets insets = panel.getInsets();
+		Dimension size = contbtn.getPreferredSize();
+		contbtn.setBounds(25 + insets.right, 400 + insets.top,size.width+10, size.height+10);
+		contbtn.addActionListener(this);
+		contbtn.setActionCommand("UnPause");
+		panel.add(contbtn);
+		
+		JButton menubtn = new JButton();
+		try {
+		    BufferedImage img = ImageIO.read(new File("Sprites/backtomenu.png"));
+		    BufferedImage img2 = ImageIO.read(new File("Sprites/backtomenuhover.png"));
+		    menubtn.setIcon(new ImageIcon(img));
+		    menubtn.setRolloverIcon(new ImageIcon(img2));
+		  } catch (Exception ex) {
+		    System.out.println(ex);
+		  }
+		
+		menubtn.setBorderPainted(false); 
+		menubtn.setContentAreaFilled(false); 
+		menubtn.setFocusPainted(false); 
+		menubtn.setOpaque(false);
+		panel.setLayout(null);
+		menubtn.setBounds(390 + insets.right, 390 + insets.top,size.width+10, size.height+10);
+		menubtn.addActionListener(this);
+		menubtn.setActionCommand("BackMenu");
+		panel.add(menubtn);
+		
+		pauseFrame.setContentPane(panel);
+		pauseFrame.setVisible(true);
+		
+		gameIsReady = false;
+	}
+	
+	
+	
+	public void unpauseGame()
+	{
+		gameIsReady = true;
+		pauseFrame.setVisible(false);
+	}
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		if(arg0.getKeyCode() == KeyEvent.VK_ESCAPE)
+		{
+			pauseGame();
+
+		}
 	}
 
 	@Override
@@ -368,6 +511,22 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        img = ImageIO.read(new File(MenuImage));
 	        if (img != null)
 	            g.drawImage(img, 0, 0,700,700, this);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+	}
+	
+	private class PauseImage extends JPanel {
+		@Override
+	    public void paintComponent(Graphics g) {
+	        super.paintComponent(g);
+	        BufferedImage img;
+			try {
+	        img = ImageIO.read(new File(PauseImage));
+	        if (img != null)
+	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
