@@ -52,7 +52,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public JFrame gameFrame;
 	public JFrame pauseFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"easy.txt","m2.txt", "mappy.txt"};
+	private String[] mapList = {"easy.txt", "map1.txt", "m2.txt", "mappy.txt", };
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
