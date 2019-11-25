@@ -90,6 +90,7 @@ public class Screen extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g); 
 		target();
 		currentScale = (double) len / startingLength;
 

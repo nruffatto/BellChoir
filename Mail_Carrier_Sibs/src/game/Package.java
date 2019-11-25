@@ -95,6 +95,9 @@ public class Package extends Movable implements MouseListener {
 		if(!isInAir && wasInAir) {
 			game.score += 20;
 			packageDrops++;
+			if (packageDrops > 3) {
+				game.StartLevel(game.mapList[game.currentLevelIndex],game.currentLevelIndex);
+			}
 		}
 		wasInAir = isInAir;
 	}
@@ -130,11 +133,11 @@ public class Package extends Movable implements MouseListener {
 	@Override
 	public Image getImage() {
 		File imageFile;
-		if(packageDrops >= 12) {
+		if(packageDrops >= 3) {
 			imageFile = new File("Sprites/package3.png");
-		}else if(packageDrops >= 8) {
+		}else if(packageDrops >= 2) {
 			imageFile = new File("Sprites/package2.png");
-		}else if(packageDrops >= 4) {
+		}else if(packageDrops >= 1) {
 			imageFile = new File("Sprites/package1.png");
 		}else {
 			imageFile = new File("Sprites/package.png");	
