@@ -79,7 +79,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	public String MenuImage = "Sprites/logo.png";
 	public String LevelComplete = "Sprites/levelcomplete.png";
-	public String GameOver = "Sprites/GameOver1.png";
+	public String[] GameOver = {"Sprites/GameOver1.png","Sprites/GameOver2.png","Sprites/GameOver1.png"};
 	public String[] PauseImage = {"Sprites/PauseImage1.png","Sprites/PauseImage2.png","Sprites/PauseImage3.png"};
 	
 	public double score = 0;
@@ -745,7 +745,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        super.paintComponent(g);
 	        BufferedImage img;
 			try {
-	        img = ImageIO.read(new File(GameOver));
+			int randomNum = ThreadLocalRandom.current().nextInt(0, 3);
+		    img = ImageIO.read(new File(GameOver[randomNum]));
 	        if (img != null)
 	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {
