@@ -45,13 +45,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 
 	public static final int DEFAULT_BLOCK_SIZE = 64;
-	public static final int TIME_STEP = 100;
+	public static final int TIME_STEP = 30;
 	public static final int PACKAGE_INDEX = 2;
 	
 	public JFrame gameFrame;
 	public JFrame pauseFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"tunnel.txt","m2.txt"};
+	private String[] mapList = {"tunnel.txt","m2.txt", "mappy.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -266,6 +266,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		screen.setMapOutline(false);
 		screen.setBlockOutline(false);
 		screen.setGame(this);
+		
+		score = 0;
 		
 		if(map.getSpawnPoint(0) != null) {
 			movables[0] = new Player(map.getSpawnPoint(0).x, map.getSpawnPoint(0).y, 0);
