@@ -45,7 +45,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 
 	public static final int DEFAULT_BLOCK_SIZE = 64;
-	public static final int TIME_STEP = 100;
+	public static final int TIME_STEP = 30;
 	public static final int PACKAGE_INDEX = 2;
 	
 	public JFrame gameFrame;
@@ -111,9 +111,9 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		  } catch (Exception ex) {
 		    System.out.println(ex);
 		  }
-		startbtn.setBorderPainted(false); 
-		startbtn.setContentAreaFilled(false); 
-		startbtn.setFocusPainted(false); 
+		startbtn.setBorderPainted(false);
+		startbtn.setContentAreaFilled(false);
+		startbtn.setFocusPainted(false);
 		startbtn.setOpaque(false);
 		panel.setLayout(null);
 		Insets insets = panel.getInsets();
@@ -250,6 +250,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	public void StartLevel(String level) {
 		
+		score = 0;
+		
 		contentPane1 = gameFrame.getContentPane();
 		contentPane1.setLayout(new BorderLayout());
 		contentPane1.setBackground(Color.WHITE);
@@ -333,8 +335,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			}
 			gameFrame.revalidate();
 			gameFrame.repaint();
+			score += ((double)TIME_STEP / 1000);
 		}
-		score += ((double)TIME_STEP / 1000);
 	}
 	
 	private void openMap(String fileName) {
