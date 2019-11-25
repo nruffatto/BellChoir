@@ -52,7 +52,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public JFrame gameFrame;
 	public JFrame pauseFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"tunnel.txt","m2.txt", "mappy.txt"};
+	private String[] mapList = {"easy.txt","m2.txt", "mappy.txt"};
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -236,7 +236,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         
         if (action.equals("NextLevel"))
         {
-        	StartLevel(mapList[currentLevelIndex+1],currentLevelIndex+1);
+        	StartLevel(mapList[(currentLevelIndex+1) % mapList.length],currentLevelIndex+1);
         	
         }
        
@@ -259,19 +259,19 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	public void StartLevel(String level, int index) {
 		
-		score = 0;
-		
 		contentPane1 = gameFrame.getContentPane();
 		contentPane1.setLayout(new BorderLayout());
 		contentPane1.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
 		
-		screen.resetScreen();
-		
 		openMap(level);
 		
 		currentLevelIndex = index;
 		
+		if(screen != null) {
+			contentPane1.remove(screen);
+		}
+			
 		screen  = new Screen(map);
 		screen.setLayout(null);
 		screen.setBackground(Color.BLUE);
@@ -308,6 +308,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		dogs[0] = (Dog) movables[4];
 		
 		mailboxes[0] = (Mailbox) movables[3];
+		
+		screen.clearTargets();
 		
 		for(int i = 0; i < movables.length; i ++) {
 			if(movables[i] != null && !movables[i].isDog() && !movables[i].isMailbox()) {
