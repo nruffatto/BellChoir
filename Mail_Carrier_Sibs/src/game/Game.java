@@ -74,6 +74,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	public String MenuImage = "Sprites/logo.png";
 	public String LevelComplete = "Sprites/levelcomplete.png";
+	public String GameOver = "Sprites/GameOver1.png";
 	public String[] PauseImage = {"Sprites/PauseImage1.png","Sprites/PauseImage2.png","Sprites/PauseImage3.png"};
 	
 	public double score = 0;
@@ -237,6 +238,12 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         if (action.equals("NextLevel"))
         {
         	StartLevel(mapList[currentLevelIndex+1],currentLevelIndex+1);
+        	
+        }
+        
+        if (action.equals("Restart"))
+        {
+        	StartLevel(mapList[currentLevelIndex],currentLevelIndex);
         	
         }
        
@@ -428,7 +435,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		panel.setLayout(null);
 		Insets insets = panel.getInsets();
 		Dimension size = contbtn.getPreferredSize();
-		contbtn.setBounds(25 + insets.right, 400 + insets.top,size.width+10, size.height+10);
+		contbtn.setBounds( insets.right, 390 + insets.top,size.width+15, size.height+15);
 		contbtn.addActionListener(this);
 		contbtn.setActionCommand("UnPause");
 		panel.add(contbtn);
@@ -448,7 +455,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		menubtn.setFocusPainted(false); 
 		menubtn.setOpaque(false);
 		panel.setLayout(null);
-		menubtn.setBounds(390 + insets.right, 390 + insets.top,size.width+10, size.height+10);
+		menubtn.setBounds(300 + insets.right, 390 + insets.top,size.width+15, size.height+15);
 		menubtn.addActionListener(this);
 		menubtn.setActionCommand("BackMenu");
 		panel.add(menubtn);
@@ -497,7 +504,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		panel.setLayout(null);
 		Insets insets = panel.getInsets();
 		Dimension size = contbtn.getPreferredSize();
-		contbtn.setBounds(25 + insets.right, 400 + insets.top,size.width+10, size.height+10);
+		contbtn.setBounds( insets.right, 390 + insets.top,size.width+15, size.height+15);
 		contbtn.addActionListener(this);
 		contbtn.setActionCommand("NextLevel");
 		panel.add(contbtn);
@@ -517,7 +524,76 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		menubtn.setFocusPainted(false); 
 		menubtn.setOpaque(false);
 		panel.setLayout(null);
-		menubtn.setBounds(390 + insets.right, 390 + insets.top,size.width+10, size.height+10);
+		menubtn.setBounds(300 + insets.right, 390 + insets.top,size.width+15, size.height+15);
+		menubtn.addActionListener(this);
+		menubtn.setActionCommand("BackMenu");
+		panel.add(menubtn);
+		
+		pauseFrame.setContentPane(panel);
+		pauseFrame.setVisible(true);
+		
+		gameIsReady = false;
+	}
+	
+	public void GameOver()
+	{
+		
+		
+		pauseFrame = new JFrame("Super Mail Carrier Sibs");
+		pauseFrame.setSize(1280/2, 500);
+		pauseFrame.setLocationRelativeTo(null);
+		
+		pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
+		pauseFrame.setUndecorated(true);
+		pauseFrame.setBackground(new Color(0,0,0,123));
+		
+		contentPane = pauseFrame.getContentPane();
+		contentPane.setLayout(new BorderLayout());
+		contentPane.setBackground(Color.WHITE);
+		gameFrame.setVisible(true);
+		
+		JPanel panel = new GameOverImage();
+		panel.setBackground(new Color(0, 0, 0, 0));
+		
+		JButton restartbtn = new JButton();
+		try {
+		    BufferedImage img = ImageIO.read(new File("Sprites/restart.png"));
+		    BufferedImage img2 = ImageIO.read(new File("Sprites/restarthover.png"));
+		    restartbtn.setIcon(new ImageIcon(img));
+		    restartbtn.setRolloverIcon(new ImageIcon(img2));
+		  } catch (Exception ex) {
+		    System.out.println(ex);
+		  }
+		
+		restartbtn.setBorderPainted(false); 
+		restartbtn.setContentAreaFilled(false); 
+		restartbtn.setFocusPainted(false); 
+		restartbtn.setOpaque(false);
+		panel.setLayout(null);
+		Insets insets = panel.getInsets();
+		Dimension size = restartbtn.getPreferredSize();
+		restartbtn.setBounds( insets.right, 390 + insets.top,size.width+15, size.height+15);
+		restartbtn.addActionListener(this);
+		restartbtn.setActionCommand("Restart");
+		panel.add(restartbtn);
+		
+		JButton menubtn = new JButton();
+		try {
+		    BufferedImage img = ImageIO.read(new File("Sprites/backtomenu.png"));
+		    BufferedImage img2 = ImageIO.read(new File("Sprites/backtomenuhover.png"));
+		    menubtn.setIcon(new ImageIcon(img));
+		    menubtn.setRolloverIcon(new ImageIcon(img2));
+		  } catch (Exception ex) {
+		    System.out.println(ex);
+		  }
+		
+		menubtn.setBorderPainted(false); 
+		menubtn.setContentAreaFilled(false); 
+		menubtn.setFocusPainted(false); 
+		menubtn.setOpaque(false);
+		panel.setLayout(null);
+		menubtn.setBounds(300 + insets.right, 390 + insets.top,size.width+15, size.height+15);
 		menubtn.addActionListener(this);
 		menubtn.setActionCommand("BackMenu");
 		panel.add(menubtn);
@@ -630,6 +706,22 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        BufferedImage img;
 			try {
 	        img = ImageIO.read(new File(LevelComplete));
+	        if (img != null)
+	            g.drawImage(img, 60, 0,500,400, this);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+	}
+	
+	private class GameOverImage extends JPanel {
+		@Override
+	    public void paintComponent(Graphics g) {
+	        super.paintComponent(g);
+	        BufferedImage img;
+			try {
+	        img = ImageIO.read(new File(GameOver));
 	        if (img != null)
 	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {
