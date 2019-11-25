@@ -264,6 +264,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		contentPane1.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
 		
+		screen.resetScreen();
+		
 		openMap(level);
 		
 		currentLevelIndex = index;

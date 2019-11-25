@@ -89,6 +89,7 @@ public class Package extends Movable implements MouseListener {
 		}
 		if (this.isTouching(game.mailboxes[0])) {
 			setHolder(game.mailboxes[0]);
+			game.LevelComplete();
 			//System.out.println("Winner");
 		}
 		if(!isInAir && wasInAir) {

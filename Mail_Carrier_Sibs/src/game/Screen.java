@@ -254,6 +254,9 @@ public class Screen extends JPanel{
 		}
 	}
 	
+	public void resetScreen() {
+		removeAll();
+	}
 	public void drawBounds(Graphics g) {
 		g.drawRect(pos.x, pos.y, map.getWidth() * len, map.getHeight() * len);
 	}
