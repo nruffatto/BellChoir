@@ -90,6 +90,7 @@ public class Screen extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g); 
 		target();
 		currentScale = (double) len / startingLength;
 
@@ -119,23 +120,19 @@ public class Screen extends JPanel{
 			g.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len);
 		} // mouse area
 		
-		Font customFont = Font.getFont(Font.SANS_SERIF);
-		try {
-			customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/JBLFONT1.ttf")).deriveFont(30f);	
-			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/JBLFONT1.ttf")));
-		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
-		}
 		g.setColor(new Color(0, 0, 0, 75));
 		g.fillRect((int)(game.gameFrame.getWidth() / 2) - 10, 0, 100, 40);
 		g.setColor(Color.white);
-		g.setFont(customFont);
+		g.setFont(game.customFont);
 		g.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2), 30);
 	}
 	
 	public void addTarget(Movable m) {
 		targets.add(m);
+	}
+	
+	public void clearTargets() {
+		targets.clear();
 	}
 	
 	private void target() {

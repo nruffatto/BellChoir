@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -46,13 +49,15 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 
 	public static final int DEFAULT_BLOCK_SIZE = 64;
-	public static final int TIME_STEP = 100;
+	public static final int TIME_STEP = 30;
 	public static final int PACKAGE_INDEX = 2;
 	
 	public JFrame gameFrame;
 	public JFrame pauseFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"tunnel.txt","m2.txt"};
+
+	public String[] mapList = {"easy.txt","m2.txt", "mappy.txt"};
+
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -81,6 +86,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	public boolean paused = false;
 	
+	public Font customFont;
+	
 	public Game() {
 		gameIsReady = false;
 		gameFrame = new JFrame("Super Mail Carrier Sibs");
@@ -94,6 +101,14 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 		timer = new Timer();
 		timer.schedule(this, 0, TIME_STEP);
+		
+		try {
+			customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/JBLFONT1.ttf")).deriveFont(30f);	
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/JBLFONT1.ttf")));
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
 		
 		LoadMenu();
 	}
@@ -115,9 +130,9 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		  } catch (Exception ex) {
 		    System.out.println(ex);
 		  }
-		startbtn.setBorderPainted(false); 
-		startbtn.setContentAreaFilled(false); 
-		startbtn.setFocusPainted(false); 
+		startbtn.setBorderPainted(false);
+		startbtn.setContentAreaFilled(false);
+		startbtn.setFocusPainted(false);
 		startbtn.setOpaque(false);
 		panel.setLayout(null);
 		Insets insets = panel.getInsets();
@@ -171,6 +186,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		    //btn.setPreferredSize(new Dimension(40, 40));
 		    btn.addActionListener(this);
 		    btn.setActionCommand(mapList[i]);
+		    btn.setFont(customFont);
 		    panel.add(btn);
 		}
 		
@@ -237,7 +253,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         
         if (action.equals("NextLevel"))
         {
-        	StartLevel(mapList[currentLevelIndex+1],currentLevelIndex+1);
+        	StartLevel(mapList[(currentLevelIndex+1) % mapList.length],currentLevelIndex+1);
         	
         }
         
@@ -270,11 +286,15 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		contentPane1.setLayout(new BorderLayout());
 		contentPane1.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
-		
+
 		openMap(level);
 		
 		currentLevelIndex = index;
 		
+		if(screen != null) {
+			contentPane1.remove(screen);
+		}
+			
 		screen  = new Screen(map);
 		screen.setLayout(null);
 		screen.setBackground(Color.BLUE);
@@ -284,6 +304,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		screen.setMapOutline(false);
 		screen.setBlockOutline(false);
 		screen.setGame(this);
+		
+		score = 0;
 		
 		if(map.getSpawnPoint(0) != null) {
 			movables[0] = new Player(map.getSpawnPoint(0).x, map.getSpawnPoint(0).y, 0);
@@ -309,6 +331,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		dogs[0] = (Dog) movables[4];
 		
 		mailboxes[0] = (Mailbox) movables[3];
+		
+		screen.clearTargets();
 		
 		for(int i = 0; i < movables.length; i ++) {
 			if(movables[i] != null && !movables[i].isDog() && !movables[i].isMailbox()) {
@@ -351,8 +375,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			}
 			gameFrame.revalidate();
 			gameFrame.repaint();
+			score += ((double)TIME_STEP / 1000);
 		}
-		score += ((double)TIME_STEP / 1000);
 	}
 	
 	private void openMap(String fileName) {
