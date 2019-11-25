@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ThreadLocalRandom;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractButton;
@@ -64,6 +65,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	private boolean gameIsReady;
 	public int LevelNumber = mapList.length;
+	public int currentLevelIndex;
 	public JButton[] LevelButtons = new JButton[LevelNumber];
 	public JButton[] MenuButtons = new JButton[4];
 	
@@ -71,7 +73,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public static final Color LIGHT_BLUE = new Color(51,204,255);
 	
 	public String MenuImage = "Sprites/logo.png";
-	public String PauseImage = "Sprites/PauseImage1.png";
+	public String LevelComplete = "Sprites/levelcomplete.png";
+	public String[] PauseImage = {"Sprites/PauseImage1.png","Sprites/PauseImage2.png","Sprites/PauseImage3.png"};
 	
 	public double score = 0;
 	
@@ -230,12 +233,18 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         {
         	unpauseGame();
         }
+        
+        if (action.equals("NextLevel"))
+        {
+        	StartLevel(mapList[currentLevelIndex+1],currentLevelIndex+1);
+        	
+        }
        
         for(int i=0 ; i<LevelNumber ; i++)
         {
         	if (action.equals(mapList[i]))
                 {
-                	StartLevel(mapList[i]);
+                	StartLevel(mapList[i],i);
                 	for(int j=0 ; j<LevelNumber ; j++)
                 	{
                 		LevelButtons[j].setFocusable(false);
@@ -248,7 +257,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
     }
 
 	
-	public void StartLevel(String level) {
+	public void StartLevel(String level, int index) {
 		
 		contentPane1 = gameFrame.getContentPane();
 		contentPane1.setLayout(new BorderLayout());
@@ -256,6 +265,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setVisible(true);
 		
 		openMap(level);
+		
+		currentLevelIndex = index;
 		
 		screen  = new Screen(map);
 		screen.setLayout(null);
@@ -450,6 +461,75 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameIsReady = false;
 	}
 	
+	public void LevelComplete()
+	{
+		
+		
+		pauseFrame = new JFrame("Super Mail Carrier Sibs");
+		pauseFrame.setSize(1280/2, 500);
+		pauseFrame.setLocationRelativeTo(null);
+		
+		pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
+		pauseFrame.setUndecorated(true);
+		pauseFrame.setBackground(new Color(0,0,0,123));
+		
+		contentPane = pauseFrame.getContentPane();
+		contentPane.setLayout(new BorderLayout());
+		contentPane.setBackground(Color.WHITE);
+		gameFrame.setVisible(true);
+		
+		JPanel panel = new CompletedImage();
+		panel.setBackground(new Color(0, 0, 0, 0));
+		
+		JButton contbtn = new JButton();
+		try {
+		    BufferedImage img = ImageIO.read(new File("Sprites/continue.png"));
+		    BufferedImage img2 = ImageIO.read(new File("Sprites/continuehover.png"));
+		    contbtn.setIcon(new ImageIcon(img));
+		    contbtn.setRolloverIcon(new ImageIcon(img2));
+		  } catch (Exception ex) {
+		    System.out.println(ex);
+		  }
+		
+		contbtn.setBorderPainted(false); 
+		contbtn.setContentAreaFilled(false); 
+		contbtn.setFocusPainted(false); 
+		contbtn.setOpaque(false);
+		panel.setLayout(null);
+		Insets insets = panel.getInsets();
+		Dimension size = contbtn.getPreferredSize();
+		contbtn.setBounds(25 + insets.right, 400 + insets.top,size.width+10, size.height+10);
+		contbtn.addActionListener(this);
+		contbtn.setActionCommand("NextLevel");
+		panel.add(contbtn);
+		
+		JButton menubtn = new JButton();
+		try {
+		    BufferedImage img = ImageIO.read(new File("Sprites/backtomenu.png"));
+		    BufferedImage img2 = ImageIO.read(new File("Sprites/backtomenuhover.png"));
+		    menubtn.setIcon(new ImageIcon(img));
+		    menubtn.setRolloverIcon(new ImageIcon(img2));
+		  } catch (Exception ex) {
+		    System.out.println(ex);
+		  }
+		
+		menubtn.setBorderPainted(false); 
+		menubtn.setContentAreaFilled(false); 
+		menubtn.setFocusPainted(false); 
+		menubtn.setOpaque(false);
+		panel.setLayout(null);
+		menubtn.setBounds(390 + insets.right, 390 + insets.top,size.width+10, size.height+10);
+		menubtn.addActionListener(this);
+		menubtn.setActionCommand("BackMenu");
+		panel.add(menubtn);
+		
+		pauseFrame.setContentPane(panel);
+		pauseFrame.setVisible(true);
+		
+		gameIsReady = false;
+	}
+	
 	
 	
 	public void unpauseGame()
@@ -534,7 +614,24 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        super.paintComponent(g);
 	        BufferedImage img;
 			try {
-	        img = ImageIO.read(new File(PauseImage));
+		    int randomNum = ThreadLocalRandom.current().nextInt(0, 3);
+	        img = ImageIO.read(new File(PauseImage[randomNum]));
+	        if (img != null)
+	            g.drawImage(img, 60, 0,500,400, this);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+	}
+	
+	private class CompletedImage extends JPanel {
+		@Override
+	    public void paintComponent(Graphics g) {
+	        super.paintComponent(g);
+	        BufferedImage img;
+			try {
+	        img = ImageIO.read(new File(LevelComplete));
 	        if (img != null)
 	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {
