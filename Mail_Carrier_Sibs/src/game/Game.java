@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -80,6 +83,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	public boolean paused = false;
 	
+	public Font customFont;
+	
 	public Game() {
 		gameIsReady = false;
 		gameFrame = new JFrame("Super Mail Carrier Sibs");
@@ -93,6 +98,14 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 		timer = new Timer();
 		timer.schedule(this, 0, TIME_STEP);
+		
+		try {
+			customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/JBLFONT1.ttf")).deriveFont(30f);	
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/JBLFONT1.ttf")));
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
 		
 		LoadMenu();
 	}
@@ -170,6 +183,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		    //btn.setPreferredSize(new Dimension(40, 40));
 		    btn.addActionListener(this);
 		    btn.setActionCommand(mapList[i]);
+		    btn.setFont(customFont);
 		    panel.add(btn);
 		}
 		
@@ -263,9 +277,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		contentPane1.setLayout(new BorderLayout());
 		contentPane1.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
-		
-		screen.resetScreen();
-		
+	
 		openMap(level);
 		
 		currentLevelIndex = index;
