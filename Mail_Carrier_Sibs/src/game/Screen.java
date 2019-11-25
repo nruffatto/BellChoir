@@ -138,6 +138,10 @@ public class Screen extends JPanel{
 		targets.add(m);
 	}
 	
+	public void clearTargets() {
+		targets.clear();
+	}
+	
 	private void target() {
 		int currentX, currentY;
 		currentX = (int)targets.get(0).rec.getCenterX();
