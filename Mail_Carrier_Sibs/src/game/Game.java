@@ -5,7 +5,10 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
@@ -52,7 +55,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public JFrame gameFrame;
 	public JFrame pauseFrame;
 	public Map map = new Map(1, 1);
-	private String[] mapList = {"easy.txt", "map1.txt", "m2.txt", "mappy.txt", };
+	public String[] mapList = {"easy.txt", "map1.txt", "m2.txt", "towers.txt" };
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -74,11 +77,14 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	public String MenuImage = "Sprites/logo.png";
 	public String LevelComplete = "Sprites/levelcomplete.png";
+	public String GameOver = "Sprites/GameOver1.png";
 	public String[] PauseImage = {"Sprites/PauseImage1.png","Sprites/PauseImage2.png","Sprites/PauseImage3.png"};
 	
 	public double score = 0;
 	
 	public boolean paused = false;
+	
+	public Font customFont;
 	
 	public Game() {
 		gameIsReady = false;
@@ -93,6 +99,14 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 		timer = new Timer();
 		timer.schedule(this, 0, TIME_STEP);
+		
+		try {
+			customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/JBLFONT1.ttf")).deriveFont(30f);	
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts/JBLFONT1.ttf")));
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
 		
 		LoadMenu();
 	}
@@ -170,6 +184,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		    //btn.setPreferredSize(new Dimension(40, 40));
 		    btn.addActionListener(this);
 		    btn.setActionCommand(mapList[i]);
+		    btn.setFont(customFont);
 		    panel.add(btn);
 		}
 		
@@ -236,7 +251,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         
         if (action.equals("NextLevel"))
         {
-        	StartLevel(mapList[(currentLevelIndex+1) % mapList.length],currentLevelIndex+1);
+        	StartLevel(mapList[(currentLevelIndex+1) % mapList.length], (currentLevelIndex+1) % mapList.length);
+        	
+        }
+        
+        if (action.equals("Restart"))
+        {
+        	StartLevel(mapList[currentLevelIndex],currentLevelIndex);
         	
         }
        
@@ -263,7 +284,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		contentPane1.setLayout(new BorderLayout());
 		contentPane1.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
-		
+
 		openMap(level);
 		
 		currentLevelIndex = index;
@@ -436,7 +457,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		panel.setLayout(null);
 		Insets insets = panel.getInsets();
 		Dimension size = contbtn.getPreferredSize();
-		contbtn.setBounds(25 + insets.right, 400 + insets.top,size.width+10, size.height+10);
+		contbtn.setBounds( insets.right, 390 + insets.top,size.width+15, size.height+15);
 		contbtn.addActionListener(this);
 		contbtn.setActionCommand("UnPause");
 		panel.add(contbtn);
@@ -456,7 +477,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		menubtn.setFocusPainted(false); 
 		menubtn.setOpaque(false);
 		panel.setLayout(null);
-		menubtn.setBounds(390 + insets.right, 390 + insets.top,size.width+10, size.height+10);
+		menubtn.setBounds(300 + insets.right, 390 + insets.top,size.width+15, size.height+15);
 		menubtn.addActionListener(this);
 		menubtn.setActionCommand("BackMenu");
 		panel.add(menubtn);
@@ -505,7 +526,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		panel.setLayout(null);
 		Insets insets = panel.getInsets();
 		Dimension size = contbtn.getPreferredSize();
-		contbtn.setBounds(25 + insets.right, 400 + insets.top,size.width+10, size.height+10);
+		contbtn.setBounds( insets.right, 390 + insets.top,size.width+15, size.height+15);
 		contbtn.addActionListener(this);
 		contbtn.setActionCommand("NextLevel");
 		panel.add(contbtn);
@@ -525,7 +546,76 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		menubtn.setFocusPainted(false); 
 		menubtn.setOpaque(false);
 		panel.setLayout(null);
-		menubtn.setBounds(390 + insets.right, 390 + insets.top,size.width+10, size.height+10);
+		menubtn.setBounds(300 + insets.right, 390 + insets.top,size.width+15, size.height+15);
+		menubtn.addActionListener(this);
+		menubtn.setActionCommand("BackMenu");
+		panel.add(menubtn);
+		
+		pauseFrame.setContentPane(panel);
+		pauseFrame.setVisible(true);
+		
+		gameIsReady = false;
+	}
+	
+	public void GameOver()
+	{
+		
+		
+		pauseFrame = new JFrame("Super Mail Carrier Sibs");
+		pauseFrame.setSize(1280/2, 500);
+		pauseFrame.setLocationRelativeTo(null);
+		
+		pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
+		pauseFrame.setUndecorated(true);
+		pauseFrame.setBackground(new Color(0,0,0,123));
+		
+		contentPane = pauseFrame.getContentPane();
+		contentPane.setLayout(new BorderLayout());
+		contentPane.setBackground(Color.WHITE);
+		gameFrame.setVisible(true);
+		
+		JPanel panel = new GameOverImage();
+		panel.setBackground(new Color(0, 0, 0, 0));
+		
+		JButton restartbtn = new JButton();
+		try {
+		    BufferedImage img = ImageIO.read(new File("Sprites/restart.png"));
+		    BufferedImage img2 = ImageIO.read(new File("Sprites/restarthover.png"));
+		    restartbtn.setIcon(new ImageIcon(img));
+		    restartbtn.setRolloverIcon(new ImageIcon(img2));
+		  } catch (Exception ex) {
+		    System.out.println(ex);
+		  }
+		
+		restartbtn.setBorderPainted(false); 
+		restartbtn.setContentAreaFilled(false); 
+		restartbtn.setFocusPainted(false); 
+		restartbtn.setOpaque(false);
+		panel.setLayout(null);
+		Insets insets = panel.getInsets();
+		Dimension size = restartbtn.getPreferredSize();
+		restartbtn.setBounds( insets.right, 390 + insets.top,size.width+15, size.height+15);
+		restartbtn.addActionListener(this);
+		restartbtn.setActionCommand("Restart");
+		panel.add(restartbtn);
+		
+		JButton menubtn = new JButton();
+		try {
+		    BufferedImage img = ImageIO.read(new File("Sprites/backtomenu.png"));
+		    BufferedImage img2 = ImageIO.read(new File("Sprites/backtomenuhover.png"));
+		    menubtn.setIcon(new ImageIcon(img));
+		    menubtn.setRolloverIcon(new ImageIcon(img2));
+		  } catch (Exception ex) {
+		    System.out.println(ex);
+		  }
+		
+		menubtn.setBorderPainted(false); 
+		menubtn.setContentAreaFilled(false); 
+		menubtn.setFocusPainted(false); 
+		menubtn.setOpaque(false);
+		panel.setLayout(null);
+		menubtn.setBounds(300 + insets.right, 390 + insets.top,size.width+15, size.height+15);
 		menubtn.addActionListener(this);
 		menubtn.setActionCommand("BackMenu");
 		panel.add(menubtn);
@@ -638,6 +728,22 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        BufferedImage img;
 			try {
 	        img = ImageIO.read(new File(LevelComplete));
+	        if (img != null)
+	            g.drawImage(img, 60, 0,500,400, this);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }
+	}
+	
+	private class GameOverImage extends JPanel {
+		@Override
+	    public void paintComponent(Graphics g) {
+	        super.paintComponent(g);
+	        BufferedImage img;
+			try {
+	        img = ImageIO.read(new File(GameOver));
 	        if (img != null)
 	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {

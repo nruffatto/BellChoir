@@ -96,7 +96,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		editorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = editorFrame.getContentPane();
 		contentPane.setLayout(new BorderLayout());
-		contentPane.setBackground(Color.WHITE);
+		contentPane.setBackground(Color.BLACK);
 		editorFrame.setVisible(true);
 		
 //		TestPanel testPanel = new TestPanel();
@@ -465,7 +465,6 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		
 	}
 
 	@Override
@@ -511,6 +510,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
+		editorFrame.requestFocus();
 		if(e.getSource() == imageComboBox) {
 			if(imageComboBox.getSelectedItem().toString().equals("none")) {
 				currentBlock.setImage("none");
