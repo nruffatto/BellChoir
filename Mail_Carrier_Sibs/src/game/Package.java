@@ -96,7 +96,7 @@ public class Package extends Movable implements MouseListener {
 			game.score += 20;
 			packageDrops++;
 			if (packageDrops > 3) {
-				game.StartLevel(game.mapList[game.currentLevelIndex],game.currentLevelIndex);
+				game.GameOver();
 			}
 		}
 		wasInAir = isInAir;
