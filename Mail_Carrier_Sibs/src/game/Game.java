@@ -246,17 +246,20 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         
         if (action.equals("UnPause"))
         {
+        	pauseFrame.setVisible(false);
         	unpauseGame();
         }
         
         if (action.equals("NextLevel"))
         {
+        	pauseFrame.setVisible(false);
         	StartLevel(mapList[(currentLevelIndex+1) % mapList.length], (currentLevelIndex+1) % mapList.length);
         	
         }
         
         if (action.equals("Restart"))
         {
+        	pauseFrame.setVisible(false);
         	StartLevel(mapList[currentLevelIndex],currentLevelIndex);
         	
         }
@@ -333,7 +336,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		screen.clearTargets();
 		
 		for(int i = 0; i < movables.length; i ++) {
-			if(movables[i] != null && !movables[i].isDog() && !movables[i].isMailbox()) {
+			if(movables[i] != null && !movables[i].isDog() && !movables[i].isMailbox()&& !movables[i].isPackage()) {
 				screen.addTarget(movables[i]);
 			}
 		}
