@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Point;
@@ -18,8 +19,8 @@ import javax.swing.JPanel;
 
 public class Screen extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 20;
-	public static final int RENDER_HEIGHT = 20;
+	public static final int RENDER_WIDTH = 30;
+	public static final int RENDER_HEIGHT = 30;
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 64; 
@@ -47,8 +48,8 @@ public class Screen extends JPanel{
 	public double currentScale = 1;
 	
 	public Point pos;
-	private int len; //block size
-	private int pastLen;
+	private double len; //block size
+	private double pastLen;
 	public Map map;
 	public Game game;
 	private Movable[] movables;
@@ -90,16 +91,18 @@ public class Screen extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g); 
+		super.paintComponent(g);
+		BufferedImage bufferedImage = new BufferedImage(1920, 1080, BufferedImage.TYPE_INT_ARGB);
+	    Graphics2D g2d = bufferedImage.createGraphics();
 		target();
 		currentScale = (double) len / startingLength;
 
-		g.drawImage(img, (int)(pos.x * (currentScale / 2)), //
+		g2d.drawImage(img, (int)(pos.x * (currentScale / 2)), //
 				(int)(pos.y * (currentScale / 2)),
 				(int)(3200 * currentScale),//
 				(int)(1200 * currentScale), this);
 
-		g.drawImage(img, (int)(pos.x * (currentScale / 2) + 3200 * currentScale), //
+		g2d.drawImage(img, (int)(pos.x * (currentScale / 2) + 3200 * currentScale), //
 				(int)(pos.y * (currentScale / 2)),
 				(int)(3200 * currentScale),//
 				(int)(1200 * currentScale), this);
@@ -111,25 +114,28 @@ public class Screen extends JPanel{
 				if(i >= 0 && i < map.getWidth() && 
 						j >= 0 && j < map.getHeight() &&
 						map.getBlock(i, j) != null) {
-					drawBlock(g, map.getBlock(i, j), i, j);
+					drawBlock(g2d, map.getBlock(i, j), i, j);
 				}
 			}
 		}
 		if(movables != null) {
-			drawMovables(g);
+			drawMovables(g2d);
 		}
 		if(mapOutlineOn) {
-			drawBounds(g);
+			drawBounds(g2d);
 		}
 		if(blockOutlineOn) {
-			g.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len);
+			//g2d.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len);
 		} // mouse area
 		
-		g.setColor(new Color(0, 0, 0, 75));
-		g.fillRect((int)(game.gameFrame.getWidth() / 2) - 10, 0, 100, 40);
-		g.setColor(Color.white);
-		g.setFont(game.customFont);
-		g.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2), 30);
+		g2d.setColor(new Color(0, 0, 0, 75));
+		g2d.fillRect((int)(game.gameFrame.getWidth() / 2) - 10, 0, 100, 40);
+		g2d.setColor(Color.white);
+		g2d.setFont(game.customFont);
+		g2d.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2), 30);
+		
+		Graphics2D g2dComponent = (Graphics2D) g;
+	    g2dComponent.drawImage(bufferedImage, null, 0, 0);
 	}
 	
 	public void addTarget(Movable m) {
@@ -193,14 +199,14 @@ public class Screen extends JPanel{
 		if(x > 0) {
 			pos.x = 0;
 		}else if((x - game.gameFrame.getWidth()) < -map.getWidth() * len) {
-			pos.x = -map.getWidth() * len + game.gameFrame.getWidth();
+			pos.x = (int) (-map.getWidth() * len + game.gameFrame.getWidth());
 		}else {
 			pos.x = (int) x;
 		}
 		if(y > 0) {
 			pos.y = 0;
 		}else if((y - game.gameFrame.getHeight() - 30) < -map.getHeight() * len) {
-			pos.y = -map.getHeight() * len + game.gameFrame.getHeight() - 30;
+			pos.y = (int) (-map.getHeight() * len + game.gameFrame.getHeight() - 30);
 		}else {
 			pos.y = (int) y;
 		}
@@ -257,10 +263,10 @@ public class Screen extends JPanel{
 	}
 	
 	public void drawBounds(Graphics g) {
-		g.drawRect(pos.x, pos.y, map.getWidth() * len, map.getHeight() * len);
+		//g.drawRect(pos.x, pos.y, map.getWidth() * len, map.getHeight() * len);
 	}
 	
-	public void setBlockSize(int s) {
+	public void setBlockSize(double s) {
 		if(s > MIN_BLOCK_SIZE && s < MAX_BLOCK_SIZE) {
 			pastLen = len;
 			len = s;
@@ -268,23 +274,23 @@ public class Screen extends JPanel{
 	}
 	
 	public void setScale(double s) {
-		setBlockSize((int)((double)startingLength * s));
+		setBlockSize(((double)startingLength * s));
 	}
 	
-	public int getBlockSize() {
+	public double getBlockSize() {
 		return len;
 	}
 	
-	public int getPastBlockSize() {
+	public double getPastBlockSize() {
 		return pastLen;
 	}
 	
 	public int getMouseX() {
-		return ((mouseX - pos.x) / len);
+		return (int) ((mouseX - pos.x) / len);
 	}
 	
 	public int getMouseY() {
-		return ((mouseY - pos.y) / len);
+		return (int) ((mouseY - pos.y) / len);
 	}
 	
 	public void setMousePos(int x, int y) {
