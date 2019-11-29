@@ -11,10 +11,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-public class Screen2 extends JPanel{
+public class EditorScreen extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 10;
-	public static final int RENDER_HEIGHT = 10;
+	public static final int RENDER_WIDTH = 100;
+	public static final int RENDER_HEIGHT = 100;
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 512; 
@@ -49,8 +49,9 @@ public class Screen2 extends JPanel{
 	private boolean hitBoxesOn = false;
 	private boolean imagesOn = true;
 	
-	public Screen2(Map m) {
+	public EditorScreen(Map m) {
 		super();
+		this.setDoubleBuffered(true);
 		pos = new Point();
 		len = startingLength;
 		pastLen = len;

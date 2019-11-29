@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,6 +39,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JWindow;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -49,13 +52,14 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 
 	public static final int DEFAULT_BLOCK_SIZE = 64;
-	public static final int TIME_STEP = 20;
+	public static final int TIME_STEP = 30;
 	public static final int PACKAGE_INDEX = 2;
 	
 	public JFrame gameFrame;
-	public JFrame pauseFrame;
+	public JWindow pauseFrame;
 	public Map map = new Map(1, 1);
-	public String[] mapList = {"easy.txt", "map1.txt", "m2.txt", "towers.txt" };
+	
+	public String[] mapList = getMaps(); //{"easy.txt", "level_two.txt","map1.txt", "m2.txt", "towers.txt", "UP_and_Over.txt" };
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -92,6 +96,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setSize(1280, 720);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ImageIcon icon = new ImageIcon("mailmanhead.png");
+		gameFrame.setIconImage(icon.getImage());
 		contentPane = gameFrame.getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBackground(Color.WHITE);
@@ -426,13 +432,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	{
 		
 		
-		pauseFrame = new JFrame("Super Mail Carrier Sibs");
+		pauseFrame = new JWindow(gameFrame);
 		pauseFrame.setSize(1280/2, 500);
 		pauseFrame.setLocationRelativeTo(null);
 		
-		pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
-		pauseFrame.setUndecorated(true);
+		//pauseFrame.setUndecorated(true);
 		pauseFrame.setBackground(new Color(0,0,0,123));
 		
 		contentPane = pauseFrame.getContentPane();
@@ -495,13 +501,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	{
 		
 		
-		pauseFrame = new JFrame("Super Mail Carrier Sibs");
+		pauseFrame = new JWindow(gameFrame);
 		pauseFrame.setSize(1280/2, 500);
 		pauseFrame.setLocationRelativeTo(null);
 		
-		pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
-		pauseFrame.setUndecorated(true);
+		//pauseFrame.setUndecorated(true);
 		pauseFrame.setBackground(new Color(0,0,0,123));
 		
 		contentPane = pauseFrame.getContentPane();
@@ -564,13 +570,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	{
 		
 		
-		pauseFrame = new JFrame("Super Mail Carrier Sibs");
+		pauseFrame = new JWindow(gameFrame);
 		pauseFrame.setSize(1280/2, 500);
 		pauseFrame.setLocationRelativeTo(null);
 		
-		pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
-		pauseFrame.setUndecorated(true);
+		//pauseFrame.setUndecorated(true);
 		pauseFrame.setBackground(new Color(0,0,0,123));
 		
 		contentPane = pauseFrame.getContentPane();
@@ -645,6 +651,24 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			pauseGame();
 
 		}
+	}
+	
+	public String[] getMaps() {
+		File dir = new File("Maps");
+		
+		Collection<String> files = new ArrayList<String>();
+		
+		if(dir.isDirectory()){
+	        File[] listFiles = dir.listFiles();
+	        for(File file : listFiles){
+	        	if(file.isFile()) {
+	        		files.add(file.getPath());
+	        	}
+	        }
+		}
+		
+        return files.toArray(new String[]{});
+		
 	}
 
 	@Override

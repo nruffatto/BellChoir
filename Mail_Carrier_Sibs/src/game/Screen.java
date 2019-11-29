@@ -69,6 +69,7 @@ public class Screen extends JPanel{
 	
 	public Screen(Map m) {
 		super();
+		this.setDoubleBuffered(true);
 		pos = new Point();
 		len = startingLength;
 		pastLen = len;
@@ -92,17 +93,15 @@ public class Screen extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		BufferedImage bufferedImage = new BufferedImage(1920, 1080, BufferedImage.TYPE_INT_ARGB);
-	    Graphics2D g2d = bufferedImage.createGraphics();
 		target();
 		currentScale = (double) len / startingLength;
 
-		g2d.drawImage(img, (int)(pos.x * (currentScale / 2)), //
+		g.drawImage(img, (int)(pos.x * (currentScale / 2)), //
 				(int)(pos.y * (currentScale / 2)),
 				(int)(3200 * currentScale),//
 				(int)(1200 * currentScale), this);
 
-		g2d.drawImage(img, (int)(pos.x * (currentScale / 2) + 3200 * currentScale), //
+		g.drawImage(img, (int)(pos.x * (currentScale / 2) + 3200 * currentScale), //
 				(int)(pos.y * (currentScale / 2)),
 				(int)(3200 * currentScale),//
 				(int)(1200 * currentScale), this);
@@ -114,28 +113,26 @@ public class Screen extends JPanel{
 				if(i >= 0 && i < map.getWidth() && 
 						j >= 0 && j < map.getHeight() &&
 						map.getBlock(i, j) != null) {
-					drawBlock(g2d, map.getBlock(i, j), i, j);
+					drawBlock(g, map.getBlock(i, j), i, j);
 				}
 			}
 		}
 		if(movables != null) {
-			drawMovables(g2d);
+			drawMovables(g);
 		}
 		if(mapOutlineOn) {
-			drawBounds(g2d);
+			drawBounds(g);
 		}
 		if(blockOutlineOn) {
-			//g2d.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len);
+			//g.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len);
 		} // mouse area
 		
-		g2d.setColor(new Color(0, 0, 0, 75));
-		g2d.fillRect((int)(game.gameFrame.getWidth() / 2) - 10, 0, 100, 40);
-		g2d.setColor(Color.white);
-		g2d.setFont(game.customFont);
-		g2d.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2), 30);
-		
-		Graphics2D g2dComponent = (Graphics2D) g;
-	    g2dComponent.drawImage(bufferedImage, null, 0, 0);
+		g.setColor(new Color(0, 0, 0, 75));
+		g.fillRect((int)(game.gameFrame.getWidth() / 2) - 10, 0, 100, 40);
+		g.setColor(Color.white);
+		g.setFont(game.customFont);
+		g.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2), 30);
+
 	}
 	
 	public void addTarget(Movable m) {
