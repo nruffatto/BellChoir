@@ -128,10 +128,10 @@ public class Screen extends JPanel{
 		} // mouse area
 		
 		g.setColor(new Color(0, 0, 0, 75));
-		g.fillRect((int)(game.gameFrame.getWidth() / 2) - 10, 0, 100, 40);
+		g.fillRect((int)(game.gameFrame.getWidth() / 2) - 50, 0, 100, 40);
 		g.setColor(Color.white);
 		g.setFont(game.customFont);
-		g.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2), 30);
+		g.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2)-32, 30);
 
 	}
 	

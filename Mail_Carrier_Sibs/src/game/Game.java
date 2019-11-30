@@ -49,7 +49,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public JWindow pauseFrame;
 	public Map map = new Map(1, 1);
 	
-	public String[] mapList = getMaps(); //{"easy.txt", "level_two.txt","map1.txt", "m2.txt", "towers.txt", "UP_and_Over.txt" };
+	public String[] mapList = getMaps(); 
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
