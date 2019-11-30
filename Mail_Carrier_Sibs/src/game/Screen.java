@@ -1,17 +1,12 @@
 package game;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -131,7 +126,7 @@ public class Screen extends JPanel{
 		g.fillRect((int)(game.gameFrame.getWidth() / 2) - 50, 0, 100, 40);
 		g.setColor(Color.white);
 		g.setFont(game.customFont);
-		g.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2)-32, 30);
+		g.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2)-35, 30);
 
 	}
 	

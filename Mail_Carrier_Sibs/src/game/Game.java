@@ -112,6 +112,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		levelpanel = false;
 		
 		JPanel panel = new MenuImage();
+		panel.setDoubleBuffered(true);
 		panel.setBackground(LIGHT_BLUE);
 		
 		
@@ -171,7 +172,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setVisible(true);
 		
 		JPanel panel = new JPanel(new GridLayout(4,4,4,4));
-		panel.setPreferredSize(Dimension (30,30));
+		panel.setDoubleBuffered(true);
 		panel.setBackground(LIGHT_BLUE);
 
 		for(int i=0 ; i<LevelNumber ; i++){
@@ -212,10 +213,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		backbtn.setContentAreaFilled(false); 
 		backbtn.setFocusPainted(false); 
 		backbtn.setOpaque(false);
-		//panel.setLayout(null);
-		Insets insets = panel.getInsets();
-		Dimension size = backbtn.getPreferredSize();
-		//backbtn.setBounds(800 + insets.right, 300 + insets.top,size.width+50, size.height+25);
 		backbtn.addActionListener(this);
 		backbtn.setActionCommand("Back");
 		MenuButtons[2] = backbtn;
@@ -223,11 +220,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 		gameFrame.setContentPane(panel);
 		gameFrame.setVisible(true);
-	}
-	
-	private Dimension Dimension(int i, int j) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -251,26 +243,26 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         
         if (action.equals("BackMenu"))
         {
-        	pauseFrame.setVisible(false);
+        	pauseFrame.dispose();
         	LoadMenu();
         }
         
         if (action.equals("UnPause"))
         {
-        	pauseFrame.setVisible(false);
+        	pauseFrame.dispose();
         	unpauseGame();
         }
         
         if (action.equals("NextLevel"))
         {
-        	pauseFrame.setVisible(false);
+        	pauseFrame.dispose();
         	StartLevel(mapList[(currentLevelIndex+1) % mapList.length], (currentLevelIndex+1) % mapList.length);
         	
         }
         
         if (action.equals("Restart"))
         {
-        	pauseFrame.setVisible(false);
+        	pauseFrame.dispose();
         	StartLevel(mapList[currentLevelIndex],currentLevelIndex);
         	
         }
@@ -521,6 +513,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setVisible(true);
 		
 		JPanel panel = new CompletedImage();
+		panel.setDoubleBuffered(true);
 		panel.setBackground(new Color(0, 0, 0, 0));
 		
 		JButton contbtn = new JButton();
@@ -590,6 +583,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setVisible(true);
 		
 		JPanel panel = new GameOverImage();
+		panel.setDoubleBuffered(true);
 		panel.setBackground(new Color(0, 0, 0, 0));
 		
 		JButton restartbtn = new JButton();
@@ -650,7 +644,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		if(arg0.getKeyCode() == KeyEvent.VK_ESCAPE)
 		{
 			pauseGame();
@@ -677,47 +670,38 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyReleased(KeyEvent e) {
+		;
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyTyped(KeyEvent e) {
+		;
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseClicked(MouseEvent e) {
+		;
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseEntered(MouseEvent e) {
+		;
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseExited(MouseEvent e) {
+		;
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mousePressed(MouseEvent e) {
+		;
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		;
 	}
 	
 	private class MenuImage extends JPanel {
@@ -730,7 +714,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        if (img != null)
 	            g.drawImage(img, 0, 0,700,700, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
@@ -747,7 +730,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        if (img != null)
 	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
@@ -763,7 +745,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        if (img != null)
 	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
@@ -780,7 +761,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        if (img != null)
 	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
