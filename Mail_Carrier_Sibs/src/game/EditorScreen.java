@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 
 public class EditorScreen extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 10;
-	public static final int RENDER_HEIGHT = 10;
+	public static final int RENDER_WIDTH = 100;
+	public static final int RENDER_HEIGHT = 100;
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 512; 
@@ -51,6 +51,7 @@ public class EditorScreen extends JPanel{
 	
 	public EditorScreen(Map m) {
 		super();
+		this.setDoubleBuffered(true);
 		pos = new Point();
 		len = startingLength;
 		pastLen = len;
@@ -63,25 +64,6 @@ public class EditorScreen extends JPanel{
 	
 	public void paintComponent(Graphics g) {
 		currentScale = (double) len / startingLength;
-//		File imageFile = new File("Sprites/sky.png");
-//		BufferedImage img;
-//		try {
-//			img = ImageIO.read(imageFile);
-//			g.drawImage(img, (int)(pos.x * (currentScale / 2)),
-//					(int)(pos.y * (currentScale / 2)),
-//					(int)(3200 * currentScale),
-//					(int)(1200 * currentScale), this);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		g.setColor(Color.RED);
-//		for(int i = 0; i < map.getWidth(); i ++) {
-//			for(int j = map.getHeight() - 1; j >= 0; j --) {
-//				if(map.getBlock(i, j) != null) {
-//					drawBlock(g, map.getBlock(i, j), i, j);
-//				}
-//			}
-//		}
 
 		for(int i = getMouseX() - RENDER_WIDTH; i < getMouseX() + RENDER_WIDTH; i ++) {
 			for(int j = getMouseY() + RENDER_HEIGHT; j > getMouseY() - RENDER_HEIGHT; j --) {
@@ -185,19 +167,6 @@ public class EditorScreen extends JPanel{
 			}
 		}
 	}
-	
-//	private void drawMovables(Graphics g) {
-//		g.setColor(Color.BLUE);
-//		for(int i = 0; i < movables.length; i ++) {
-//			if(movables[i] != null) {
-//				g.fillRect(
-//						(int)(movables[i].rec.x * currentScale) + pos.x,
-//						(int)(movables[i].rec.y * currentScale) + pos.y,
-//						(int)(movables[i].rec.width * currentScale),
-//						(int)(movables[i].rec.height * currentScale));
-//			}
-//		}
-//	}
 	
 	public void drawBounds(Graphics g) {
 		g.drawRect(pos.x, pos.y, map.getWidth() * len, map.getHeight() * len);

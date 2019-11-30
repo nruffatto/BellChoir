@@ -5,13 +5,6 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 public class Player extends Movable implements KeyListener{
 	public static final int NUMBER_OF_STATS = 2;

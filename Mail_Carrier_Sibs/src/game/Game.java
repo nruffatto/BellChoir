@@ -4,15 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -24,22 +21,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ThreadLocalRandom;
 
 import javax.imageio.ImageIO;
-import javax.swing.AbstractButton;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JWindow;
 
 public class Game extends TimerTask implements MouseListener, ActionListener, KeyListener{
 
@@ -53,9 +46,10 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public static final int PACKAGE_INDEX = 2;
 	
 	public JFrame gameFrame;
-	public JFrame pauseFrame;
+	public JWindow pauseFrame;
 	public Map map = new Map(1, 1);
-	public String[] mapList = {"easy.txt", "map1.txt", "m2.txt", "towers.txt" };
+	
+	public String[] mapList = getMaps(); 
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -92,6 +86,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setSize(1280, 720);
 		gameFrame.setLocationRelativeTo(null);
 		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ImageIcon icon = new ImageIcon("mailmanhead.png");
+		gameFrame.setIconImage(icon.getImage());
 		contentPane = gameFrame.getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBackground(Color.WHITE);
@@ -114,8 +110,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public void LoadMenu()
 	{
 		levelpanel = false;
-		
 		JPanel panel = new menuImage();
+		panel.setDoubleBuffered(true);
 		panel.setBackground(LIGHT_BLUE);
 		
 		
@@ -175,13 +171,27 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setVisible(true);
 		
 		JPanel panel = new JPanel(new GridLayout(4,4,4,4));
-		panel.setPreferredSize(Dimension (30,30));
+		panel.setDoubleBuffered(true);
 		panel.setBackground(LIGHT_BLUE);
 
 		for(int i=0 ; i<levelNumber ; i++){
 		    JButton btn = new JButton("Level " + String.valueOf(i+1));
 		    levelButtons[i] = btn;
+		    try {
+			    BufferedImage img = ImageIO.read(new File("Sprites/cloud.png"));
+			    BufferedImage img2 = ImageIO.read(new File("Sprites/cloudhover.png"));
+			    btn.setIcon(new ImageIcon(img));
+			    btn.setRolloverIcon(new ImageIcon(img2));
+			  } catch (Exception ex) {
+			    System.out.println(ex);
+			  }
 		    //btn.setPreferredSize(new Dimension(40, 40));
+		    btn.setHorizontalTextPosition(JButton.CENTER);
+		    btn.setVerticalTextPosition(JButton.CENTER);
+		    btn.setBorderPainted(false); 
+			btn.setContentAreaFilled(false); 
+			btn.setFocusPainted(false); 
+			btn.setOpaque(false);
 		    btn.addActionListener(this);
 		    btn.setActionCommand(mapList[i]);
 		    btn.setFont(customFont);
@@ -201,22 +211,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		backbtn.setContentAreaFilled(false); 
 		backbtn.setFocusPainted(false); 
 		backbtn.setOpaque(false);
-		//panel.setLayout(null);
-		Insets insets = panel.getInsets();
-		Dimension size = backbtn.getPreferredSize();
-		backbtn.setBounds(800 + insets.right, 300 + insets.top,size.width+50, size.height+25);
 		backbtn.addActionListener(this);
 		backbtn.setActionCommand("Back");
-		menuButtons[1] = backbtn;
-		//panel.add(backbtn);
+		menuButtons[2] = backbtn;
+		panel.add(backbtn);
 		
 		gameFrame.setContentPane(panel);
 		gameFrame.setVisible(true);
-	}
-	
-	private Dimension Dimension(int i, int j) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -225,8 +226,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         if (action.equals("Start"))
         {
         	LoadlevelButtons();
-        	
-        	menuButtons[0].setVisible(false);
         }
         if (action.equals("Exit"))
         {
@@ -240,26 +239,26 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         
         if (action.equals("BackMenu"))
         {
-        	pauseFrame.setVisible(false);
+        	pauseFrame.dispose();
         	LoadMenu();
         }
         
         if (action.equals("UnPause"))
         {
-        	pauseFrame.setVisible(false);
+        	pauseFrame.dispose();
         	unpauseGame();
         }
         
         if (action.equals("NextLevel"))
         {
-        	pauseFrame.setVisible(false);
+        	pauseFrame.dispose();
         	StartLevel(mapList[(currentLevelIndex+1) % mapList.length], (currentLevelIndex+1) % mapList.length);
         	
         }
         
         if (action.equals("Restart"))
         {
-        	pauseFrame.setVisible(false);
+        	pauseFrame.dispose();
         	StartLevel(mapList[currentLevelIndex],currentLevelIndex);
         	
         }
@@ -282,7 +281,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 
 	
 	public void StartLevel(String level, int index) {
-		
+		menuButtons[2].setVisible(false);
 		contentPane1 = gameFrame.getContentPane();
 		contentPane1.setLayout(new BorderLayout());
 		contentPane1.setBackground(Color.WHITE);
@@ -426,13 +425,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	{
 		
 		
-		pauseFrame = new JFrame("Super Mail Carrier Sibs");
+		pauseFrame = new JWindow(gameFrame);
 		pauseFrame.setSize(1280/2, 500);
 		pauseFrame.setLocationRelativeTo(null);
 		
-		pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
-		pauseFrame.setUndecorated(true);
+		//pauseFrame.setUndecorated(true);
 		pauseFrame.setBackground(new Color(0,0,0,123));
 		
 		contentPane = pauseFrame.getContentPane();
@@ -495,13 +494,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	{
 		
 		
-		pauseFrame = new JFrame("Super Mail Carrier Sibs");
+		pauseFrame = new JWindow(gameFrame);
 		pauseFrame.setSize(1280/2, 500);
 		pauseFrame.setLocationRelativeTo(null);
 		
-		pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
-		pauseFrame.setUndecorated(true);
+		//pauseFrame.setUndecorated(true);
 		pauseFrame.setBackground(new Color(0,0,0,123));
 		
 		contentPane = pauseFrame.getContentPane();
@@ -510,6 +509,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setVisible(true);
 		
 		JPanel panel = new CompletedImage();
+		panel.setDoubleBuffered(true);
 		panel.setBackground(new Color(0, 0, 0, 0));
 		
 		JButton contbtn = new JButton();
@@ -564,13 +564,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	{
 		
 		
-		pauseFrame = new JFrame("Super Mail Carrier Sibs");
+		pauseFrame = new JWindow(gameFrame);
 		pauseFrame.setSize(1280/2, 500);
 		pauseFrame.setLocationRelativeTo(null);
 		
-		pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
-		pauseFrame.setUndecorated(true);
+		//pauseFrame.setUndecorated(true);
 		pauseFrame.setBackground(new Color(0,0,0,123));
 		
 		contentPane = pauseFrame.getContentPane();
@@ -579,6 +579,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setVisible(true);
 		
 		JPanel panel = new gameOverImage();
+		panel.setDoubleBuffered(true);
 		panel.setBackground(new Color(0, 0, 0, 0));
 		
 		JButton restartbtn = new JButton();
@@ -639,56 +640,64 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		if(arg0.getKeyCode() == KeyEvent.VK_ESCAPE)
 		{
 			pauseGame();
 
 		}
 	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public String[] getMaps() {
+		File dir = new File("Maps");
+		
+		Collection<String> files = new ArrayList<String>();
+		
+		if(dir.isDirectory()){
+	        File[] listFiles = dir.listFiles();
+	        for(File file : listFiles){
+	        	if(file.isFile()) {
+	        		files.add(file.getPath());
+	        	}
+	        }
+		}
+		
+        return files.toArray(new String[]{});
 		
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyReleased(KeyEvent e) {
+		;
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyTyped(KeyEvent e) {
+		;
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseClicked(MouseEvent e) {
+		;
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseEntered(MouseEvent e) {
+		;
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		;
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		;
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		;
 	}
 	
 	private class menuImage extends JPanel {
@@ -701,7 +710,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        if (img != null)
 	            g.drawImage(img, 0, 0,700,700, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
@@ -718,7 +726,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        if (img != null)
 	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
@@ -734,7 +741,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        if (img != null)
 	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
@@ -751,7 +757,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        if (img != null)
 	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }

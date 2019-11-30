@@ -1,4 +1,4 @@
-30 16 2 95 326 219 334 98 370 1757 78 1375 807 done
+30 16 2 95 326 219 334 98 370 1757 78 1293 802 done
 0 0 blockimg/dirt/003.png false false 
 0 1 blockimg/dirt/003.png false false 
 0 2 blockimg/dirt/003.png false false 
@@ -68,14 +68,14 @@
 6 14 blockimg/dirt/003.png false false 
 6 15 blockimg/dirt/003.png false false 
 7 0 blockimg/dirt/002.png false false 
-7 7 blockimg/grass/001.png false false 
+7 7 blockimg/grass/000.png false false 
 7 11 blockimg/grass/003.png false false 
 7 12 blockimg/dirt/003.png false false 
 7 13 blockimg/dirt/003.png false false 
 7 14 blockimg/dirt/003.png false false 
 7 15 blockimg/dirt/003.png false false 
 8 0 blockimg/dirt/002.png false false 
-8 7 blockimg/grass/003.png false false 
+8 7 blockimg/grass/002.png false false 
 8 13 blockimg/grass/003.png false false 
 8 14 blockimg/dirt/003.png false false 
 8 15 blockimg/dirt/003.png false false 
@@ -97,13 +97,11 @@
 12 7 blockimg/dirt/002.png false false 
 12 14 blockimg/grass/001.png false false 
 12 15 blockimg/dirt/003.png false false 
-13 4 blockimg/grass/001.png false false 
-13 5 blockimg/dirt/003.png false false 
+13 5 blockimg/grass/003.png false false 
 13 6 blockimg/dirt/003.png false false 
 13 7 blockimg/dirt/002.png false false 
 13 14 blockimg/grass/003.png false false 
 13 15 blockimg/dirt/003.png false false 
-14 1 blockimg/dirt/001.png false false 
 14 2 blockimg/dirt/001.png false false 
 14 3 blockimg/dirt/001.png false false 
 14 4 blockimg/dirt/003.png false false 
@@ -112,18 +110,16 @@
 14 7 blockimg/dirt/003.png false false 
 14 8 blockimg/dirt/001.png false false 
 14 9 blockimg/dirt/001.png false false 
-14 10 blockimg/dirt/001.png false false 
-14 11 blockimg/dirt/000.png false false 
+14 10 blockimg/dirt/000.png false false 
 14 13 blockimg/grass/001.png false false 
 14 14 blockimg/dirt/003.png false false 
 14 15 blockimg/dirt/003.png false false 
-15 1 blockimg/dirt/003.png false false 
 15 2 blockimg/dirt/003.png false false 
 15 3 blockimg/dirt/003.png false false 
 15 8 blockimg/sidewalk/003.png false false 
 15 9 blockimg/dirt/003.png false false 
 15 10 blockimg/dirt/003.png false false 
-15 11 blockimg/dirt/002.png false false 
+15 11 blockimg/dirt/000.png false false 
 15 13 blockimg/grass/003.png false false 
 15 14 blockimg/dirt/003.png false false 
 15 15 blockimg/dirt/003.png false false 

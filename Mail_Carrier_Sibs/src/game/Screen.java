@@ -1,16 +1,12 @@
 package game;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -18,8 +14,8 @@ import javax.swing.JPanel;
 
 public class Screen extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 20;
-	public static final int RENDER_HEIGHT = 20;
+	public static final int RENDER_WIDTH = 25;
+	public static final int RENDER_HEIGHT = 25;
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 64; 
@@ -47,8 +43,8 @@ public class Screen extends JPanel{
 	public double currentScale = 1;
 	
 	public Point pos;
-	private int len; //block size
-	private int pastLen;
+	private double len; //block size
+	private double pastLen;
 	public Map map;
 	public Game game;
 	private Movable[] movables;
@@ -68,6 +64,7 @@ public class Screen extends JPanel{
 	
 	public Screen(Map m) {
 		super();
+		this.setDoubleBuffered(true);
 		pos = new Point();
 		len = startingLength;
 		pastLen = len;
@@ -90,7 +87,7 @@ public class Screen extends JPanel{
 	}
 	
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g); 
+		super.paintComponent(g);
 		target();
 		currentScale = (double) len / startingLength;
 
@@ -122,14 +119,15 @@ public class Screen extends JPanel{
 			drawBounds(g);
 		}
 		if(blockOutlineOn) {
-			g.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len);
+			//g.drawRect(((mouseX - pos.x) / len) * len + pos.x, ((mouseY - pos.y) / len) * len + pos.y, len, len);
 		} // mouse area
 		
 		g.setColor(new Color(0, 0, 0, 75));
-		g.fillRect((int)(game.gameFrame.getWidth() / 2) - 10, 0, 100, 40);
+		g.fillRect((int)(game.gameFrame.getWidth() / 2) - 50, 0, 100, 40);
 		g.setColor(Color.white);
 		g.setFont(game.customFont);
-		g.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2), 30);
+		g.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2)-35, 30);
+
 	}
 	
 	public void addTarget(Movable m) {
@@ -193,14 +191,14 @@ public class Screen extends JPanel{
 		if(x > 0) {
 			pos.x = 0;
 		}else if((x - game.gameFrame.getWidth()) < -map.getWidth() * len) {
-			pos.x = -map.getWidth() * len + game.gameFrame.getWidth();
+			pos.x = (int) (-map.getWidth() * len + game.gameFrame.getWidth());
 		}else {
 			pos.x = (int) x;
 		}
 		if(y > 0) {
 			pos.y = 0;
 		}else if((y - game.gameFrame.getHeight() - 30) < -map.getHeight() * len) {
-			pos.y = -map.getHeight() * len + game.gameFrame.getHeight() - 30;
+			pos.y = (int) (-map.getHeight() * len + game.gameFrame.getHeight() - 30);
 		}else {
 			pos.y = (int) y;
 		}
@@ -257,10 +255,10 @@ public class Screen extends JPanel{
 	}
 	
 	public void drawBounds(Graphics g) {
-		g.drawRect(pos.x, pos.y, map.getWidth() * len, map.getHeight() * len);
+		//g.drawRect(pos.x, pos.y, map.getWidth() * len, map.getHeight() * len);
 	}
 	
-	public void setBlockSize(int s) {
+	public void setBlockSize(double s) {
 		if(s > MIN_BLOCK_SIZE && s < MAX_BLOCK_SIZE) {
 			pastLen = len;
 			len = s;
@@ -268,23 +266,23 @@ public class Screen extends JPanel{
 	}
 	
 	public void setScale(double s) {
-		setBlockSize((int)((double)startingLength * s));
+		setBlockSize(((double)startingLength * s));
 	}
 	
-	public int getBlockSize() {
+	public double getBlockSize() {
 		return len;
 	}
 	
-	public int getPastBlockSize() {
+	public double getPastBlockSize() {
 		return pastLen;
 	}
 	
 	public int getMouseX() {
-		return ((mouseX - pos.x) / len);
+		return (int) ((mouseX - pos.x) / len);
 	}
 	
 	public int getMouseY() {
-		return ((mouseY - pos.y) / len);
+		return (int) ((mouseY - pos.y) / len);
 	}
 	
 	public void setMousePos(int x, int y) {

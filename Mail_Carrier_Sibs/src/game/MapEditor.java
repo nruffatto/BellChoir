@@ -1,8 +1,4 @@
 package game;
-// Nathan is testing stoff to see how this git buisness works
-// Jaden was here
-// Nathan is testing staff to see how this git buisness works
-// Zoinks, Scoob!
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -96,7 +92,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		editorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = editorFrame.getContentPane();
 		contentPane.setLayout(new BorderLayout());
-		contentPane.setBackground(Color.BLACK);
+		contentPane.setBackground(new Color(224, 224, 224 ));
 		editorFrame.setVisible(true);
 		
 		screen.setLayout(null);
@@ -197,7 +193,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		map.clear();
 		clearMapStack();
 		messageLabel.setText("opening...");
-		File f1 = new File(fileName);
+		File f1 = new File("Maps/" + fileName);
 		Scanner s1;
 		int width;
 		int height;
@@ -266,7 +262,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		String imageFileName;
 		boolean[] blockProperties = new boolean[Block.NUMBER_OF_PROPERTIES];
 		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+			BufferedWriter writer = new BufferedWriter(new FileWriter("Maps/" + fileName));
 			writer.write(width + " " + height + " " + Block.NUMBER_OF_PROPERTIES);
 			for(int i = 0; i < map.getSpawnPointsSize(); i ++) {
 				if(map.getSpawnPoint(i) != null) {
