@@ -18,8 +18,7 @@ public class Package extends Movable implements MouseListener {
 	
 	protected int packageThrows; // Number of times the Package has been thrown
 	protected int packageDrops; // Number of times the Package has been drop
-	
-	protected boolean isDropped; 
+	protected boolean isDropped;
 
 	public Package(int x, int y) {
 		super(x, y);
@@ -74,13 +73,13 @@ public class Package extends Movable implements MouseListener {
 		}
 		if (this.isTouching(game.mailboxes[0])) { //Win condition
 			setHolder(game.mailboxes[0]); 
-			game.LevelComplete();
+			game.levelComplete();
 		}
 		if(!isInAir && wasInAir) { //Drop condition
 			game.score += 20;
 			packageDrops++;
 			if (packageDrops > 3) {
-				game.GameOver();
+				game.gameOver();
 			}
 		}
 		wasInAir = isInAir;
