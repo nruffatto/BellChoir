@@ -49,7 +49,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public JWindow pauseFrame;
 	public Map map = new Map(1, 1);
 	
-	public String[] mapList = getMaps(); //{"easy.txt", "level_two.txt","map1.txt", "m2.txt", "towers.txt", "UP_and_Over.txt" };
+	public String[] mapList = getMaps(); 
 	public Screen screen;
 	public Movable[] movables = new Movable[10];
 	public Player[] players = new Player[2];
@@ -62,20 +62,20 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	private Timer timer;
 	
 	private boolean gameIsReady;
-	public int LevelNumber = mapList.length;
+	public int levelNumber = mapList.length;
 	public int currentLevelIndex;
-	public JButton[] LevelButtons = new JButton[LevelNumber];
-	public JButton[] MenuButtons = new JButton[4];
+	public JButton[] levelButtons = new JButton[levelNumber];
+	public JButton[] menuButtons = new JButton[4];
 	
 	private boolean levelpanel;
 	public static final Color LIGHT_BLUE = new Color(51,204,255);
 	
-	public String MenuImage = "Sprites/logo.png";
-	public String LevelComplete = "Sprites/levelcomplete.png";
-	public String[] GameOver = {"Sprites/GameOver1.png","Sprites/GameOver2.png","Sprites/GameOver1.png"};
-	public String[] PauseImage = {"Sprites/PauseImage1.png","Sprites/PauseImage2.png","Sprites/PauseImage3.png"};
-	public String[] HelpImage = {"Sprites/help1.png","Sprites/help2.png"};
-	
+	public String menuImage = "Sprites/logo.png";
+	public String levelComplete = "Sprites/levelcomplete.png";
+	public String[] gameOver = {"Sprites/GameOver1.png","Sprites/GameOver2.png","Sprites/GameOver1.png"};
+	public String[] pauseImage = {"Sprites/PauseImage1.png","Sprites/PauseImage2.png","Sprites/PauseImage3.png"};
+	public String[] helpImage = {"Sprites/help1.png","Sprites/help2.png"};
+
 	public double score = 0;
 	
 	public boolean paused = false;
@@ -112,8 +112,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public void LoadMenu()
 	{
 		levelpanel = false;
-		
-		JPanel panel = new MenuImage();
+		JPanel panel = new menuImage();
+		panel.setDoubleBuffered(true);
 		panel.setBackground(LIGHT_BLUE);
 		
 		
@@ -136,7 +136,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		startbtn.setBounds(800 + insets.right, 100 + insets.top,size.width+50, size.height+25);
 		startbtn.addActionListener(this);
 		startbtn.setActionCommand("Start");
-		
 		panel.add(startbtn);
 		
 		JButton helpbtn = new JButton();
@@ -177,7 +176,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		exitbtn.setBounds(800 + insets.right, 400 + insets.top,size.width+50, size.height+25);
 		exitbtn.addActionListener(this);
 		exitbtn.setActionCommand("Exit");
-		
 		panel.add(exitbtn);
 		
 		gameFrame.setContentPane(panel);
@@ -193,12 +191,12 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setVisible(true);
 		
 		JPanel panel = new JPanel(new GridLayout(4,4,4,4));
-		panel.setPreferredSize(Dimension (30,30));
+		panel.setDoubleBuffered(true);
 		panel.setBackground(LIGHT_BLUE);
 
-		for(int i=0 ; i<LevelNumber ; i++){
+		for(int i=0 ; i<levelNumber ; i++){
 		    JButton btn = new JButton("Level " + String.valueOf(i+1));
-		    LevelButtons[i] = btn;
+		    levelButtons[i] = btn;
 		    try {
 			    BufferedImage img = ImageIO.read(new File("Sprites/cloud.png"));
 			    BufferedImage img2 = ImageIO.read(new File("Sprites/cloudhover.png"));
@@ -207,7 +205,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			  } catch (Exception ex) {
 			    System.out.println(ex);
 			  }
-		    
 		    //btn.setPreferredSize(new Dimension(40, 40));
 		    btn.setHorizontalTextPosition(JButton.CENTER);
 		    btn.setVerticalTextPosition(JButton.CENTER);
@@ -234,18 +231,15 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		backbtn.setContentAreaFilled(false); 
 		backbtn.setFocusPainted(false); 
 		backbtn.setOpaque(false);
-		//panel.setLayout(null);
-		Insets insets = panel.getInsets();
-		Dimension size = backbtn.getPreferredSize();
-		//backbtn.setBounds(800 + insets.right, 300 + insets.top,size.width+50, size.height+25);
 		backbtn.addActionListener(this);
 		backbtn.setActionCommand("Back");
-		MenuButtons[2] = backbtn;
+		menuButtons[2] = backbtn;
 		panel.add(backbtn);
 		
 		gameFrame.setContentPane(panel);
 		gameFrame.setVisible(true);
 	}
+
 	
 	public void LoadHelp()
 	{
@@ -255,7 +249,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		helpPane.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
 		
-		JPanel panel = new HelpImage();
+		JPanel panel = new helpImage();
 		panel.setBackground(LIGHT_BLUE);
 		
 		JButton backbtn = new JButton();
@@ -277,7 +271,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		backbtn.setBounds(800 + insets.right, 250 + insets.top,size.width+50, size.height+25);
 		backbtn.addActionListener(this);
 		backbtn.setActionCommand("Back");
-		MenuButtons[2] = backbtn;
+		menuButtons[2] = backbtn;
 		panel.add(backbtn);
 		
 		JButton nextbtn = new JButton();
@@ -297,7 +291,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		nextbtn.setBounds(800 + insets.right, 380 + insets.top,size.width+50, size.height+25);
 		nextbtn.addActionListener(this);
 		nextbtn.setActionCommand("Next");
-		MenuButtons[2] = nextbtn;
 		panel.add(nextbtn);
 		
 		gameFrame.setContentPane(panel);
@@ -313,7 +306,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		helpPane.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
 		
-		JPanel panel = new HelpImage2();
+		JPanel panel = new helpImage2();
 		panel.setBackground(LIGHT_BLUE);
 		
 		JButton backbtn = new JButton();
@@ -335,7 +328,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		backbtn.setBounds(800 + insets.right, 250 + insets.top,size.width+50, size.height+25);
 		backbtn.addActionListener(this);
 		backbtn.setActionCommand("Help");
-		MenuButtons[2] = backbtn;
 		panel.add(backbtn);
 		
 	
@@ -355,6 +347,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         String action = ae.getActionCommand();
         if (action.equals("Start"))
         {
+
         	LoadLevelButtons();
         }
         if (action.equals("Help"))
@@ -364,6 +357,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         if (action.equals("Next"))
         {
         	LoadHelp2();
+
         }
         if (action.equals("Exit"))
         {
@@ -377,39 +371,39 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         
         if (action.equals("BackMenu"))
         {
-        	pauseFrame.setVisible(false);
+        	pauseFrame.dispose();
         	LoadMenu();
         }
         
         if (action.equals("UnPause"))
         {
-        	pauseFrame.setVisible(false);
+        	pauseFrame.dispose();
         	unpauseGame();
         }
         
         if (action.equals("NextLevel"))
         {
-        	pauseFrame.setVisible(false);
+        	pauseFrame.dispose();
         	StartLevel(mapList[(currentLevelIndex+1) % mapList.length], (currentLevelIndex+1) % mapList.length);
         	
         }
         
         if (action.equals("Restart"))
         {
-        	pauseFrame.setVisible(false);
+        	pauseFrame.dispose();
         	StartLevel(mapList[currentLevelIndex],currentLevelIndex);
         	
         }
        
-        for(int i=0 ; i<LevelNumber ; i++)
+        for(int i=0 ; i<levelNumber ; i++)
         {
         	if (action.equals(mapList[i]))
                 {
                 	StartLevel(mapList[i],i);
-                	for(int j=0 ; j<LevelNumber ; j++)
+                	for(int j=0 ; j<levelNumber ; j++)
                 	{
-                		LevelButtons[j].setFocusable(false);
-                    	LevelButtons[j].setVisible(false);
+                		levelButtons[j].setFocusable(false);
+                    	levelButtons[j].setVisible(false);
                     }
                 }
         }
@@ -419,7 +413,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 
 	
 	public void StartLevel(String level, int index) {
-		MenuButtons[2].setVisible(false);
+		menuButtons[2].setVisible(false);
 		contentPane1 = gameFrame.getContentPane();
 		contentPane1.setLayout(new BorderLayout());
 		contentPane1.setBackground(Color.WHITE);
@@ -577,7 +571,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		contentPane.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
 		
-		JPanel panel = new PauseImage();
+		JPanel panel = new pauseImage();
 		panel.setBackground(new Color(0, 0, 0, 0));
 		
 		JButton contbtn = new JButton();
@@ -628,7 +622,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameIsReady = false;
 	}
 	
-	public void LevelComplete()
+	public void levelComplete()
 	{
 		
 		
@@ -646,7 +640,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		contentPane.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
 		
-		JPanel panel = new CompletedImage();
+		JPanel panel = new completedImage();
+		panel.setDoubleBuffered(true);
 		panel.setBackground(new Color(0, 0, 0, 0));
 		
 		JButton contbtn = new JButton();
@@ -697,7 +692,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameIsReady = false;
 	}
 	
-	public void GameOver()
+	public void gameOver()
 	{
 		
 		
@@ -715,7 +710,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		contentPane.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
 		
-		JPanel panel = new GameOverImage();
+		JPanel panel = new gameOverImage();
+		panel.setDoubleBuffered(true);
 		panel.setBackground(new Color(0, 0, 0, 0));
 		
 		JButton restartbtn = new JButton();
@@ -775,12 +771,12 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		if(arg0.getKeyCode() == KeyEvent.VK_ESCAPE)
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
 		{
-			pauseGame();
-
+			if (gameIsReady) {
+				pauseGame();
+			}
 		}
 	}
 	
@@ -803,122 +799,109 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyReleased(KeyEvent e) {
+		;
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyTyped(KeyEvent e) {
+		;
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseClicked(MouseEvent e) {
+		;
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseEntered(MouseEvent e) {
+		;
 	}
 
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mouseExited(MouseEvent e) {
+		;
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void mousePressed(MouseEvent e) {
+		;
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		;
 	}
 	
-	private class MenuImage extends JPanel {
+	private class menuImage extends JPanel {
 		@Override
 	    public void paintComponent(Graphics g) {
 	        super.paintComponent(g);
 	        BufferedImage img;
 			try {
-	        img = ImageIO.read(new File(MenuImage));
+	        img = ImageIO.read(new File(menuImage));
 	        if (img != null)
 	            g.drawImage(img, 0, 0,700,700, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
 	}
 	
-	private class PauseImage extends JPanel {
+	private class pauseImage extends JPanel {
 		@Override
 	    public void paintComponent(Graphics g) {
 	        super.paintComponent(g);
 	        BufferedImage img;
 			try {
 		    int randomNum = ThreadLocalRandom.current().nextInt(0, 3);
-	        img = ImageIO.read(new File(PauseImage[randomNum]));
+	        img = ImageIO.read(new File(pauseImage[randomNum]));
 	        if (img != null)
 	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
 	}
 	
-	private class CompletedImage extends JPanel {
+	private class completedImage extends JPanel {
 		@Override
 	    public void paintComponent(Graphics g) {
 	        super.paintComponent(g);
 	        BufferedImage img;
 			try {
-	        img = ImageIO.read(new File(LevelComplete));
+	        img = ImageIO.read(new File(levelComplete));
 	        if (img != null)
 	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
 	}
 	
-	private class GameOverImage extends JPanel {
+	private class gameOverImage extends JPanel {
 		@Override
 	    public void paintComponent(Graphics g) {
 	        super.paintComponent(g);
 	        BufferedImage img;
 			try {
 			int randomNum = ThreadLocalRandom.current().nextInt(0, 3);
-		    img = ImageIO.read(new File(GameOver[randomNum]));
+		    img = ImageIO.read(new File(gameOver[randomNum]));
 	        if (img != null)
 	            g.drawImage(img, 60, 0,500,400, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
 	}
 	
-	private class HelpImage extends JPanel {
+	private class helpImage extends JPanel {
 		
 	    public void paintComponent(Graphics g) {
 	        super.paintComponent(g);
 	        BufferedImage img;
 			try {
-	        img = ImageIO.read(new File(HelpImage[0]));
+	        img = ImageIO.read(new File(helpImage[0]));
 	        if (img != null)
 	            g.drawImage(img, 0, 0,770,645, this);
 			} catch (IOException e) {
@@ -928,13 +911,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	    }
 	}
 	
-private class HelpImage2 extends JPanel {
+	private class helpImage2 extends JPanel {
 		
 	    public void paintComponent(Graphics g) {
 	        super.paintComponent(g);
 	        BufferedImage img;
 			try {
-	        img = ImageIO.read(new File(HelpImage[1]));
+	        img = ImageIO.read(new File(helpImage[1]));
 	        if (img != null)
 	            g.drawImage(img, 0, 0,770,645, this);
 			} catch (IOException e) {
@@ -944,9 +927,9 @@ private class HelpImage2 extends JPanel {
 	    }
 	}
 	
-	private class GetImage extends JPanel {
+	private class getImage extends JPanel {
 		
-		public GetImage(Graphics g, String spritename)
+		public getImage(Graphics g, String spritename)
 		{
 			paintComponent(g,spritename);
 		}

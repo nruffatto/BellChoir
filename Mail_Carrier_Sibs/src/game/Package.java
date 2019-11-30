@@ -13,20 +13,12 @@ import javax.imageio.ImageIO;
 
 public class Package extends Movable implements MouseListener {
 	
-//	public static final int HITBOX_WIDTH = 69;
-//	public static final double HITBOX_RATIO = 56.0 / 69.0;
-//	public static final double IMAGE_SCALE = HITBOX_WIDTH / 60.0;
-//	public Point startPoint = new Point((int)(0),(int)(0));
-//	public static final int IMAGE_WIDTH = (int)(69 * IMAGE_SCALE);// * IMAGE_SCALE
-//	public static final int IMAGE_HEIGHT = (int)(56 * IMAGE_SCALE);
+	public Movable holder; // The Movable holder of the Package
+	public Movable lastHolder; // The last holder of the Package
 	
-	public Movable holder;
-	public Movable lastHolder;
-	
-	protected int packageThrows;
-	protected int packageDrops;
-	
-	protected boolean isDroped;
+	protected int packageThrows; // Number of times the Package has been thrown
+	protected int packageDrops; // Number of times the Package has been drop
+	protected boolean isDropped;
 
 	public Package(int x, int y) {
 		super(x, y);
@@ -41,7 +33,7 @@ public class Package extends Movable implements MouseListener {
 	
 	public void setHolder(Movable m) {
 		if (lastHolder != null) {
-			isDroped = false;
+			isDropped = false;
 			lastHolder.hasPackage = false;
 		}
 		if(m != lastHolder) {
@@ -52,15 +44,15 @@ public class Package extends Movable implements MouseListener {
 	}
 	
 	public void removeHolder() {
-		isDroped = true;
+		isDropped = true;
 		holder.hasPackage = false;
 		holder = null;
 		this.isVisible = true;
 	}
 	
 	public void throwPackage(int x, int y) {
-	    double distanceX = ((x - game.screen.pos.x)/game.screen.currentScale - rec.getCenterX());
-	    double distanceY= ((y - game.screen.pos.y)/game.screen.currentScale - rec.getCenterY());
+	    double distanceX = ((x - game.screen.pos.x)/game.screen.currentScale - rec.getCenterX()); //Distance between Player x-coordinate and Mouse x-coordinate
+	    double distanceY= ((y - game.screen.pos.y)/game.screen.currentScale - rec.getCenterY()); //Distance between Player y-coordinate and Mouse y-coordinate
 	    velX = distanceX/15;
 	    velY = (distanceY-225)/15;
 		game.score += 5;
@@ -70,16 +62,8 @@ public class Package extends Movable implements MouseListener {
 	public void update() {
 		if(holder != null) {
 			rec.setLocation(holder.rec.x, holder.rec.y);
-			if (holder.isTouching(game.dogs[0]) && !holder.isMailbox()) {
-				if(holder.isFacingLeft) {
-					removeHolder();
-					velX = Math.floor(Math.random()*-20 - 10);
-					velY = Math.floor(Math.random()*20 + 10);
-				}else {
-					removeHolder();
-					velX = Math.floor(Math.random()*20 + 10);
-					velY = Math.floor(Math.random()*20 + 10);
-				}
+			if (holder.isTouching(game.dogs[0]) && !holder.isMailbox()) { //Dog Drop
+				removeHolder();
 			}
 		}else {
 			super.update();
@@ -87,16 +71,15 @@ public class Package extends Movable implements MouseListener {
 				lastHolder = null;
 			}
 		}
-		if (this.isTouching(game.mailboxes[0])) {
-			setHolder(game.mailboxes[0]);
-			game.LevelComplete();
-			//System.out.println("Winner");
+		if (this.isTouching(game.mailboxes[0])) { //Win condition
+			setHolder(game.mailboxes[0]); 
+			game.levelComplete();
 		}
-		if(!isInAir && wasInAir) {
+		if(!isInAir && wasInAir) { //Drop condition
 			game.score += 20;
 			packageDrops++;
 			if (packageDrops > 3) {
-				game.GameOver();
+				game.gameOver();
 			}
 		}
 		wasInAir = isInAir;

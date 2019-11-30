@@ -1,17 +1,12 @@
 package game;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -19,8 +14,8 @@ import javax.swing.JPanel;
 
 public class Screen extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 25;
-	public static final int RENDER_HEIGHT = 25;
+	public static final int RENDER_WIDTH = 30;
+	public static final int RENDER_HEIGHT = 30;
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 64; 
@@ -128,10 +123,10 @@ public class Screen extends JPanel{
 		} // mouse area
 		
 		g.setColor(new Color(0, 0, 0, 75));
-		g.fillRect((int)(game.gameFrame.getWidth() / 2) - 10, 0, 100, 40);
+		g.fillRect((int)(game.gameFrame.getWidth() / 2) - 50, 0, 100, 40);
 		g.setColor(Color.white);
 		g.setFont(game.customFont);
-		g.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2), 30);
+		g.drawString(String.format("%2d:%02d", (int) game.score/60, (int) game.score%60), (int)(game.gameFrame.getWidth() / 2)-35, 30);
 
 	}
 	

@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.3" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="game.Mailbox" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Mailbox.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="104" x="1190" y="663"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="game.Game.menuImage" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Game.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="105" x="742" y="263"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="game.EditorScreen" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/EditorScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="118" x="618" y="463"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="game.Animation" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Animation.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="104" x="1648" y="763"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="game.Movable" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Movable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="104" x="1234" y="563"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="game.Package" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Package.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="104" x="1234" y="363"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="game.Game.pauseImage" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Game.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="109" x="887" y="263"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="game.Map" project="Mail_Carrier_Sibs" file="/Mail_Carrier_Sibs/src/game/Map.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="104" x="1025" y="763"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="game.MapEditor.TestPanel" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/MapEditor.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="104" x="453" y="263"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="game.Player" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Player.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="104" x="1462" y="263"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="game.MapEditor" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/MapEditor.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="104" x="681" y="163"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="game.Game" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Game.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="104" x="1608" y="163"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="game.Screen" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Screen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="104" x="1420" y="463"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="game.Block" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Block.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="104" x="1380" y="863"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="game.Dog" project="Mail_Carrier_Sibs" file="/Mail_Carrier_Sibs/src/game/Dog.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="104" x="1441" y="663"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="game.Game.gameOverImage" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Game.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="140" x="1036" y="263"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="game.Game.CompletedImage" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Game.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="60" width="143" x="1216" y="263"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="false"/>      
+      <operations public="false" package="false" protected="false" private="false" static="false"/>    
+    </display>  
+  </class>  
+  <association id="18">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="19" name="map"/>      
+      <multiplicity id="20" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="21">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="22" name="dogImages"/>      
+      <multiplicity id="23" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="24">    
+    <bendpoint x="1368" y="563"/>    
+    <bendpoint x="1368" y="663"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="25" name="map"/>      
+      <multiplicity id="26" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="27">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="28" name="movables"/>      
+      <multiplicity id="29" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="30">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <dependency id="31">    
+    <bendpoint x="1410" y="263"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="32">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <association id="33">    
+    <bendpoint x="627" y="263"/>    
+    <bendpoint x="627" y="363"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="34" name="screen"/>      
+      <multiplicity id="35" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="36">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="37">    
+    <bendpoint x="1201" y="463"/>    
+    <bendpoint x="1201" y="563"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="38">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <association id="39">    
+    <bendpoint x="1701" y="263"/>    
+    <bendpoint x="1701" y="363"/>    
+    <bendpoint x="1638" y="463"/>    
+    <bendpoint x="1575" y="563"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="40" name="mailboxes"/>      
+      <multiplicity id="41" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="42">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <nesting id="43">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="7"/>  
+  </nesting>  
+  <dependency id="44">    
+    <bendpoint x="1450" y="363"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <association id="45">    
+    <bendpoint x="587" y="263"/>    
+    <bendpoint x="587" y="363"/>    
+    <bendpoint x="587" y="463"/>    
+    <bendpoint x="587" y="563"/>    
+    <bendpoint x="587" y="663"/>    
+    <bendpoint x="587" y="763"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="46" name="currentBlock"/>      
+      <multiplicity id="47" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="48">    
+    <bendpoint x="1264" y="463"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <dependency id="49">    
+    <bendpoint x="1389" y="663"/>    
+    <bendpoint x="1389" y="763"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="50">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <association id="51">    
+    <bendpoint x="1575" y="463"/>    
+    <bendpoint x="1659" y="363"/>    
+    <bendpoint x="1680" y="263"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="52" name="game"/>      
+      <multiplicity id="53" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="54">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="9"/>  
+  </nesting>  
+  <dependency id="55">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <dependency id="56">    
+    <bendpoint x="1431" y="763"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="57">    
+    <bendpoint x="1410" y="563"/>    
+    <bendpoint x="1410" y="663"/>    
+    <bendpoint x="1410" y="763"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <nesting id="58">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="2"/>  
+  </nesting>  
+  <dependency id="59">    
+    <bendpoint x="1575" y="363"/>    
+    <bendpoint x="1596" y="463"/>    
+    <bendpoint x="1596" y="563"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <dependency id="60">    
+    <bendpoint x="1324" y="663"/>    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="61">    
+    <bendpoint x="1782" y="263"/>    
+    <bendpoint x="1782" y="363"/>    
+    <bendpoint x="1782" y="463"/>    
+    <bendpoint x="1782" y="563"/>    
+    <bendpoint x="1782" y="663"/>    
+    <bendpoint x="1782" y="763"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="62">    
+    <bendpoint x="711" y="263"/>    
+    <bendpoint x="1096" y="363"/>    
+    <bendpoint x="1180" y="463"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <nesting id="63">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="17"/>  
+  </nesting>  
+  <association id="64">    
+    <bendpoint x="1596" y="263"/>    
+    <bendpoint x="1533" y="363"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="65" name="screen"/>      
+      <multiplicity id="66" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="67">    
+    <bendpoint x="1596" y="363"/>    
+    <bendpoint x="1617" y="463"/>    
+    <bendpoint x="1617" y="563"/>    
+    <bendpoint x="1617" y="663"/>    
+    <bendpoint x="1617" y="763"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <association id="68">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="69" name="targets"/>      
+      <multiplicity id="70" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="71">    
+    <bendpoint x="1389" y="463"/>    
+    <bendpoint x="1389" y="563"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <generalization id="72">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <nesting id="73">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="16"/>  
+  </nesting>  
+  <dependency id="74">    
+    <bendpoint x="690" y="263"/>    
+    <bendpoint x="893" y="363"/>    
+    <bendpoint x="1096" y="463"/>    
+    <bendpoint x="1180" y="563"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <association id="75">    
+    <bendpoint x="1638" y="263"/>    
+    <bendpoint x="1617" y="363"/>    
+    <bendpoint x="1554" y="463"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="76" name="movables"/>      
+      <multiplicity id="77" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="78">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="79" name="players"/>      
+      <multiplicity id="80" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="81">    
+    <bendpoint x="1431" y="263"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="82" name="packages"/>      
+      <multiplicity id="83" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="84">    
+    <bendpoint x="608" y="563"/>    
+    <bendpoint x="608" y="663"/>    
+    <bendpoint x="608" y="763"/>    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <generalization id="85">    
+    <bendpoint x="1368" y="363"/>    
+    <bendpoint x="1368" y="463"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <association id="86">    
+    <bendpoint x="1554" y="363"/>    
+    <bendpoint x="1617" y="263"/>    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="87" name="game"/>      
+      <multiplicity id="88" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="89">    
+    <bendpoint x="1222" y="463"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="90" name="lastHolder"/>      
+      <multiplicity id="91" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="92">    
+    <bendpoint x="1117" y="363"/>    
+    <bendpoint x="1117" y="463"/>    
+    <bendpoint x="1117" y="563"/>    
+    <bendpoint x="1117" y="663"/>    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <association id="93">    
+    <bendpoint x="1389" y="263"/>    
+    <bendpoint x="1075" y="363"/>    
+    <bendpoint x="1075" y="463"/>    
+    <bendpoint x="1075" y="563"/>    
+    <bendpoint x="1075" y="663"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="94" name="map"/>      
+      <multiplicity id="95" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="96">    
+    <bendpoint x="669" y="263"/>    
+    <bendpoint x="728" y="363"/>    
+    <bendpoint x="787" y="463"/>    
+    <bendpoint x="815" y="563"/>    
+    <bendpoint x="815" y="663"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="97" name="mapStack"/>      
+      <multiplicity id="98" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="99">    
+    <bendpoint x="1243" y="463"/>    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="100" name="holder"/>      
+      <multiplicity id="101" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="102">    
+    <bendpoint x="773" y="563"/>    
+    <bendpoint x="773" y="663"/>    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="103" name="map"/>      
+      <multiplicity id="104" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="105">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="12"/>  
+  </dependency>  
+  <association id="106">    
+    <bendpoint x="1722" y="263"/>    
+    <bendpoint x="1722" y="363"/>    
+    <bendpoint x="1712" y="463"/>    
+    <bendpoint x="1701" y="563"/>    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="107" name="dogs"/>      
+      <multiplicity id="108" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="109">    
+    <bendpoint x="1638" y="363"/>    
+    <bendpoint x="1659" y="463"/>    
+    <bendpoint x="1722" y="563"/>    
+    <bendpoint x="1722" y="663"/>    
+    <end type="SOURCE" refId="10" navigable="false">      
+      <attribute id="110" name="playerImages"/>      
+      <multiplicity id="111" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="112">    
+    <bendpoint x="1440" y="563"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="113">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="114">    
+    <bendpoint x="1138" y="463"/>    
+    <bendpoint x="1138" y="563"/>    
+    <bendpoint x="1138" y="663"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="115">    
+    <bendpoint x="1159" y="463"/>    
+    <bendpoint x="1159" y="563"/>    
+    <bendpoint x="1159" y="663"/>    
+    <bendpoint x="1159" y="763"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="116">    
+    <bendpoint x="1659" y="263"/>    
+    <bendpoint x="1680" y="363"/>    
+    <bendpoint x="1680" y="463"/>    
+    <bendpoint x="1680" y="563"/>    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="15"/>  
+  </dependency>  
+  <association id="117">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="118" name="movables"/>      
+      <multiplicity id="119" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="120">    
+    <bendpoint x="648" y="263"/>    
+    <bendpoint x="707" y="363"/>    
+    <bendpoint x="766" y="463"/>    
+    <bendpoint x="794" y="563"/>    
+    <bendpoint x="794" y="663"/>    
+    <end type="SOURCE" refId="11" navigable="false">      
+      <attribute id="121" name="map"/>      
+      <multiplicity id="122" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="false" package="false" protected="false" private="false" static="false"/>    
+    <operations public="false" package="false" protected="false" private="false" static="false"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

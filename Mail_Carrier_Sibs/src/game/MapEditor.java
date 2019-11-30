@@ -95,11 +95,6 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		contentPane.setBackground(new Color(224, 224, 224 ));
 		editorFrame.setVisible(true);
 		
-//		TestPanel testPanel = new TestPanel();
-//		testPanel.setLayout(null);
-//		testPanel.setBackground(Color.BLACK);
-//		contentPane.add(testPanel);
-		
 		screen.setLayout(null);
 		screen.setBackground(Color.BLUE);
 		contentPane.add(screen, BorderLayout.CENTER);

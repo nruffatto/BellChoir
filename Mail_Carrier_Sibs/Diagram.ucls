@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.3" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="game.Mailbox" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Mailbox.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="178" width="148" x="1299" y="160"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="game.Animation" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Animation.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="198" width="183" x="1299" y="-336"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="game.Movable" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Movable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="757" width="191" x="1104" y="-337"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="game.Package" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Package.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="287" width="172" x="917" y="-337"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="game.Map" project="Mail_Carrier_Sibs" file="/Mail_Carrier_Sibs/src/game/Map.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="417" width="182" x="921" y="-45"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="game.Player" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Player.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="537" width="218" x="698" y="-337"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="game.MapEditor" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/MapEditor.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="791" width="218" x="78" y="-336"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="game.Game" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Game.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="753" width="197" x="501" y="-336"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <operations public="true" package="true" protected="true" private="true" static="false"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="game.Screen" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Screen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="811" width="207" x="287" y="-336"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="game.Block" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/Block.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="290" width="207" x="1299" y="-133"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="game.Dog" project="Mail_Carrier_Sibs" file="/Mail_Carrier_Sibs/src/game/Dog.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="307" width="187" x="700" y="202"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="game.EditorScreen" project="Mail_Carrier_Sibs" 
+    file="/Mail_Carrier_Sibs/src/game/EditorScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="578" width="210" x="-129" y="-336"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="false"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="false" protected="false" private="false" static="false"/>    
+    <operations public="true" package="true" protected="false" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
