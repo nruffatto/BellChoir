@@ -48,7 +48,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	
 	private Map map = new Map(12, 12);
 	private Stack<Map> mapStack = new Stack<>();
-	private Screen2 screen = new Screen2(map);
+	private EditorScreen screen = new EditorScreen(map);
 	private JFrame editorFrame;
 	private Container contentPane;
 	private JPanel editorPanel;
@@ -98,11 +98,6 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBackground(Color.BLACK);
 		editorFrame.setVisible(true);
-		
-//		TestPanel testPanel = new TestPanel();
-//		testPanel.setLayout(null);
-//		testPanel.setBackground(Color.BLACK);
-//		contentPane.add(testPanel);
 		
 		screen.setLayout(null);
 		screen.setBackground(Color.BLUE);

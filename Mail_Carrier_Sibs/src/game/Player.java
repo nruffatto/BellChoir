@@ -48,7 +48,6 @@ public class Player extends Movable implements KeyListener{
 	private boolean rightKeyPressed = false;
 	
 	private boolean crouchKeyPressed = false;
-	private boolean isRunning = false;
 	protected boolean isCrouched = false;
 	private boolean isJumping = false;
 
@@ -237,7 +236,6 @@ public class Player extends Movable implements KeyListener{
 		}
 		if(e.getKeyCode() == right) {
 				rightKeyPressed = true;
-				isRunning = true;
 				isFacingLeft = false;
 		}
 		if(e.getKeyCode() == up) {
@@ -257,7 +255,6 @@ public class Player extends Movable implements KeyListener{
 		}
 		if(e.getKeyCode() == right) {
 			rightKeyPressed = false;
-			isRunning = false;
 //			playerState = IDLE_INDEX;
 		}
 		if(e.getKeyCode() == up) {

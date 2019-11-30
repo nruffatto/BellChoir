@@ -26,7 +26,7 @@ public class Package extends Movable implements MouseListener {
 	protected int packageThrows;
 	protected int packageDrops;
 	
-	protected boolean isDroped;
+	protected boolean isDropped;
 
 	public Package(int x, int y) {
 		super(x, y);
@@ -41,7 +41,7 @@ public class Package extends Movable implements MouseListener {
 	
 	public void setHolder(Movable m) {
 		if (lastHolder != null) {
-			isDroped = false;
+			isDropped = false;
 			lastHolder.hasPackage = false;
 		}
 		if(m != lastHolder) {
@@ -52,7 +52,7 @@ public class Package extends Movable implements MouseListener {
 	}
 	
 	public void removeHolder() {
-		isDroped = true;
+		isDropped = true;
 		holder.hasPackage = false;
 		holder = null;
 		this.isVisible = true;
@@ -89,14 +89,14 @@ public class Package extends Movable implements MouseListener {
 		}
 		if (this.isTouching(game.mailboxes[0])) {
 			setHolder(game.mailboxes[0]);
-			game.LevelComplete();
+			game.levelComplete();
 			//System.out.println("Winner");
 		}
 		if(!isInAir && wasInAir) {
 			game.score += 20;
 			packageDrops++;
 			if (packageDrops > 3) {
-				game.GameOver();
+				game.gameOver();
 			}
 		}
 		wasInAir = isInAir;
