@@ -177,7 +177,22 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		for(int i=0 ; i<LevelNumber ; i++){
 		    JButton btn = new JButton("Level " + String.valueOf(i+1));
 		    LevelButtons[i] = btn;
+		    try {
+			    BufferedImage img = ImageIO.read(new File("Sprites/cloud.png"));
+			    BufferedImage img2 = ImageIO.read(new File("Sprites/cloudhover.png"));
+			    btn.setIcon(new ImageIcon(img));
+			    btn.setRolloverIcon(new ImageIcon(img2));
+			  } catch (Exception ex) {
+			    System.out.println(ex);
+			  }
+		    
 		    //btn.setPreferredSize(new Dimension(40, 40));
+		    btn.setHorizontalTextPosition(JButton.CENTER);
+		    btn.setVerticalTextPosition(JButton.CENTER);
+		    btn.setBorderPainted(false); 
+			btn.setContentAreaFilled(false); 
+			btn.setFocusPainted(false); 
+			btn.setOpaque(false);
 		    btn.addActionListener(this);
 		    btn.setActionCommand(mapList[i]);
 		    btn.setFont(customFont);
@@ -200,11 +215,11 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		//panel.setLayout(null);
 		Insets insets = panel.getInsets();
 		Dimension size = backbtn.getPreferredSize();
-		backbtn.setBounds(800 + insets.right, 300 + insets.top,size.width+50, size.height+25);
+		//backbtn.setBounds(800 + insets.right, 300 + insets.top,size.width+50, size.height+25);
 		backbtn.addActionListener(this);
 		backbtn.setActionCommand("Back");
-		MenuButtons[1] = backbtn;
-		//panel.add(backbtn);
+		MenuButtons[2] = backbtn;
+		panel.add(backbtn);
 		
 		gameFrame.setContentPane(panel);
 		gameFrame.setVisible(true);
@@ -222,7 +237,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         {
         	LoadLevelButtons();
         	
-        	MenuButtons[0].setVisible(false);
+        	
         }
         if (action.equals("Exit"))
         {
@@ -278,7 +293,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 
 	
 	public void StartLevel(String level, int index) {
-		
+		MenuButtons[2].setVisible(false);
 		contentPane1 = gameFrame.getContentPane();
 		contentPane1.setLayout(new BorderLayout());
 		contentPane1.setBackground(Color.WHITE);
