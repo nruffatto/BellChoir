@@ -643,11 +643,12 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		if(arg0.getKeyCode() == KeyEvent.VK_ESCAPE)
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
 		{
-			pauseGame();
-
+			if (gameIsReady) {
+				pauseGame();
+			}
 		}
 	}
 	
