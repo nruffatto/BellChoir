@@ -1,9 +1,6 @@
 package game;
 
-//John was here
-
 import java.util.Arrays;
-
 
 public class Block {
 	
