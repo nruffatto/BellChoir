@@ -416,11 +416,11 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		messageLabel.setText("[" + screen.getMouseX() + ", " + screen.getMouseY() + "]");
+		messageLabel.setText("[" + screen.getMouseX() + ", " + screen.getMouseY() + "]"); // Displays coordinates of mouse
 //		System.out.println("Mouse dragging!");
 		if(leftClickPressed) {
 //			System.out.println("Left click dragging!");
-			if(ctrlPressed) {
+			if(ctrlPressed) { // Pans the screen for <Ctrl> drag and inserts blocks otherwise
 				canInsertBlocks = false;
 				screen.pos.x += e.getX() - 7 - mouseX;
 				screen.pos.y += e.getY() - 30 - mouseY;

@@ -320,7 +320,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			movables[3] = new Mailbox(map.getSpawnPoint(3).x, map.getSpawnPoint(3).y);
 		}
 		if(map.getSpawnPoint(4) != null) {
-			movables[4] = new Dog(map.getSpawnPoint(4).x, map.getSpawnPoint(4).y, 200);
+			movables[4] = new Dog(map.getSpawnPoint(4).x, map.getSpawnPoint(4).y, 125);
 		}
 		
 		players[0] = (Player) movables[0];
@@ -640,11 +640,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		if(arg0.getKeyCode() == KeyEvent.VK_ESCAPE)
-		{
-			pauseGame();
-
-		}
 	}
 	
 	public String[] getMaps() {
@@ -667,7 +662,11 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		;
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+		{
+			pauseGame();
+
+		}
 	}
 
 	@Override
