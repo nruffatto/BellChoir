@@ -439,6 +439,12 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 		score = 0;
 		
+
+		
+		for(int i = 0; i < movables.length; i ++) {
+			movables[i] = null;
+		}
+		
 		if(map.getSpawnPoint(0) != null) {
 			movables[0] = new Player(map.getSpawnPoint(0).x, map.getSpawnPoint(0).y, 0);
 		}
@@ -800,11 +806,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
-		{
-			pauseGame();
-
-		}
 	}
 
 	@Override

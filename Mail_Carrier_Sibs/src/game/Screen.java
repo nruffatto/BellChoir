@@ -14,8 +14,8 @@ import javax.swing.JPanel;
 
 public class Screen extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 30;
-	public static final int RENDER_HEIGHT = 30;
+	public static final int RENDER_WIDTH = 15;
+	public static final int RENDER_HEIGHT = 15;
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 64; 
@@ -158,8 +158,8 @@ public class Screen extends JPanel{
 			}
 		}
 
-		double scaleX = (double)(game.gameFrame.getWidth() * 7) / (double)((maxX - minX) * 8);
-		double scaleY = (double)(game.gameFrame.getHeight() * 7) / (double)((maxY - minY) * 8);
+		double scaleX = (double)(game.gameFrame.getWidth() * 6) / (double)((maxX - minX) * 8);
+		double scaleY = (double)(game.gameFrame.getHeight() * 6) / (double)((maxY - minY) * 8);
 		setScale(Math.min(scaleX, scaleY));
 		setLocation(-(maxX + minX) / 2 * currentScale + game.gameFrame.getWidth() / 2, 
 				-(maxY + minY) / 2 * currentScale + game.gameFrame.getHeight() / 2);

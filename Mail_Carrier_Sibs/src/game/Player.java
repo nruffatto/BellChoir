@@ -26,7 +26,7 @@ public class Player extends Movable implements KeyListener{
 	private int speed = 10;
 	private int jumpingSpeed = 25;
 	protected int playerState;
-	private double crouchScale = 0.5;
+	private double crouchScale = 0.4;
 	
 	private int left;
 	private int right;
