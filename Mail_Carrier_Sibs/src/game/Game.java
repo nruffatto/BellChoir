@@ -195,7 +195,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		panel.setBackground(LIGHT_BLUE);
 
 		for(int i=0 ; i<levelNumber ; i++){
-		    JButton btn = new JButton("Level " + String.valueOf(i+1));
+		    JButton btn = new JButton("Level " + String.valueOf(i));
 		    levelButtons[i] = btn;
 		    try {
 			    BufferedImage img = ImageIO.read(new File("Sprites/cloud.png"));

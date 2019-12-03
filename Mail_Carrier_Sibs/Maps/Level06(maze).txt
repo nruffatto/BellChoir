@@ -1,4 +1,4 @@
-24 24 2 done
+24 24 2 107 130 224 133 466 528 1344 1278 done
 0 0 blockimg/grass/001.png false false 
 0 1 blockimg/dirt/001.png false false 
 0 2 blockimg/dirt/001.png false false 

@@ -104,7 +104,7 @@ public class EditorScreen extends JPanel{
 				e.printStackTrace();
 			}
 		}else {
-			File imageFile = new File("Sprites/error.png");
+			File imageFile = new File("blockimg/blank.png");
 			BufferedImage img;
 			try {
 				img = ImageIO.read(imageFile);

@@ -237,9 +237,6 @@
 18 62 blockimg/dirt/003.png false false 
 18 63 blockimg/dirt/002.png false false 
 19 0 blockimg/dirt/001.png false false 
-19 1 blockimg/dirt/001.png false false 
-19 2 blockimg/dirt/001.png false false 
-19 3 blockimg/dirt/001.png false false 
 19 4 blockimg/dirt/001.png false false 
 19 5 blockimg/dirt/001.png false false 
 19 6 blockimg/dirt/001.png false false 
