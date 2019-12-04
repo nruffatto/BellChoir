@@ -14,8 +14,9 @@ public class Map {
 		map = new Block[height][width];
 		wid = width;
 		hei = height;
-		spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);
-		spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);spawnPoints.add(null);
+		for(int i = 0; i < 10; i ++) {
+			spawnPoints.add(null);
+		}
 	}
 	
 	public void clear() {
@@ -23,6 +24,9 @@ public class Map {
 			for(int j = 0; j < getHeight(); j ++) {
 				eraseBlock(i, j);
 			}
+		}
+		for(int i = 0; i < 10; i ++) {
+			spawnPoints.add(i, null);
 		}
 	}
 	

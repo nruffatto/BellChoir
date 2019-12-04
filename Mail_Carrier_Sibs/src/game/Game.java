@@ -46,7 +46,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public static final int PACKAGE_INDEX = 2;
 	
 	public JFrame gameFrame;
-	public JWindow pauseFrame;
+	public JWindow pauseWindow;
 	public Map map = new Map(1, 1);
 	
 	public String[] mapList = getMaps(); 
@@ -195,7 +195,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		panel.setBackground(LIGHT_BLUE);
 
 		for(int i=0 ; i<levelNumber ; i++){
-		    JButton btn = new JButton("Level " + String.valueOf(i+1));
+		    JButton btn = new JButton("Level " + String.valueOf(i));
 		    levelButtons[i] = btn;
 		    try {
 			    BufferedImage img = ImageIO.read(new File("Sprites/cloud.png"));
@@ -371,26 +371,26 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         
         if (action.equals("BackMenu"))
         {
-        	pauseFrame.dispose();
+        	pauseWindow.dispose();
         	LoadMenu();
         }
         
         if (action.equals("UnPause"))
         {
-        	pauseFrame.dispose();
+        	pauseWindow.dispose();
         	unpauseGame();
         }
         
         if (action.equals("NextLevel"))
         {
-        	pauseFrame.dispose();
+        	pauseWindow.dispose();
         	StartLevel(mapList[(currentLevelIndex+1) % mapList.length], (currentLevelIndex+1) % mapList.length);
         	
         }
         
         if (action.equals("Restart"))
         {
-        	pauseFrame.dispose();
+        	pauseWindow.dispose();
         	StartLevel(mapList[currentLevelIndex],currentLevelIndex);
         	
         }
@@ -439,6 +439,12 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 		score = 0;
 		
+
+		
+		for(int i = 0; i < movables.length; i ++) {
+			movables[i] = null;
+		}
+		
 		if(map.getSpawnPoint(0) != null) {
 			movables[0] = new Player(map.getSpawnPoint(0).x, map.getSpawnPoint(0).y, 0);
 		}
@@ -452,7 +458,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 			movables[3] = new Mailbox(map.getSpawnPoint(3).x, map.getSpawnPoint(3).y);
 		}
 		if(map.getSpawnPoint(4) != null) {
-			movables[4] = new Dog(map.getSpawnPoint(4).x, map.getSpawnPoint(4).y, 200);
+			movables[4] = new Dog(map.getSpawnPoint(4).x, map.getSpawnPoint(4).y, 125);
 		}
 		
 		players[0] = (Player) movables[0];
@@ -557,16 +563,16 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	{
 		
 		
-		pauseFrame = new JWindow(gameFrame);
-		pauseFrame.setSize(1280/2, 500);
-		pauseFrame.setLocationRelativeTo(null);
+		pauseWindow = new JWindow(gameFrame);
+		pauseWindow.setSize(1280/2, 500);
+		pauseWindow.setLocationRelativeTo(null);
 		
 		//pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
 		//pauseFrame.setUndecorated(true);
-		pauseFrame.setBackground(new Color(0,0,0,123));
+		pauseWindow.setBackground(new Color(0,0,0,123));
 		
-		contentPane = pauseFrame.getContentPane();
+		contentPane = pauseWindow.getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
@@ -616,8 +622,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		menubtn.setActionCommand("BackMenu");
 		panel.add(menubtn);
 		
-		pauseFrame.setContentPane(panel);
-		pauseFrame.setVisible(true);
+		pauseWindow.setContentPane(panel);
+		pauseWindow.setVisible(true);
 		
 		gameIsReady = false;
 	}
@@ -626,16 +632,16 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	{
 		
 		
-		pauseFrame = new JWindow(gameFrame);
-		pauseFrame.setSize(1280/2, 500);
-		pauseFrame.setLocationRelativeTo(null);
+		pauseWindow = new JWindow(gameFrame);
+		pauseWindow.setSize(1280/2, 500);
+		pauseWindow.setLocationRelativeTo(null);
 		
 		//pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
 		//pauseFrame.setUndecorated(true);
-		pauseFrame.setBackground(new Color(0,0,0,123));
+		pauseWindow.setBackground(new Color(0,0,0,123));
 		
-		contentPane = pauseFrame.getContentPane();
+		contentPane = pauseWindow.getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
@@ -686,8 +692,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		menubtn.setActionCommand("BackMenu");
 		panel.add(menubtn);
 		
-		pauseFrame.setContentPane(panel);
-		pauseFrame.setVisible(true);
+		pauseWindow.setContentPane(panel);
+		pauseWindow.setVisible(true);
 		
 		gameIsReady = false;
 	}
@@ -696,16 +702,16 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	{
 		
 		
-		pauseFrame = new JWindow(gameFrame);
-		pauseFrame.setSize(1280/2, 500);
-		pauseFrame.setLocationRelativeTo(null);
+		pauseWindow = new JWindow(gameFrame);
+		pauseWindow.setSize(1280/2, 500);
+		pauseWindow.setLocationRelativeTo(null);
 		
 		//pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
 		//pauseFrame.setUndecorated(true);
-		pauseFrame.setBackground(new Color(0,0,0,123));
+		pauseWindow.setBackground(new Color(0,0,0,123));
 		
-		contentPane = pauseFrame.getContentPane();
+		contentPane = pauseWindow.getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		contentPane.setBackground(Color.WHITE);
 		gameFrame.setVisible(true);
@@ -756,8 +762,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		menubtn.setActionCommand("BackMenu");
 		panel.add(menubtn);
 		
-		pauseFrame.setContentPane(panel);
-		pauseFrame.setVisible(true);
+		pauseWindow.setContentPane(panel);
+		pauseWindow.setVisible(true);
 		
 		gameIsReady = false;
 	}
@@ -767,7 +773,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	public void unpauseGame()
 	{
 		gameIsReady = true;
-		pauseFrame.setVisible(false);
+		pauseWindow.setVisible(false);
 	}
 
 	@Override
@@ -800,7 +806,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		;
 	}
 
 	@Override
