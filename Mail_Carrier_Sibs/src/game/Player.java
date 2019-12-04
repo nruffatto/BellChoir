@@ -44,7 +44,7 @@ public class Player extends Movable implements KeyListener{
 	protected boolean isCrouched = false;
 	private boolean isJumping = false;
 
-	private Animation[][] playerImages = {
+	private Animation[][] playerImages = { // Gets animations for both players
 			{	new Animation("Sprites/mailman1idle_8_.png",138,135),
 				new Animation("Sprites/mailman1run_8_.png",138,135),
 				new Animation("Sprites/mailman1boxrun_16_.png",138,135),
@@ -109,7 +109,7 @@ public class Player extends Movable implements KeyListener{
 		super.update();
 	}
 	
-	public void updateProperties() {
+	public void updateProperties() { // Set player state and stats
 		if(game.packages[0].holder == this) {
 			hasPackage = true;
 		}else {
@@ -178,7 +178,7 @@ public class Player extends Movable implements KeyListener{
 			velX = 0;
 		}
 		
-		switch(playerState) {
+		switch(playerState) { // changes animation frame
 			case 0: playerImages[playerNumber][IDLE_INDEX].nextFrame(); break;
 			case 1: playerImages[playerNumber][RUN_INDEX].nextFrame(); break;
 			case 2: playerImages[playerNumber][PACKAGE_RUN_INDEX].nextFrame(); break;
@@ -244,11 +244,9 @@ public class Player extends Movable implements KeyListener{
 		getControls();
 		if(e.getKeyCode() == left) {
 			leftKeyPressed = false;
-//			playerState = IDLE_INDEX;
 		}
 		if(e.getKeyCode() == right) {
 			rightKeyPressed = false;
-//			playerState = IDLE_INDEX;
 		}
 		if(e.getKeyCode() == up) {
 			isJumping = false;

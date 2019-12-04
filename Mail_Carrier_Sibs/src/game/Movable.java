@@ -86,10 +86,8 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 				if(game.map.getBlock(points[i].x / Screen.startingLength, points[i].y / Screen.startingLength) != null) {
 					if(points[i].x > pastPoints[i].x) {
 						rec.x -= points[i].x % Screen.startingLength + 1;
-//						System.out.println("X1");
 					}else if(points[i].x < pastPoints[i].x){
 						rec.x += Screen.startingLength - points[i].x % Screen.startingLength + 7;
-//						System.out.println("X2");
 					}
 					velX = 0;
 					break;
@@ -110,9 +108,7 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 						isInAir = false;
 					}else if(points[i].y < pastPoints[i].y){//if(points[i].y < pastPoints[i].y)
 						rec.y += Screen.startingLength - points[i].y % Screen.startingLength + 1;
-//						System.out.println("2");
 					}else {
-//						System.out.println("same");
 					}
 					velY = 0;
 					velX = 0;
@@ -162,15 +158,6 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 			newPoints[counter] = new Point(r.x, r.y + r.height - i * (r.height / n));
 			counter ++;
 		}
-//		Point[] newPoints = {
-//				new Point(r.x, r.y),
-//				new Point(r.x + r.width, r.y),
-//				new Point(r.x + r.width, r.y + r.height),
-//				new Point(r.x, r.y+ r.height),
-//				new Point(r.x, r.y + r.height / 2),
-//				new Point(r.x + r.width, r.y + r.height / 2),
-//				new Point(r.x + r.width / 2, r.y + r.height),
-//				new Point(r.x + r.width / 2, r.y),};
 		return newPoints;
 	}
 	
@@ -180,7 +167,6 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 	
 	private void updatePastRec() {
 		pastRec = (Rectangle) rec.clone();
-//		pastRec = new Rectangle(rec.x, rec.y, rec.width, rec.height);
 	}
 	
 	public Image getImage() {

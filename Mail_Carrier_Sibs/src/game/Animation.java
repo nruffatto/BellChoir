@@ -13,7 +13,7 @@ public class Animation {
 	public int currentFrame = 0;
 	public BufferedImage[] images;
 	
-	public Animation(String a, int frameX, int frameY) {
+	public Animation(String a, int frameX, int frameY) { //Takes Image and splits it into an array of images
 		String[] splitFile = a.split("_");
 		frames = Integer.parseInt(splitFile[1]);
 		images = new BufferedImage[frames];
@@ -26,18 +26,17 @@ public class Animation {
 			}
 		}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println(a);
 			e.printStackTrace();
 
 		}
 	}
 	
-	public BufferedImage getImage() {
+	public BufferedImage getImage() { //get the image of current frame
 		return images[currentFrame];
 	}
 	
-	public void nextFrame() {
+	public void nextFrame() { //increments the frame
 		currentFrame++;
 		if(currentFrame == frames) {
 			currentFrame = 0;
