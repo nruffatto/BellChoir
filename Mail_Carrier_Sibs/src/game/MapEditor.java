@@ -115,12 +115,10 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		
 		mapWidthField = new JTextField(map.getWidth() + "");
 		mapWidthField.setBounds(0, 0, 100, 20);
-//		mapWidthField.add(new JLabel("Map Width:"));
 		contentPane.add(editorPanel, BorderLayout.SOUTH);
 		
 		mapHeightField = new JTextField(map.getHeight() + "");
 		mapHeightField.setBounds(0, 0, 100, 20);
-//		mapHeightField.add(new JLabel("Map Height:"));
 		resizeButton = new JButton("Resize Map");
 		resizeButton.addActionListener(this);
 		
@@ -154,33 +152,25 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		messageLabel.setText("[" + screen.getMouseX() + ", " + screen.getMouseY() + "]");
 	}
 	
-	private void storeMapInstance() {
-//		System.out.println(map);
+	private void storeMapInstance() { // adds a map to the map stack so that we can undo changes
 		if(!mapStack.isEmpty()) {
-//			System.out.println(mapStack.peek().equals(map));
 		}
 		if(mapStack.isEmpty() || (!mapStack.isEmpty() && !mapStack.peek().equals(map))) {
-//			System.out.println("storeMapInstance: ");
-//			System.out.println(map.getCopy());
 			mapStack.push(map.getCopy());
 		}
 	}
 	
-	private void undo() {
-//		System.out.println("undo");
+	private void undo() { // deletes most recent change 
 		if(!mapStack.isEmpty()) {
-//			System.out.println("pop!");
 			map = mapStack.pop().getCopy();
 			screen.map = map;
 		}
 	}
 
 	@Override
-	public void run() {
+	public void run() { // the timer method
 		screen.setMousePos(mouseX, mouseY);
 		editorFrame.repaint();
-//		screen.repaint();
-//		editorPanel.repaint();
 	}
 	
 	public void clearMapStack() {
@@ -296,7 +286,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 
 
 	
-	private void insertBlock(int x, int y) {
+	private void insertBlock(int x, int y) { // inserts block or movable at mouse location, checks to make sure block can be inserted there
 		x -= screen.pos.x;
 		y -= screen.pos.y;
 //		System.out.println(x + " " + y);
@@ -314,23 +304,20 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 				}else if(currentMovableIndex == 2) {
 					screen.movables[currentMovableIndex] = new Package(x, y);
 				}else if(currentMovableIndex == 3) {
-					// put in the mailBox
 					screen.movables[currentMovableIndex] = new Mailbox(x, y);
 				}else if(currentMovableIndex == 4) {
-					// put in the mailBox
 					screen.movables[currentMovableIndex] = new Dog(x, y, 200);
 				}
 			}else {
 				map.insertBlock(x / screen.getBlockSize(), 
 						y / screen.getBlockSize(), 
 						currentBlock.getCopy());
-//				System.out.println("Block Insertion!");
 			}
 		}
 		storeMapInstance();
 	}
 	
-	private void eraseBlock(int x, int y) {
+	private void eraseBlock(int x, int y) { // erases block at mouse location if there is on
 		x -= screen.pos.x;
 		y -= screen.pos.y;
 		if(x < map.getWidth() * screen.getBlockSize() && x > 0 &&
@@ -342,7 +329,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 		storeMapInstance();
 	}
 	
-	private void zoom(int zoomAmount) {
+	private void zoom(int zoomAmount) { // zooms into mouse location
 		double newBlockSize = screen.getBlockSize() + ZOOM_STEP * zoomAmount;
 		double scale = newBlockSize / screen.getBlockSize();
 		screen.pos.x =(int) (- ((mouseX - screen.pos.x) * scale - mouseX));
@@ -351,7 +338,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) { // handles buttons and fields, and comboboxes
 		editorFrame.requestFocus();
 		if(e.getSource().equals(openButton)) {
 			openFile(fileField.getText());
@@ -379,17 +366,15 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == 17) {
 			ctrlPressed = true;
-//			System.out.println("Ctrl Key Pressed!");
 		}else if (e.getKeyCode() == 18) {
 			altPressed = true;
 		}else if(ctrlPressed && e.getKeyCode() == 90) {
-//			System.out.println("Ctrl + z");
 			undo();
 		}
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
+	public void keyReleased(KeyEvent e) { // Handles movable assignments
 		if(e.getKeyCode() == 17) {
 			ctrlPressed = false;
 		}else if (e.getKeyCode() == 18) {
@@ -417,9 +402,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		messageLabel.setText("[" + screen.getMouseX() + ", " + screen.getMouseY() + "]"); // Displays coordinates of mouse
-//		System.out.println("Mouse dragging!");
 		if(leftClickPressed) {
-//			System.out.println("Left click dragging!");
 			if(ctrlPressed) { // Pans the screen for <Ctrl> drag and inserts blocks otherwise
 				canInsertBlocks = false;
 				screen.pos.x += e.getX() - 7 - mouseX;
@@ -439,7 +422,7 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
+	public void mouseMoved(MouseEvent e) { //Changes mouse location and displays coordinates on the screen
 		messageLabel.setText("[" + screen.getMouseX() + ", " + screen.getMouseY() + "]");
 		mouseX = e.getX() - 7;
 		mouseY = e.getY() - 30;
@@ -464,43 +447,32 @@ public class MapEditor extends TimerTask implements MouseListener, KeyListener, 
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
+	public void mousePressed(MouseEvent e) { // updates relevant properties
 		mouseX = e.getX() - 7;
 		mouseY = e.getY() - 30;
 		if(e.getButton() == MouseEvent.BUTTON1) {
 			leftClickPressed = true;
-//			System.out.println(e.getX() + " " + e.getY() + " Left Press");
 		}
 		else if(e.getButton() == MouseEvent.BUTTON3) {
 			rightClickPressed = true;
-//			System.out.println(e.getX() + " " + e.getY() + " Right Press");
 		}
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {
+	public void mouseReleased(MouseEvent e) { // updates relevant properties
 		if(e.getButton() == MouseEvent.BUTTON1) {
 			leftClickPressed = false;
 			insertBlock(e.getX() - 7, e.getY() - 30);
-//			System.out.println(e.getX() + " " + e.getY() + " Left Release");
 		}
 		else if(e.getButton() == MouseEvent.BUTTON3) {
 			rightClickPressed = false;
 			eraseBlock(e.getX() - 7, e.getY() - 30);
-//			System.out.println(e.getX() + " " + e.getY() + " Right Release");
 		}
 		canInsertBlocks = true;
 	}
-	
-	private class TestPanel extends JPanel {
-		public void paintComponent(Graphics g) {
-			g.setColor(Color.BLUE);
-			g.fillRect(128, 128, 64, 64);
-		}
-	}
 
 	@Override
-	public void itemStateChanged(ItemEvent e) {
+	public void itemStateChanged(ItemEvent e) { // for switching between block images
 		editorFrame.requestFocus();
 		if(e.getSource() == imageComboBox) {
 			if(imageComboBox.getSelectedItem().toString().equals("none")) {

@@ -472,13 +472,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 		screen.clearTargets();
 		
-		for(int i = 0; i < movables.length; i ++) {
+		for(int i = 0; i < movables.length; i ++) { // adds movables to screen's target list. The screen will keep each of these on the screen
 			if(movables[i] != null && !movables[i].isDog() && !movables[i].isMailbox()&& !movables[i].isPackage()) {
 				screen.addTarget(movables[i]);
 			}
 		}
 		
-		for(int i = 0; i < movables.length; i ++) {
+		for(int i = 0; i < movables.length; i ++) { // adds game to a given movable so that the movable can reference other things in the game
 			if(movables[i] != null) {
 				movables[i].addGame(this);
 			}
@@ -501,7 +501,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 
 
 	@Override
-	public void run() {
+	public void run() { // the timer function
 		if(gameIsReady) {
 			for(int i = 0; i < movables.length; i ++) {
 				if(movables[i] != null) {
