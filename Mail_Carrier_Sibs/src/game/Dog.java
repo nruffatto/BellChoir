@@ -15,7 +15,7 @@ public class Dog extends Movable{
 	private static final int RUN_INDEX = 1;
 	private static final int DEFAULT_INDEX = 2;
 	
-	private Animation[] dogImages = {
+	private Animation[] dogImages = { //Gets Dog Animations
 			new Animation("Sprites/dogsit_8_.png",209,134),
 			new Animation("Sprites/dogrun_7_.png",209,134),
 			new Animation("Sprites/dog_1_.png",209,122)
@@ -87,7 +87,7 @@ public class Dog extends Movable{
 	}
 	
 	@Override
-	protected void checkCollisionX() {
+	protected void checkCollisionX() { // Has Dog Jump if Collides with block
 		Point[] points = getPoints();
 		Point[] pastPoints = getPastPoints();
 		for(int i = 0; i < points.length; i ++) {
@@ -98,13 +98,11 @@ public class Dog extends Movable{
 						if(!isInAir) {
 							velY = -jumpingSpeed;
 						}
-//						System.out.println("X1");
 					}else if(points[i].x < pastPoints[i].x){
 						rec.x += Screen.startingLength - points[i].x % Screen.startingLength + 7;
 						if(!isInAir) {
 							velY = -jumpingSpeed;
 						}
-//						System.out.println("X2");
 					}
 					velX = 0;
 					break;

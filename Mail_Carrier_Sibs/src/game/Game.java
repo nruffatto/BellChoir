@@ -338,7 +338,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	}
 	
 	private Dimension Dimension(int i, int j) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -472,8 +471,13 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		
 		screen.clearTargets();
 		
+<<<<<<< HEAD
 		for(int i = 0; i < movables.length; i ++) { // adds movables to screen's target list. The screen will keep each of these on the screen
 			if(movables[i] != null && !movables[i].isDog() && !movables[i].isMailbox()&& !movables[i].isPackage()) {
+=======
+		for(int i = 0; i < movables.length; i ++) {
+			if(movables[i] != null && !movables[i].isDog() && !movables[i].isMailbox() && !movables[i].isPackage()) {//
+>>>>>>> f16dea15adbc32629a21c0a5b86a75f0b49ec9db
 				screen.addTarget(movables[i]);
 			}
 		}
@@ -567,9 +571,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		pauseWindow.setSize(1280/2, 500);
 		pauseWindow.setLocationRelativeTo(null);
 		
-		//pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
-		//pauseFrame.setUndecorated(true);
 		pauseWindow.setBackground(new Color(0,0,0,123));
 		
 		contentPane = pauseWindow.getContentPane();
@@ -636,9 +637,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		pauseWindow.setSize(1280/2, 500);
 		pauseWindow.setLocationRelativeTo(null);
 		
-		//pauseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//pauseFrame.setBackground(new Color(213, 134, 145, 123));
-		//pauseFrame.setUndecorated(true);
 		pauseWindow.setBackground(new Color(0,0,0,123));
 		
 		contentPane = pauseWindow.getContentPane();
@@ -910,7 +908,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        if (img != null)
 	            g.drawImage(img, 0, 0,770,645, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
@@ -926,7 +923,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        if (img != null)
 	            g.drawImage(img, 0, 0,770,645, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
@@ -946,7 +942,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	        if (img != null)
 	            g.drawImage(img, 0, 0,700,700, this);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 	    }
