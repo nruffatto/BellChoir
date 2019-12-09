@@ -14,8 +14,8 @@ import javax.swing.JPanel;
 
 public class Screen extends JPanel{
 	//Map Rendering
-	public static final int RENDER_WIDTH = 15;
-	public static final int RENDER_HEIGHT = 10;
+	public static final int RENDER_WIDTH = 15; //renders RENDER_WIDTH to the east and west
+	public static final int RENDER_HEIGHT = 10; //renders RENDER_WIDTH to the north and south
 	
 	//Zoom Levels
 	public static final int MAX_BLOCK_SIZE = 64; 
@@ -138,7 +138,10 @@ public class Screen extends JPanel{
 		targets.clear();
 	}
 	
-	private void target() {
+	private void target() { // finds furthest north and furthest south and finds the average of their y value, 
+		// then finds the furthest east and west and their x average. Then centers the screen on the that x and y value.
+		// Then, if the distance between the outermost objects is greater or less than the given proportion to the screen, the screen
+		// zooms in or out to achieve that proportion.
 		int currentX, currentY;
 		currentX = (int)targets.get(0).rec.getCenterX();
 		currentY = (int)targets.get(0).rec.getCenterY();
@@ -172,7 +175,6 @@ public class Screen extends JPanel{
 			BufferedImage img;
 			try {
 				img = ImageIO.read(imageFile);
-	//			g.drawImage(img, (int)(x * len - (len * widthScale - len) / 2) + pos.x, (int)(y * len - (len * heightScale - len) / 2) + pos.y, (int)(len * widthScale), (int)(len * heightScale), this);
 				g.drawImage(
 						img,
 						(int)(x * len - (len * widthScale - len) / 2 - cubeStartX * currentScale + pos.x),
@@ -180,7 +182,6 @@ public class Screen extends JPanel{
 						(int)(currentScale * imageWidth),
 						(int)(currentScale * imageHeight),
 						this);
-	//			System.out.println("Block Drawn at ");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -210,7 +211,7 @@ public class Screen extends JPanel{
 		}
 	}
 	
-	private void drawMovables(Graphics g) {
+	private void drawMovables(Graphics g) { // draws movables in the right place at the right size
 		g.setColor(Color.BLUE);
 		for(int i = 0; i < movables.length; i ++) {
 			if(movables[i] != null) {
@@ -236,7 +237,7 @@ public class Screen extends JPanel{
 						}
 					}	
 				}
-				if(hitBoxesOn) {
+				if(hitBoxesOn) { // draws rectangles where the hitboxes are
 					g.setColor(Color.BLUE);
 					g.drawRect(
 							(int)(movables[i].rec.x * currentScale) + pos.x,
@@ -258,7 +259,7 @@ public class Screen extends JPanel{
 		//g.drawRect(pos.x, pos.y, map.getWidth() * len, map.getHeight() * len);
 	}
 	
-	public void setBlockSize(double s) {
+	public void setBlockSize(double s) { // for zooming
 		if(s > MIN_BLOCK_SIZE && s < MAX_BLOCK_SIZE) {
 			pastLen = len;
 			len = s;
