@@ -78,7 +78,8 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 		rec.y += velY;
 	}
 	
-	protected void checkCollisionX() {
+	protected void checkCollisionX() { // checks if there is a block in the space where the point is. If so, corrects for the distance between the point
+		// and the side in the direction where it came from
 		Point[] points = getPoints();
 		Point[] pastPoints = getPastPoints();
 		for(int i = 0; i < points.length; i ++) {
@@ -96,7 +97,8 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 		}
 	}
 	
-	protected void checkCollisionY() {
+	protected void checkCollisionY() { // checks if there is a block in the space where the point is. If so, corrects for the distance between the point
+		// and the side in the direction where it came from
 		isInAir = true;
 		Point[] points = getPoints();
 		Point[] pastPoints = getPastPoints();
@@ -118,7 +120,7 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 		}
 	}
 	
-	public boolean isTouching(Movable m) {
+	public boolean isTouching(Movable m) { // checks if any points of this movable are in inside that movable and vice versa
 		boolean isTouching = false;
 		if(m == null) {
 			return false;
@@ -144,8 +146,8 @@ public class Movable { // 38, 6, 69, 129   image: 138, 135
 		return getP(rec);
 	}
 	
-	private Point[] getP(Rectangle r) {
-		int n = 3;
+	private Point[] getP(Rectangle r) { // returns a list of the points on the edge of a movable
+		int n = 3; // number of points per edge
 		Point[] newPoints = new Point[n * 4];
 		int counter = 0;
 		for(int i = 0; i < n; i ++) {
