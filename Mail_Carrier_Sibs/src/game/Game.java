@@ -109,6 +109,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		LoadMenu();
 	}
 	
+	//loads the menu
 	public void LoadMenu()
 	{
 		levelpanel = false;
@@ -182,6 +183,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setVisible(true);
 	}
 	
+	
+	//loads the level select screen
 	public void LoadLevelButtons()
 	{
 		
@@ -240,7 +243,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameFrame.setVisible(true);
 	}
 
-	
+	//loads the help screen
 	public void LoadHelp()
 	{
 		
@@ -298,6 +301,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	
 	}
 	
+	//loads page 2 of help
 	public void LoadHelp2()
 	{
 		
@@ -341,6 +345,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		return null;
 	}
 
+	
+	//all the commands for the buttons
 	@Override
 	public void actionPerformed(ActionEvent ae) {
         String action = ae.getActionCommand();
@@ -410,7 +416,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
         
     }
 
-	
+	//Begins a level takes in the file name and the number of the level.
 	public void StartLevel(String level, int index) {
 		menuButtons[2].setVisible(false);
 		contentPane1 = gameFrame.getContentPane();
@@ -516,6 +522,8 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		}
 	}
 	
+	
+	// loads a level, takes in the name of the file being loaded.
 	private void openMap(String fileName) {
 		map.clear();
 		File f1 = new File(fileName);
@@ -558,6 +566,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		}
 	}
 	
+	//panel called when you pause the game
 	public void pauseGame()
 	{
 		
@@ -624,6 +633,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameIsReady = false;
 	}
 	
+	//panel called when you win a level
 	public void levelComplete()
 	{
 		
@@ -691,6 +701,7 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		gameIsReady = false;
 	}
 	
+	//panel called when you lose the game
 	public void gameOver()
 	{
 		
@@ -831,6 +842,10 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 		;
 	}
 	
+	
+	
+	//these take care of all the images in the menu and pause panels.
+	
 	private class menuImage extends JPanel {
 		@Override
 	    public void paintComponent(Graphics g) {
@@ -923,23 +938,6 @@ public class Game extends TimerTask implements MouseListener, ActionListener, Ke
 	    }
 	}
 	
-	private class getImage extends JPanel {
-		
-		public getImage(Graphics g, String spritename)
-		{
-			paintComponent(g,spritename);
-		}
-	    public void paintComponent(Graphics g, String sprite) {
-	        super.paintComponent(g);
-	        BufferedImage img;
-			try {
-	        img = ImageIO.read(new File(sprite));
-	        if (img != null)
-	            g.drawImage(img, 0, 0,700,700, this);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-	    }
-	}
+	
 
 }
