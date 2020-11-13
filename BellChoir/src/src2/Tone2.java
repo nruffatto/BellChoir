@@ -132,6 +132,11 @@ public class Tone2 {
 	        final int ms = Math.min(length.timeMs(), Note.MEASURE_LENGTH_SEC * 1000);
 	        final int actualLength = Note.SAMPLE_RATE * ms / 1000;
 	        line.write(note.sample(), 0, actualLength);
+	        try {
+				this.wait(actualLength);
+			} catch (InterruptedException e) {
+				System.out.println("interrupted");
+			}
 	        System.out.println("played note" + Thread.currentThread());
 		}
 	}
