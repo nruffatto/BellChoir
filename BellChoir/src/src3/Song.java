@@ -57,7 +57,8 @@ public class Song {
 			v = new Scanner(line.strip());
 			String pat1 = "[A-G][0-9][S,F]*\\s*[1-16]*";
 			String pat2 = "[A-G][0-9]*\\s*[1-16]*";
-			if(!line.strip().equals("") && !(v.hasNext(Pattern.compile(pat1)) || v.hasNext(Pattern.compile(pat2)))) {
+			String pat3 = "REST*\\s*[1-16]*";
+			if(!line.strip().equals("") && !(v.hasNext(Pattern.compile(pat1)) || v.hasNext(Pattern.compile(pat2)) || v.hasNext(Pattern.compile(pat3)))) {
 				v.close();
 				throw new SongFormatException();
 			}
