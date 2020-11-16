@@ -16,7 +16,7 @@ public class Tone3 {
 	
 	public static ArrayList<Note> notesUsed = new ArrayList<>();
     // Mary had a little lamb
-	private static final ArrayList<BellNote> song = new Song("005.txt").toList();
+	private static final ArrayList<BellNote> song = new Song("The_Shire.txt").toList();
  
     private final AudioFormat af;
 
@@ -290,13 +290,13 @@ class Note {
 	        for (int i = 0; i < sinSample.length; i++) {
 	            sinSample[i] = (byte)((
 	            		Math.sin(i * sinStep)
-	            		+ Math.sin(i * sinStep2)
-	            		+ Math.sin(i * sinStep3)
+//	            		+ Math.sin(i * sinStep2)
+//	            		+ Math.sin(i * sinStep3)
 	            		) * MAX_VOLUME  * (1.0/3.0)
 //	            		* Math.pow(2, -0.001 * i) // short xylo
-//	            		* Math.pow(2, -0.0005 * i) // long xylo
+	            		* Math.pow(2, -0.00025 * i) // long xylo
 //	            		* (1 - Math.pow(2, -0.001 * i)) // short organ
-	            		* (1 - Math.pow(2, -0.0001 * i)) // long organ
+//	            		* (1 - Math.pow(2, -0.0001 * i)) // long organ
 	            		);
 	        }
     	}
